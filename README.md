@@ -1,1 +1,1 @@
-# music-theory
+# Formal theory of popular music
