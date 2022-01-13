@@ -30,5 +30,10 @@ x ♯                        e= y ♯                       = x e= y
 
 infix 3 _e=_
 
---proof : (x : PitchClass) → (x ♯ e= x)
---proof = ?
+-- Whole step
+>> : PitchClass → PitchClass
+>> x = x ♯ ♯
+
+-- Azonos normálforma: C , B ♯
+-- Amúgy meg, kell-e hogy külön dolog legyen?
+-- Hallásban sincs különbség.
