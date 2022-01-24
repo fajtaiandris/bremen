@@ -1,0 +1,13 @@
+Inductive letter : Set :=
+  A : letter
+| B : letter
+| C : letter
+| D : letter
+| E : letter
+| F : letter
+| G : letter.
+
+Eval compute in C.
+
+
+
