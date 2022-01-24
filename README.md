@@ -66,3 +66,8 @@ mik a felharmonikusai
   - Nagyon az agdát hozom mindig, de milyen más nyelven tudnám megvalósítani ezt, hogy elég tudományos legyen? Haskell?
 
   - Keresek valami zenei algoritmust, amit be tudok bizonyítani, hogy hibásan működik
+
+## Diplomamunkába
+
+Szintaktikai cukrok leválasztása (b az csak negatív # ( C # -1))
+Melyik proof assistant a legjobb a célra
