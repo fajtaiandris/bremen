@@ -8,6 +8,17 @@ Inductive letter : Set :=
 | F : letter
 | G : letter.
 
+Definition upward_closer (x : letter) : bool :=
+  match x with
+  | A => false
+  | B => true
+  | C => false
+  | D => false
+  | E => true
+  | F => false
+  | G => false
+  end.
+
 Definition nextL (x : letter) : letter :=
   match x with
   | A => B
@@ -37,6 +48,7 @@ Definition modifierPC (x : pitchClass) : Z :=
   | l # m => m
   end.
 
+(*TODO ezt megcsinálni az upward_closer-rel + összevonni a fromCPC-vel*)
 Definition fromAPC (x : pitchClass) : Z :=
   match x with
   | A # m => 0 + m
@@ -117,41 +129,86 @@ intros x y z.
 intros H.
 destruct H as (HA & HB).
 unfold eqE.
+Admitted.
 
+(*TODO A C-t szebben belefoglalni*)
+Definition halfstep_up (x : pitch) : pitch :=
+  match x with 
+  | C # m ' o => D # m - 1 ' o + 1
+  | l # m ' o =>
+    if upward_closer l
+    then  nextL l # m ' o
+    else  nextL l # m - 1 ' o
+  end.
+
+Notation "> X" := (halfstep_up X) (at level 90, right associativity).
+
+Definition wholestep_up (x : pitch) : pitch :=
+  sharpen (> x).
+
+Notation ">> X" := (wholestep_up X) (at level 90, right associativity).
+
+Inductive interval_quality : Set :=
+  | iqual : bool -> Z -> interval_quality.
+
+(*Nincs elrejtve a típus (true = P, false = m/M)*)
+Definition P     := iqual true     0.
+Definition Aug   := iqual true     1.
+Definition Dim   := iqual true  (- 1).
+Definition major := iqual false    0.
+Definition minor := iqual false (- 1).
+Definition aug   := iqual false    1.
+Definition dim   := iqual false (- 2).
+
+Definition perfect_type (q : interval_quality) : Prop :=
+  match q with
+  | iqual t m => t = true
+  end.
+
+(*32:38 a videóban*)
+Definition asd (q : interval_quality) : (perfect_type q )-> interval_quality :=
+  q.
+
+Inductive interval_name : Set :=
+  | interv : interval_quality -> nat -> interval_name.
+
+Eval compute in interv Aug 5.
+
+
+
+(* így is lehetne...
+Inductive interval : Set :=
+  | interv : nat -> Z -> interval.
+
+(*típus el van rejtve a p és mm-be*)
+Definition p_perf : Z := 0.
+Definition p_aug : Z := 1.
+Definition p_dim : Z := -1.
+Definition mm_min : Z := -1.
+Definition mm_maj : Z := 0.
+Definition mm_aug : Z := 1.
+Definition mm_dim : Z := -2.
+
+Definition P5 := interv 5 0.
+Definition P5' (x : pitch) := >> > >> >> x.
+Eval compute in P5' (P5' (D # -1 ' 3)).
+
+
+Definition numberI (i : interval) : nat :=
+  match i with
+  | interv n m => n
+  end.
+
+Definition modifierI (i : interval) : Z :=
+  match i with
+  | interv n m => m
+  end.
 
 (*
-Theorem noteqEPCsharp : forall (x: pitchClass),
-  ~ (eqEPC x (sharpen(x))).
-Proof.
-intros.
-unfold not.
-induction x.
-unfold sharpen.
-unfold eqEPC.
-intros H.
-Qed.
+Fixpoint apply_interval (x : pitch) (i : interval) : pitch :=
+  match i with
+  | interv 0 m => x
+  | interv (S n) m => > apply_interval x (interv n m)
+  end.
 *)
-
-(*
-Eval compute in pc A 3.
-
-Eval compute in nextL(A).
-
-Eval compute in C.
-Check C.
-Check letter.
-
-Section Declaration.
-Variable n : nat.
-Hypothesis Pos_n : (gt n 0).
-Definition one := (S 0).
-Definition one' : nat := (S 0).
-Definition one'' := (S 0) : nat.
-Definition double (m : nat) := plus m m.
-
-
-Section Minimal_logic.
-Variables A B C : Prop.
-Check (A -> B).
-
-*) 
+*)
