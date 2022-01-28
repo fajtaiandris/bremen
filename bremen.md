@@ -50,8 +50,33 @@ Theorem pitch3 : forall (x y z : pitch), distance x z =< distance x y + distance
 Theorem pitch4 : forall (x : pitch), enharmonic_eq x x.
 Theorem pitch5 : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq y x.
 Theorem pitch6 : forall (x y z : pitch), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
-Theorem pitch7 : forall (x y : pitch), enharmonic eq x y -> enharmonic_eq (halfstep_up x) (halfstep_up y)
+Theorem pitch7 : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq (halfstep_up x) (halfstep_up y).
 ```
 
 **Interval Quality**  
+*Represents minor, major, perfect, diminished, diminished from minor, and all possible others...*  
+```Coq
+```
+
 **Interval Name**
+*Represents all possible interval names.*  
+```Coq
+Definition enharmoinc_eq (x y : intervalName) : Prop
+Definition plus (x y : intervalName) : intervalName
+
+(*some equality axioms*)
+Theorem intervalname1 : forall (x : intervalName), enharmonic_eq x x.
+Theorem intervalname2 : forall (x y : intervalName), enharmonic_eq x y -> enharmonic_eq y x.
+Theorem intervalname3 : forall (x y z : intervalName), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
+
+(*addition axioms*)
+(*commutativity*)
+Theorem intervalname4 : forall (x y : intervalName), enharmonic_eq (plus x y) (plus y x).
+(*associativity*)
+Theorem intervalname5 : forall (x y z : intervalName), enharmonic_eq (plus (plus x y) z) (plus (plus y z) x).
+(*identity*)
+Theorem intervalname6 : forall (x : intervalName), enharmonic_eq x (plus x {Perfect Unison}).
+(*inverse ?*)
+(*distribution ?*)
+
+```
