@@ -8,6 +8,18 @@ Inductive letter : Set :=
 | F : letter
 | G : letter.
 
+Definition eqLetter (x y : letter) : bool :=
+  match x, y with
+  | A, A => true
+  | B, B => true
+  | C, C => true
+  | D, D => true
+  | E, E => true
+  | F, F => true
+  | G, G => true
+  | _, _ => false
+  end.
+
 Definition upward_closer (x : letter) : bool :=
   match x with
   | A => false
@@ -19,6 +31,9 @@ Definition upward_closer (x : letter) : bool :=
   | G => false
   end.
 
+Definition upward_distance (x : letter) : nat :=
+  if upward_closer(x) then 1 else 2.
+
 Definition nextL (x : letter) : letter :=
   match x with
   | A => B
@@ -29,6 +44,13 @@ Definition nextL (x : letter) : letter :=
   | F => G
   | G => A
   end.
+
+(* Ez szuper lenne, de nem tudok rekurziót letterre
+Fixpoint distance (x y : letter) {struct x} : nat :=
+  if eqLetter x y then 0
+  else (upward_distance x) + distance (nextL x) y
+  .
+*)
 
 (*------- PITCH CLASS -------*)
 Require Import ZArith. 
@@ -148,6 +170,7 @@ Definition wholestep_up (x : pitch) : pitch :=
 
 Notation ">> X" := (wholestep_up X) (at level 90, right associativity).
 
+(*---------------- INTERVAL --------------------*)
 Inductive interval_quality : Set :=
   | iqual : bool -> Z -> interval_quality.
 
@@ -160,19 +183,33 @@ Definition minor := iqual false (- 1).
 Definition aug   := iqual false    1.
 Definition dim   := iqual false (- 2).
 
+
 Definition perfect_type (q : interval_quality) : Prop :=
   match q with
   | iqual t m => t = true
   end.
 
+(*
 (*32:38 a videóban*)
 Definition asd (q : interval_quality) : (perfect_type q )-> interval_quality :=
   q.
+*)
 
 Inductive interval_name : Set :=
   | interv : interval_quality -> nat -> interval_name.
 
-Eval compute in interv Aug 5.
+(*
+(* CDÚR skálán kell végig menni*)
+Fixpoint halfstep_count (i : interval_name) : Z :=
+  match i with
+  | interv (iqual t m) 0 => m
+  | interv (iqual t m) (S n) => 1 + halfstep_count(interv (iqual t m) n)
+  end.
+
+Eval compute in halfstep_count (interv major 2).
+*)
+Definition eqEInterval (x y : interval_quality) : Prop :=
+  
 
 
 
