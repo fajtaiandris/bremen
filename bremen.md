@@ -40,6 +40,7 @@ Definition distance (x y : pitch) : Z
 Definition enharmonic_eq (x y : pitch) : Prop
 Definition halfstep_up (x : pitch) : pitch
 Definition wholestep_up (x : pitch) : pitch
+Definition apply_upward (p : pitch) (i : intervalName) : pitch
 
 (*similar to distance axioms*)
 Theorem pitch1 : forall (x y : pitch), distance x y = 0 -> enharmonix_eq x y.
@@ -85,5 +86,31 @@ Theorem intervalname7 : forall (x : intervalName), enharmonic_eq (plus x (minus 
 (*some for invert*)
 Theorem intervalname8 : forall (x : intervalName), enharmonic_eq x (invert (invert x)).
 ```
+**Interval Structure**
+*Represents a list of intervals. (absolute or relative?)*
+```Coq
+Definition apply_upward_to_pitch (p : pitch) (is : intervalStructure) : chord
+Definition apply_upward_to_pitchClass (pc : pitchClass) (is : intervalStructure) : abstractChord
+Definition enharmonic_eq (x : intervalStructure) : Prop
+```
+
+**Abstract Chord**
+*Represents an ordered list of pitch classes, such as a scale or a chord.*  
+```Coq
+Definition enharmonic_eq (x y : abstractChord) : Prop
+Definition invert (x : abstractChord): abstractChord
+Definition plus (x y : abstractChord): abstractChord
+Definition minus (x y : abstractChord): abstractChord
+Definition structure (x : abstractChord): structure
+```
+
+**Chord**
+*Represents an ordered list of pitches, such as a chord voicing.*  
+
+**Chord Name**
+*Represents all the valid chord names.*  
 
 
+
+## Kijavítani
+- A bizonyításokban sok helyen enharmoniai egyenlőséget írtam sima egyenlőség helyett.  
