@@ -63,6 +63,8 @@ Theorem pitch7 : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq (halfs
 ```Coq
 Definition enharmoinc_eq (x y : intervalName) : Prop
 Definition plus (x y : intervalName) : intervalName
+Definition minus (x y : intervalName) : intervalName
+Definition invert (x : intervalName) : intervalName
 
 (*some equality axioms*)
 Theorem intervalname1 : forall (x : intervalName), enharmonic_eq x x.
@@ -77,6 +79,11 @@ Theorem intervalname5 : forall (x y z : intervalName), enharmonic_eq (plus (plus
 (*identity*)
 Theorem intervalname6 : forall (x : intervalName), enharmonic_eq x (plus x {Perfect Unison}).
 (*inverse ?*)
+Theorem intervalname7 : forall (x : intervalName), enharmonic_eq (plus x (minus {Perfect Unison} x) {Perfect Unison}).
 (*distribution ?*)
 
+(*some for invert*)
+Theorem intervalname8 : forall (x : intervalName), enharmonic_eq x (invert (invert x)).
 ```
+
+
