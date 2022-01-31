@@ -1,12 +1,5 @@
 (*------- LETTER -------*)
-Inductive letter : Set :=
-  A : letter
-| B : letter
-| C : letter
-| D : letter
-| E : letter
-| F : letter
-| G : letter.
+Inductive letter : Type := | A | B | C | D | E | F | G.
 
 Definition eqLetter (x y : letter) : bool :=
   match x, y with
@@ -20,19 +13,16 @@ Definition eqLetter (x y : letter) : bool :=
   | _, _ => false
   end.
 
-Definition upward_closer (x : letter) : bool :=
+Definition toNLetter (x : letter) : nat :=
   match x with
-  | A => false
-  | B => true
-  | C => false
-  | D => false
-  | E => true
-  | F => false
-  | G => false
+  | A => 0
+  | B => 1
+  | C => 2
+  | D => 3
+  | E => 4
+  | F => 5
+  | G => 6
   end.
-
-Definition upward_distance (x : letter) : nat :=
-  if upward_closer(x) then 1 else 2.
 
 Definition nextL (x : letter) : letter :=
   match x with
@@ -44,6 +34,32 @@ Definition nextL (x : letter) : letter :=
   | F => G
   | G => A
   end.
+
+Definition upward_closer (x : letter) : bool :=
+  match x with
+  | A => false
+  | B => true
+  | C => false
+  | D => false
+  | E => true
+  | F => false
+  | G => false
+  end.
+
+Definition upward_distance_to_next (x : letter) : nat :=
+  if upward_closer(x) then 1 else 2.
+
+(*
+Fixpoint upward_distance (x y : letter) : nat :=
+  match x with
+  | y => 0
+  | z => upward_distance_to_next z + upward_distance (nextL z) y
+  end.
+
+*)
+
+
+(*Theorem letter1 : forall (x y : letter), (upward_distance x y) = 0 -> (eqLetter x y).*)
 
 (* Ez szuper lenne, de nem tudok rekurziót letterre
 Fixpoint distance (x y : letter) {struct x} : nat :=
