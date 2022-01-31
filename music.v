@@ -1,7 +1,7 @@
 (*------- LETTER -------*)
 Inductive letter : Type := | A | B | C | D | E | F | G.
 
-Definition eqLetter (x y : letter) : bool :=
+Definition eqB (x y : letter) : bool :=
   match x, y with
   | A, A => true
   | B, B => true
@@ -11,17 +11,6 @@ Definition eqLetter (x y : letter) : bool :=
   | F, F => true
   | G, G => true
   | _, _ => false
-  end.
-
-Definition toNLetter (x : letter) : nat :=
-  match x with
-  | A => 0
-  | B => 1
-  | C => 2
-  | D => 3
-  | E => 4
-  | F => 5
-  | G => 6
   end.
 
 Definition nextL (x : letter) : letter :=
@@ -49,7 +38,30 @@ Definition upward_closer (x : letter) : bool :=
 Definition upward_distance_to_next (x : letter) : nat :=
   if upward_closer(x) then 1 else 2.
 
-(*
+(*Igazából ez adódik az upward_distance_to_next és nextből*)
+Definition upward_distance_from_A (x : letter) : nat :=
+  match x with
+  | A => 0
+  | B => 2
+  | C => 3
+  | D => 5
+  | E => 7
+  | F => 8
+  | G => 10
+  end.
+
+Require Import ZArith.
+
+Definition upward_distance (x y : letter) : nat :=
+  Z.to_nat(
+    Zmod
+    (Zminus 
+      (Z.of_nat (upward_distance_from_A y))
+      (Z.of_nat (upward_distance_from_A x)))
+    12)
+.
+
+(* Valahogy így lenne szép...
 Fixpoint upward_distance (x y : letter) : nat :=
   match x with
   | y => 0
@@ -58,8 +70,14 @@ Fixpoint upward_distance (x y : letter) : nat :=
 
 *)
 
+Lemma letter1 : forall (x y : letter), (upward_distance x y) = 0 <-> (x = y).
+Proof.
+  intros.
+  unfold upward_distance. unfold upward_distance_from_A. destruct y.
+  * destruct x.
+  ** simpl.
+  
 
-(*Theorem letter1 : forall (x y : letter), (upward_distance x y) = 0 -> (eqLetter x y).*)
 
 (* Ez szuper lenne, de nem tudok rekurziót letterre
 Fixpoint distance (x y : letter) {struct x} : nat :=
@@ -69,7 +87,7 @@ Fixpoint distance (x y : letter) {struct x} : nat :=
 *)
 
 (*------- PITCH CLASS -------*)
-Require Import ZArith. 
+Require Import ZArith.
 
 Inductive pitchClass : Set :=
   pitch_class : letter -> Z -> pitchClass.

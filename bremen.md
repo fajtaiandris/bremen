@@ -112,5 +112,6 @@ Definition structure (x : abstractChord): structure
 
 
 
-## Kijavítani
+## Kijavítani, megcsinálni
 - A bizonyításokban sok helyen enharmoniai egyenlőséget írtam sima egyenlőség helyett.  
+- A letterhöz tartozó upward_distance függvényt megírni fixpointtal.
