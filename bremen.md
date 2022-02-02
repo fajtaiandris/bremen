@@ -11,7 +11,7 @@ Definition upward_distance_to_next (x : letter) : nat
 Definition next (x : letter) : letter
 Definition upward_distance (x y : letter) : nat
 
-Theorem letter1 : forall (x y : letter), (upward_distance x y) = 0 -> eqB x y.
+Theorem letter1 : forall (x y : letter), (upward_distance x y) = 0 <-> eqB x y.
 Theorem letter2 : forall (x y : letter), (upward_distance x y) > 0 <-> ~ (eqB x y).
 Theorem letter3 : forall (x y : letter), (upward_distance x y) = 12 - (upward_distance y x).
 ```
@@ -115,3 +115,4 @@ Definition structure (x : abstractChord): structure
 ## Kijavítani, megcsinálni
 - A bizonyításokban sok helyen enharmoniai egyenlőséget írtam sima egyenlőség helyett.  
 - A letterhöz tartozó upward_distance függvényt megírni fixpointtal.
+https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html tuples
