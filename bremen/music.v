@@ -1,7 +1,11 @@
+Require ZArith.
+
 Module Letter.
+
+  Import ZArith.
   Inductive letter : Type := | A | B | C | D | E | F | G.
 
-  Definition eqB (x y : letter) : bool :=
+  Definition eqb (x y : letter) : bool :=
     match x, y with
     | A, A => true
     | B, B => true
@@ -24,6 +28,7 @@ Module Letter.
     | G => A
     end.
 
+(* Ezekre nincs szükség?
   Definition upward_closer (x : letter) : bool :=
     match x with
     | A => false
@@ -37,7 +42,7 @@ Module Letter.
 
   Definition upward_distance_to_next (x : letter) : nat :=
     if upward_closer(x) then 1 else 2.
-
+*)
   (*Igazából ez adódik az upward_distance_to_next és nextből*)
   Definition upward_distance_from_A (x : letter) : nat :=
     match x with
@@ -50,7 +55,6 @@ Module Letter.
     | G => 10
     end.
 
-  Require Import ZArith.
 
   Definition upward_distance (x y : letter) : nat :=
     Z.to_nat(
@@ -61,16 +65,8 @@ Module Letter.
       12)
   .
 
-  (* Valahogy így lenne szép...
-  Fixpoint upward_distance (x y : letter) : nat :=
-    match x with
-    | y => 0
-    | z => upward_distance_to_next z + upward_distance (nextL z) y
-    end.
-
-  *)
-
-  Lemma letter1 : forall (x y : letter), (upward_distance x y) = 0 <-> (x = y).
+  Lemma upward_distance_0 : forall (x y : letter), 
+    (upward_distance x y) = 0 <-> (x = y).
   Proof.
     intros.
     unfold upward_distance. unfold upward_distance_from_A. destruct y.
@@ -132,18 +128,29 @@ Module Letter.
     ** simpl. split. reflexivity. reflexivity.
   Qed.
 
-  Lemma letter2 : forall (x y : letter), (upward_distance x y) > 0 <-> ~ x = y.
+
+  Lemma upward_distance_not_0 : forall (x y : letter), (0 =? (upward_distance x y)) = false <-> Letter.eqb x y = false.
   Proof.
-  intros. unfold upward_distance. unfold upward_distance_from_A.
-  destruct x. destruct y. 
-  * simpl. split.
-    ** unfold gt. unfold not.
+    intros. split.
+    - destruct y eqn:Ey.
+      -- destruct x. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct x. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct x. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct x. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct x. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct x. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct x. auto. auto. auto. auto. auto. auto. auto.
+    - unfold upward_distance. simpl. destruct x eqn:Ex.
+      -- destruct y. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct y. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct y. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct y. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct y. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct y. auto. auto. auto. auto. auto. auto. auto.
+      -- destruct y. auto. auto. auto. auto. auto. auto. auto.
+Qed.
 
-  Admitted.
-
-  Compute upward_distance A A.
-
-  Lemma letter3 : forall (x y : letter), ~ x = y -> (upward_distance x y) = 12 - (upward_distance y x).
+  Lemma upward_distance_12 : forall (x y : letter), ~ x = y -> (upward_distance x y) = 12 - (upward_distance y x).
   Proof.
   intros.
   unfold upward_distance. unfold upward_distance_from_A. unfold Z.to_nat. unfold Z.of_nat. unfold Pos.to_nat.
@@ -164,7 +171,7 @@ Module Letter.
       simpl. auto. auto. auto. auto. auto. auto. contradiction.
   Qed.
 
-  Lemma letter4 : forall (x y : letter), x = y -> upward_distance x y = upward_distance y x.
+  Lemma upward_distance_reflexivity : forall (x y : letter), x = y -> upward_distance x y = upward_distance y x.
   Proof.
   intros. rewrite -> H. reflexivity.
   Qed.
@@ -172,59 +179,55 @@ Module Letter.
 End Letter.
 
 Module PitchClass.
-  Inductive pitchClass : Type :=
-    | natural (l : Letter.letter)
-    | sharp   (l : Letter.letter)
-    | flat    (l : Letter.letter)
-  .
 
-End PitchClass.
-
-(*------- PITCH CLASS -------*)
-Require Import ZArith.
+Import ZArith.
 
 Inductive pitchClass : Set :=
-  pitch_class : letter -> Z -> pitchClass.
+  pitch_class : Letter.letter -> Z -> pitchClass.
 
 Notation "L # M" := (pitch_class L M) (at level 80, right associativity).
 
-Definition letterPC (x : pitchClass) : letter :=
+Definition eqb (x y : pitchClass) : bool :=
+  match x, y with
+  | l1 # m1, l2 # m2 => (Letter.eqb l1 l2) && (Z.eqb m1 m2)
+  end.
+
+Definition letter (x : pitchClass) : Letter.letter :=
   match x with
   | l # m => l
   end.
 
-Definition modifierPC (x : pitchClass) : Z :=
+Definition modifier (x : pitchClass) : Z :=
   match x with
   | l # m => m
   end.
 
-Definition upward_distancePC (x y : pitchClass) : nat :=
+Definition upward_distance (x y : pitchClass) : nat :=
   match x, y with
-  | l # m, l' # m' => Z.to_nat (Zmod (Z.of_nat (upward_distance l l') - m + m') 12)
+  | l # m, l' # m' => Z.to_nat (Zmod (Z.of_nat (Letter.upward_distance l l') - m + m') 12)
   end.
 
-Definition enharmonic_eqPC (x y : pitchClass) : Prop :=
-  upward_distancePC (A # 0) x = upward_distancePC (A # 0) y.
+Definition enharmonic_eqb (x y : pitchClass) : bool :=
+  upward_distance (Letter.A # 0) x =? upward_distance (Letter.A # 0) y.
 
-Definition sharpenPC (x : pitchClass) : pitchClass :=
+Definition sharpen (x : pitchClass) : pitchClass :=
   match x with
   | l # m => l # m + 1
   end.
 
-Definition flattenPC (x : pitchClass) : pitchClass :=
+Definition flatten (x : pitchClass) : pitchClass :=
   match x with
   | l # m => l # m - 1
   end.
 
-Lemma aorb : forall (p1 p2 p3 : Prop), (p1 \/ p2 -> p3) = (p1 -> p3 \/ p2 -> p3).
-Proof.
-intros.
-Admitted.
+Lemma pitchclass1 : forall (l1 l2 : Letter.letter) (m : Z), Letter.eqb l1 l2 = false -> eqb (l1 # m) (l2 # m) = false.
+Proof. intros l1 l2 m. intro H. unfold eqb. unfold andb. rewrite -> H. reflexivity.
+Qed.
 
-Lemma pitchclass0 : forall (l1 l2 : letter) (m1 m2 : Z), ~ (l1 # m1) = (l2 # m2) <-> ~ l1 = l2 \/ ~ m1 = m2.
+Lemma pitchclass2 : forall (l1 l2 : Letter.letter) (m1 m2 : Z), eqb (l1 # m1) (l2 # m2) = false <-> orb (Bool.eqb (Letter.eqb l1 l2) false) (Bool.eqb (Z.eqb m1 m2) false) = true.
 Proof.
 intros. split.
-  * intro H. left. give_up.
+  * unfold eqb. unfold Bool.eqb. unfold andb. unfold orb. give_up.
   * unfold not. give_up.
 Admitted.
 
