@@ -65,6 +65,21 @@ Module Letter.
       12)
   .
 
+  Lemma eqb_eq : forall (x y : letter), eqb x y = true -> x = y.
+  Proof. intros x y. unfold eqb. destruct x.
+  - destruct y. auto. discriminate. discriminate. discriminate. discriminate. discriminate. discriminate.
+  - destruct y. discriminate. auto. discriminate. discriminate. discriminate. discriminate. discriminate.
+  - destruct y. discriminate. discriminate. auto. discriminate. discriminate. discriminate. discriminate.
+  - destruct y. discriminate. discriminate. discriminate. auto. discriminate. discriminate. discriminate.
+  - destruct y. discriminate. discriminate. discriminate. discriminate. auto. discriminate. discriminate.
+  - destruct y. discriminate. discriminate. discriminate. discriminate. discriminate. auto. discriminate.
+  - destruct y. discriminate. discriminate. discriminate. discriminate. discriminate. discriminate. auto.
+  Qed.
+
+  Lemma upward_distance_xx : forall (x : letter), upward_distance x x = 0.
+  Proof. destruct x. auto. auto. auto. auto. auto. auto. auto.
+  Qed.
+
   Lemma upward_distance_0 : forall (x y : letter), 
     (upward_distance x y) = 0 <-> (x = y).
   Proof.
@@ -224,33 +239,60 @@ Lemma pitchclass1 : forall (l1 l2 : Letter.letter) (m : Z), Letter.eqb l1 l2 = f
 Proof. intros l1 l2 m. intro H. unfold eqb. unfold andb. rewrite -> H. reflexivity.
 Qed.
 
-Lemma pitchclass2 : forall (l1 l2 : Letter.letter) (m1 m2 : Z), eqb (l1 # m1) (l2 # m2) = false <-> orb (Bool.eqb (Letter.eqb l1 l2) false) (Bool.eqb (Z.eqb m1 m2) false) = true.
+Lemma pitchclass15 : forall (l1 l2 : Letter.letter) (m1 m2 : Z), eqb (l1 # m1) (l2 # m2) = true -> Letter.eqb l1 l2 = true.
+Proof. intros l1 l2 m1 m2. unfold eqb. unfold andb. destruct (Z.eqb m1 m2) eqn:EM.
+  -  destruct (Letter.eqb l1 l2) eqn:EL1L2. auto. auto.
+  - destruct (Letter.eqb l1 l2) eqn:EL1L2. auto. auto.
+Qed.
+
+Lemma pitchclass2 : forall (l1 l2 : Letter.letter) (m1 m2 : Z),
+  eqb (l1 # m1) (l2 # m2) = false <-> 
+  orb (Bool.eqb (Letter.eqb l1 l2) false) (Bool.eqb (Z.eqb m1 m2) false) = true.
 Proof.
 intros. split.
-  * unfold eqb. unfold Bool.eqb. unfold andb. unfold orb. give_up.
-  * unfold not. give_up.
-Admitted.
+  * unfold eqb. unfold Bool.eqb. unfold andb. unfold orb. destruct (Letter.eqb l1 l2) eqn:eqL1L2.
+  ** destruct (Z.eqb m1 m2). auto. auto.
+  ** auto.
+  * destruct (Letter.eqb l1 l2) eqn:eqL1L2.
+  ** destruct (Z.eqb m1 m2) eqn:eqM1M2.
+  *** simpl. rewrite -> eqL1L2. rewrite -> eqM1M2. auto.
+  *** simpl. rewrite -> eqL1L2. rewrite -> eqM1M2. auto.
+  ** destruct (Z.eqb m1 m2) eqn:eqM1M2.
+  *** simpl. rewrite -> eqM1M2. rewrite -> eqL1L2. auto.
+  *** simpl. rewrite -> eqM1M2. rewrite -> eqL1L2. auto.
+Qed.
 
-Lemma pitchclass1 : forall (x y : pitchClass), ~ x = y -> upward_distancePC x y = 12 - (upward_distancePC y x).
+Lemma pitchclass3 : forall (x y : pitchClass),
+  eqb x y = false <->
+  Nat.eqb (upward_distance x y) (12 - (upward_distance y x)) = true.
 Proof.
-intros x y. destruct x. destruct y. unfold not. 
-unfold upward_distancePC.
+intros x y. destruct (eqb x y) eqn:EXY. 
+  * split.
+  ** intro H. destruct (Nat.eqb (upward_distance x y) (12 - (upward_distance y x)) ).
+  *** reflexivity.
+  *** rewrite -> H. reflexivity.
+  ** destruct x eqn:EX.
+  *** destruct y eqn:EY. apply pitchclass15 in EXY. apply Letter.eqb_eq in EXY.
+      rewrite EXY. unfold upward_distance. rewrite Letter.upward_distance_xx. simpl. 
+      induction z eqn:ZZ.
+  **** simpl. induction z0 eqn:ZZ0.
+  *****  simpl. intro. rewrite H. reflexivity.
+  *****  simpl. induction (Z.neg p) eqn:ZP.
+  ******  simpl.
 Admitted.
 
-Lemma pitchclass15 : forall (l1 l2 : letter) (m1 m2 : Z), 
-  upward_distancePC (l1 # m1) (l2 # m1) = upward_distancePC (l1 # m2) (l2 # m2).
+Lemma pitchclass16 : forall (l1 l2 : Letter.letter) (m1 m2 : Z), 
+  upward_distance (l1 # m1) (l2 # m1) = upward_distance (l1 # m2) (l2 # m2).
 Proof.
 intros.
-unfold upward_distancePC. unfold Zminus.
+unfold upward_distance.
 Admitted.
 
-Theorem pitchclass2 : forall (x y z : pitchClass),
-  enharmonic_eqPC x y <-> upward_distancePC z x = upward_distancePC z y.
+Theorem pitchclassx : forall (x y z : pitchClass),
+  enharmonic_eqb x y = true <-> upward_distance z x = upward_distance z y.
 Proof.
-intros.
-unfold enharmonic_eqPC. split.
-* destruct z. destruct l.
-** 
+intros. split.
+- unfold enharmonic_eqb.
 
 Theorem pitchclass3 : forall (x : pitchlass), flatten (sharpen x) = x.
 Theorem pitchclass4 : forall (x y : pitchlass), sharpen x = y -> flatten y = x.
