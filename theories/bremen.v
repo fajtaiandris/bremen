@@ -1,4 +1,5 @@
 Require ZArith.
+Require letter.
 
 Module Letter.
 
@@ -47,7 +48,8 @@ End Letter.
 (*--------------------------------------------------------------------*)
 Module PitchClass.
 
-Import ZArith.
+  Import ZArith.
+  Import Interval.
 
   Inductive pitchClass : Type :=
     pitch_class : Letter.letter -> Z -> pitchClass.
@@ -87,6 +89,14 @@ Import ZArith.
   Definition halfstep_up (x : pitchClass) : pitchClass :=
       match x with | l # m => 
       Letter.next l # (m - Z.of_nat(upward_distance (l # 0) (Letter.next l # 0)) + 1)
+    end.
+
+  Definition apply_upward (p : pitch) (i : interval_name) : pitch := 
+    match p, i with
+    | l # m ' o , iname q n =>
+    (*Letter*)   nextN l (n - 1)
+    (*Modifier*) # m + size i 
+                 - Z.of_nat (PitchClass.upward_distance (l # 0) (nextN l (n - 1) # 0))
     end.
 
 End PitchClass.
@@ -150,8 +160,8 @@ Module Interval.
 
   Import ZArith.
   Import Pitch.
-  Import PitchClass.
   Import Letter.
+  Import PitchClass.
 
   (*TODO find out the right names*)
   Inductive interval_category : Type :=
@@ -185,14 +195,21 @@ Module Interval.
   Definition size (i : interval_name) : Z :=
     match i with
     | iname q n => 
-      Z.of_nat (upward_distance C (nextN C (n - 1)))
+      Z.of_nat (Letter.upward_distance C (nextN C (n - 1)))
       + modifier q 
       + 12 * (Z.div (Z.of_nat n) 8)
     end.
 
-  (*TODO: Megírni a rekurziót.*)
   Definition apply_upward (p : pitch) (i : interval_name) : pitch := 
-    C # 0 ' 0.
+    match p, i with
+    | l # m ' o , iname q n =>
+    (*Letter*)   nextN l (n - 1)
+    (*Modifier*) # m + size i 
+                 - Z.of_nat (PitchClass.upward_distance (l # 0) (nextN l (n - 1) # 0))
+    (*Octave*)   ' o + 
+    end.
+
+  Eval compute in apply_upward (B # 1 ' 0) (iname Aug 1).
 
   Definition enharmonic_eq (x y : interval_name) : Prop :=
     size x = size y.
