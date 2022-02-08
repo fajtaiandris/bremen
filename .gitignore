@@ -1,5 +1,6 @@
 Makefile.configure
 Makefile.coq*
+CoqMakefile.conf
 *.aux
 *.d
 *.glob
