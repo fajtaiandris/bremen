@@ -1,5 +1,5 @@
 Require Import ZArith List.
-From Bremen.theories Require Export Pitch.
+From Bremen.theories Require Import Letter PitchClass Pitch.
 
 (*TODO listával valahogy*)
 

@@ -1,12 +1,12 @@
 Require Import ZArith.
-From Bremen.theories Require Export PitchClass.
+From Bremen.theories Require Import Letter PitchClass.
 
 Inductive pitch : Set :=
   p : pitchClass -> nat -> pitch.
 
 Notation "PC ' O" := (p PC O) (at level 85, right associativity).
 
-Example Cb4 := (Letter.C # - 1) ' 4.
+Example Cb4 := (C # - 1) ' 4.
 
 Definition class (x : pitch) : pitchClass :=
   match x with
@@ -26,7 +26,7 @@ Definition flatten (x : pitch) : pitch :=
 
 (*Does not work for pitches below C0, (Cb0, Cbb0, ..)*)
 Definition distance_C0 (x : pitch) : Z :=
- Z.of_nat(PitchClass.upward_distance (Letter.C # 0) (class x)) + (Z.of_nat(octave x) * 12).
+ Z.of_nat(PitchClass.upward_distance (C # 0) (class x)) + (Z.of_nat(octave x) * 12).
 
 Definition enharmonic_eq (x y : pitch) : Prop :=
   distance_C0 x = distance_C0 y.
@@ -36,7 +36,7 @@ Notation "X ee= Y" := (enharmonic_eq X Y) (at level 90, right associativity).
 
 Definition halfstep_up (x : pitch) : pitch :=
   match x with
-  | Letter.B # m ' o => halfstep_up (Letter.B # m) ' o + 1
+  | B # m ' o => halfstep_up (B # m) ' o + 1
   | l # m ' o => halfstep_up (l # m) ' o
   end.
 

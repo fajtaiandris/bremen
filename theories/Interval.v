@@ -1,5 +1,5 @@
 Require Import ZArith.
-From Bremen.theories Require Export Pitch.
+From Bremen.theories Require Import Letter PitchClass Pitch.
 
 (*TODO find out the right names*)
 Inductive interval_category : Type :=
@@ -33,21 +33,29 @@ Notation "! Q N" := (iname Q N) (at level 80, right associativity).
 Definition size (i : interval_name) : Z :=
   match i with
   | iname q n => 
-    Z.of_nat (Letter.upward_distance Letter.C (Letter.nextN Letter.C (n - 1)))
+    Z.of_nat (Letter.upward_distance C (nextN C (n - 1)))
     + modifier q 
     + 12 * (Z.div (Z.of_nat n) 8)
   end.
 
-Definition apply_upward (p : pitch) (i : interval_name) : pitch := 
+Definition apply_to_pitchClass (p : pitchClass) (i : interval_name) : pitchClass := 
+  match p, i with
+  | l # m , iname q n =>
+  (*Letter*)   nextN l (n - 1)
+  (*Modifier*) # m + size i 
+               - Z.of_nat (PitchClass.upward_distance (l # 0) (nextN l (n - 1) # 0))
+  end.
+
+Definition apply_to_pitch (p : pitch) (i : interval_name) : pitch := 
   match p, i with
   | l # m ' o , iname q n =>
-  (*Letter*)   Letter.nextN l (n - 1)
+  (*Letter*)   nextN l (n - 1)
   (*Modifier*) # m + size i 
-               - Z.of_nat (PitchClass.upward_distance (l # 0) (Letter.nextN l (n - 1) # 0))
+               - Z.of_nat (PitchClass.upward_distance (l # 0) (nextN l (n - 1) # 0))
   (*Octave*)   ' o + 0 (*TODO*)
   end.
 
-Eval compute in apply_upward (Letter.B # 1 ' 0) (iname Aug 1).
+Eval compute in apply_to_pitch (B # 1 ' 0) (iname Aug 1).
 
 Definition enharmonic_eq (x y : interval_name) : Prop :=
   size x = size y.
