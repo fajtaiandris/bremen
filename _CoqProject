@@ -1,5 +1,4 @@
--R theories/ MyCode
--arg "-w all"
+-Q . Bremen
 theories/Letter.v
 theories/PitchClass.v
 theories/Pitch.v
@@ -10,4 +9,4 @@ theories/Key.v
 theories/Rhythm.v
 theories/Melody.v
 theories/Song.v
-theories/bremen.v
+theories/Dynamics.v
