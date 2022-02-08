@@ -10,14 +10,6 @@ Inductive intervalCategory : Type :=
 Inductive intervalQuality : Type :=
   | iqual : intervalCategory -> Z -> intervalQuality.
 
-Definition P     := iqual perfect     0.
-Definition Aug   := iqual perfect     1.
-Definition Dim   := iqual perfect  (- 1).
-Definition major := iqual majorminor    0.
-Definition minor := iqual majorminor (- 1).
-Definition aug   := iqual majorminor    1.
-Definition dim   := iqual majorminor (- 2).
-(*TODO constantok helyett notation?*)
 Notation "'Perfect'"    := (iqual perfect 0) (at level 80, right associativity).
 Notation "'Augmented'"  := (iqual perfect 1) (at level 80, right associativity).
 Notation "'Diminished'" := (iqual perfect (- 1)) (at level 80, right associativity).
@@ -108,17 +100,18 @@ Definition between_pitches (x y : pitch) : directionalIntervalName :=
 
 Eval compute in between_pitches (D # 0 ' 4) (B # 0 ' 3). 
 
-(*
-Definition apply_to_pitchClass (p : pitchClass) (i : interval_name) : pitchClass := 
+
+(*TODO EEZT MEGÍRNI*)
+Definition apply_to_pitchClass (p : pitchClass) (i : intervalName) : pitchClass := 
   match p, i with
   | l # m , iname q n =>
   (*Letter*)   nextN l (n - 1)
-  (*Modifier*) # m + (size i - size (iname
-            (*   - Z.of_nat (PitchClass.upward_distance (l # 0) (nextN l (n - 1) # 0))*)
+  (*Modifier*) # m
+              - Z.of_nat (PitchClass.upward_distance (l # 0) (nextN l (n - 1) # 0))
   end.
 
-Eval compute in apply_to_pitchClass (A # 0) (iname major 18).
-
+Eval compute in apply_to_pitchClass (A # 0) (iname (major) 2).
+(*
 Definition apply_to_pitch (p : pitch) (i : interval_name) : pitch := 
   match p, i with
   | l # m ' o , iname q n =>
