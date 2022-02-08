@@ -1,0 +1,13 @@
+-R theories/ MyCode
+-arg "-w all"
+theories/Letter.v
+theories/PitchClass.v
+theories/Pitch.v
+theories/Interval.v
+theories/Note.v
+theories/Chord.v
+theories/Key.v
+theories/Rhythm.v
+theories/Melody.v
+theories/Song.v
+theories/bremen.v
