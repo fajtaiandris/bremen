@@ -1,5 +1,5 @@
 # <img src="bremen.png" alt="the town musicians of bremen" width="70"/> Bremen
-Bremen is a formal modal of music theory written in Coq.  
+Bremen is a formal model of music theory written in Coq.  
 
 ## Types, functions and theorems
 **Letter**  
