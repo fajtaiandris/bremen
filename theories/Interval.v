@@ -39,6 +39,13 @@ Definition modifier (q : intervalQuality) : Z :=
 Inductive intervalName : Type :=
   | iname : intervalQuality -> nat -> intervalName.
 
+(*Works within the octave*)
+Definition invert (i : intervalName) : intervalName :=
+  match i with 
+  | iname (iqual perfect m) n    => iname (iqual perfect (- m))        (9 - n)
+  | iname (iqual majorminor m) n => iname (iqual majorminor (- m - 1)) (9 - n)
+  end.
+
 (*TODO what about iname P 2 ? Also P 0*)
 
 Definition size (i : intervalName) : Z :=
@@ -98,30 +105,36 @@ Definition between_pitches (x y : pitch) : directionalIntervalName :=
     end
 .
 
-Eval compute in between_pitches (D # 0 ' 4) (B # 0 ' 3). 
-
-
-(*TODO EEZT MEGÍRNI*)
-Definition apply_to_pitchClass (p : pitchClass) (i : intervalName) : pitchClass := 
+(*Hibás: Eval compute in apply_to_pitch_class (A # 1) (iname (Diminished) 1).*)
+Definition apply_to_pitch_class (p : pitchClass) (i : intervalName) : pitchClass := 
   match p, i with
   | l # m , iname q n =>
   (*Letter*)   nextN l (n - 1)
-  (*Modifier*) # m
-              - Z.of_nat (PitchClass.upward_distance (l # 0) (nextN l (n - 1) # 0))
+  (*Modifier*) # m + ((size i) mod 12) - (size (between_pitch_classes p (nextN l (n - 1) # m)))
   end.
 
-Eval compute in apply_to_pitchClass (A # 0) (iname (major) 2).
-(*
-Definition apply_to_pitch (p : pitch) (i : interval_name) : pitch := 
+Definition apply_to_pitch (p : pitch) (i : intervalName) : pitch := 
   match p, i with
   | l # m ' o , iname q n =>
-  (*Letter*)   nextN l (n - 1)
-  (*Modifier*) # m + size i 
-               - Z.of_nat (PitchClass.upward_distance (l # 0) (nextN l (n - 1) # 0))
-  (*Octave*)   ' o + 0 (*TODO*)
+    match apply_to_pitch_class (l # m) (iname q n) with
+    | l2 # m2 => l2 # m2 ' o + (Nat.div n 7) + 
+      match between_pitches (l # m ' o) (l2 # m2 ' o) with
+      | upward x   => 0
+      | downward (iname q 1) => 0
+      | downward _ => 1
+      end
+    end
   end.
 
-Eval compute in apply_to_pitch (B # 1 ' 0) (iname Aug 1).
-*)
 Definition enharmonic_eq (x y : intervalName) : Prop :=
   size x = size y.
+
+Definition plus (x y : intervalName) : intervalName :=
+  match x, y with
+  | iname (iqual c1 m1) n1, iname (iqual c2 m2) n2
+    => iname 
+      (iqual
+      (*category*) (category_from_number (n1 + n2 - 1))
+      (*modifier*) (m1 + m2) )
+      (*number*)   (n1 + n2 - 1)
+   end.
