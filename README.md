@@ -115,8 +115,10 @@ Definition structure (x : abstractChord): structure
 ## Kijavítani, megcsinálni
 - A bizonyításokban sok helyen enharmoniai egyenlőséget írtam sima egyenlőség helyett.  
 - A letterhöz tartozó upward_distance függvényt megírni fixpointtal.
+- hangközöknél N helyett P
 - README-t frissíteni
 - Dokumentáció
+- rhythm.v-t szétszedni
 
 ## Linkek
 https://softwarefoundations.cis.upenn.edu/lf-current/Poly.html
