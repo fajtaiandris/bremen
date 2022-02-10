@@ -6,7 +6,9 @@ theories/Interval.v
 theories/Note.v
 theories/Chord.v
 theories/Key.v
-theories/Rhythm.v
 theories/Melody.v
 theories/Song.v
 theories/Dynamics.v
+theories/rhythm/Division.v
+theories/rhythm/Duration.v
+theories/rhythm/Meter.v
