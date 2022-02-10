@@ -16,7 +16,10 @@ Definition sec_division (x : division) (m : meter) (bpm : nat) : Q :=
   end.
 
 (*TODO*)
-Definition sec_duration (x : duration) (m : meter) (bpm : nat) : Q :=
-  0.1
-  .
+Fixpoint sec_duration (x : duration) (m : meter) (bpm : nat) : Q :=
+  match x with
+  | dur d => (sec_division d m bpm)
+  | tie a b => (sec_duration a m bpm) + (sec_duration b m bpm)
+  end.
 
+Eval compute in sec_duration (DottedEighth_) (meter_from 3 (Quarter)) 60.

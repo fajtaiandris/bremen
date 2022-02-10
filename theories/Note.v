@@ -1,5 +1,6 @@
 Require Import ZArith List.
-From Bremen.theories Require Import Letter PitchClass Pitch Chord Rhythm Dynamics.
+From Bremen.theories Require Import Letter PitchClass Pitch Chord Dynamics.
+From Bremen.theories.rhythm Require Import Duration.
 
 (*TODO add dynamic quality, nagyon átgondolni a restet is*)
 Inductive note : Type :=

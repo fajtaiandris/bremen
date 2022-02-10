@@ -118,7 +118,6 @@ Definition structure (x : abstractChord): structure
 - hangközöknél N helyett P
 - README-t frissíteni
 - Dokumentáció
-- rhythm.v-t szétszedni
 
 ## Linkek
 https://softwarefoundations.cis.upenn.edu/lf-current/Poly.html
