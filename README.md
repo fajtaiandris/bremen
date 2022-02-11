@@ -118,6 +118,7 @@ Definition structure (x : abstractChord): structure
 - hangközöknél N helyett P
 - README-t frissíteni
 - Dokumentáció
-
+- 13 alap zeneelmélet 20 song, római számos analízis, frekvenciák, másik modell 27 állítások bizonyítások
+- összevissza notationöket megszüntetni
 ## Linkek
 https://softwarefoundations.cis.upenn.edu/lf-current/Poly.html

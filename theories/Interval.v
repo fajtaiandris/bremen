@@ -39,6 +39,23 @@ Definition modifier (q : intervalQuality) : Z :=
 Inductive intervalName : Type :=
   | iname : intervalQuality -> nat -> intervalName.
 
+Notation "'P1_'"    := (iname (Perfect) 1) (at level 80, right associativity).
+Notation "'P4_'"    := (iname (Perfect) 4) (at level 80, right associativity).
+Notation "'Aug4_'"    := (iname (Augmented) 4) (at level 80, right associativity).
+Notation "'Dim4_'"    := (iname (Diminished) 4) (at level 80, right associativity).
+Notation "'P5_'"    := (iname (Perfect) 5) (at level 80, right associativity).
+Notation "'Aug5_'"    := (iname (Augmented) 5) (at level 80, right associativity).
+Notation "'Dim5_'"    := (iname (Diminished) 5) (at level 80, right associativity).
+Notation "'m2_'"    := (iname (minor) 2) (at level 80, right associativity).
+Notation "'M2_'"    := (iname (major) 2) (at level 80, right associativity).
+Notation "'m3_'"    := (iname (minor) 3) (at level 80, right associativity).
+Notation "'M3_'"    := (iname (major) 3) (at level 80, right associativity).
+Notation "'m6_'"    := (iname (minor) 6) (at level 80, right associativity).
+Notation "'M6_'"    := (iname (major) 6) (at level 80, right associativity).
+Notation "'m7_'"    := (iname (minor) 7) (at level 80, right associativity).
+Notation "'M7_'"    := (iname (major) 7) (at level 80, right associativity).
+Notation "'P8_'"    := (iname (Perfect) 8) (at level 80, right associativity).
+
 (*Works within the octave*)
 Definition invert (i : intervalName) : intervalName :=
   match i with 

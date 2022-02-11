@@ -10,6 +10,7 @@ Inductive key : Type :=
 
 Check key_of (Letter.G # 0) majorkey.
 
+(*
 (*TODO*)
 Definition pitches (k : key) : chord :=
-  pitches nil.
+  pitches nil.*)

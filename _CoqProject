@@ -3,7 +3,9 @@ theories/Letter.v
 theories/PitchClass.v
 theories/Pitch.v
 theories/Interval.v
+theories/IntervalStructure.v
 theories/Note.v
+theories/AbstractChord.v
 theories/Chord.v
 theories/Key.v
 theories/Melody.v
