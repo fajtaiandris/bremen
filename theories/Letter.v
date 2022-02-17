@@ -65,3 +65,29 @@ Definition upward_distance (x y : letter) : nat :=
       (Z.of_nat (upward_distance_from_A x)))
     12)
 .
+
+(*---------------------------------------------------------------*)
+
+Lemma eqb_eq : forall (x y : letter), eqb x y = true -> x = y.
+Proof. intros x y. unfold eqb. destruct x ; destruct y; try discriminate ; auto.
+Qed.
+
+Lemma upward_distance_xx : forall (x : letter), upward_distance x x = 0.
+Proof. destruct x; try auto.
+Qed.
+
+Lemma upward_distance_0 : forall (x y : letter), 
+  (upward_distance x y = 0) <-> (x = y).
+Proof.
+  intros.
+  unfold upward_distance. unfold upward_distance_from_A. destruct y; destruct x;
+     ( simpl; split; reflexivity )
+  || ( simpl; unfold Pos.to_nat; unfold Pos.iter_op; simpl; split; discriminate).
+Qed.
+
+Lemma upward_distance_12 : forall (x y : letter), ~ x = y -> (upward_distance x y) = 12 - (upward_distance y x).
+Proof.
+intros.
+unfold upward_distance. unfold upward_distance_from_A. unfold Z.to_nat. unfold Z.of_nat. unfold Pos.to_nat.
+destruct x; destruct y; (simpl; contradiction) || auto.
+Qed.

@@ -56,4 +56,5 @@ Fixpoint directionally_apply_to_pitch (p : pitch) (dis : directionalIntervalStru
             (Interval.directionally_apply_to_pitch p i)
   end.
 
-Eval compute in directionally_apply_to_pitch (C # 0 ' 1) example_cadence_line.
+Eval compute in major_scale.
+Eval compute in apply_to_pitch_class (E # (- 1)) major_scale.
