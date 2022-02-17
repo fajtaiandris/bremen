@@ -130,6 +130,17 @@ Definition apply_to_pitch_class (p : pitchClass) (i : intervalName) : pitchClass
   (*Modifier*) # m + ((size i) mod 12) - (size (between_pitch_classes p (nextN l (n - 1) # m)))
   end.
 
+(*TODO ez még inkább csak egy dummy*)
+Definition directionally_apply_to_pitch_class 
+  (pc : pitchClass) (di : directionalIntervalName) : pitchClass := 
+  match di with
+  | upward i => apply_to_pitch_class pc i
+  | downward i => match (apply_to_pitch_class pc i) with
+    | l # m  => l # m
+    end
+  end.
+
+
 Definition apply_to_pitch (p : pitch) (i : intervalName) : pitch := 
   match p, i with
   | l # m ' o , iname q n =>
@@ -140,6 +151,15 @@ Definition apply_to_pitch (p : pitch) (i : intervalName) : pitch :=
       | downward (iname q 1) => 0
       | downward _ => 1
       end
+    end
+  end.
+
+(*TODO ez még inkább csak egy dummy*)
+Definition directionally_apply_to_pitch (p : pitch) (di : directionalIntervalName) : pitch := 
+  match di with
+  | upward i => apply_to_pitch p i
+  | downward i => match (apply_to_pitch p i) with
+    | l # m ' o => l # m ' o -1
     end
   end.
 
