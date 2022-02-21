@@ -44,7 +44,7 @@ end.
 Lemma pitchclass1 : forall (l1 l2 : Letter.letter) (m : Z), l1 = l2 -> (l1 # m) = (l2 # m).
 Proof. intros l1 l2 m. intro H. rewrite -> H. reflexivity.
 Qed.
-
+(*
 Lemma pitchclass15 : forall (l1 l2 : Letter.letter) (m1 m2 : Z), (l1 # m1) = (l2 # m2) -> l1 = l2.
 Proof. intros l1 l2 m1 m2. enough (l1 = l2 \/ ~ l1 = l2 ) as [H|H].
   - rewrite -> H. reflexivity.
@@ -106,3 +106,4 @@ intros. split.
 Theorem pitchclass3 : forall (x : pitchlass), flatten (sharpen x) = x.
 Theorem pitchclass4 : forall (x y : pitchlass), sharpen x = y -> flatten y = x.
 Theorem pitchclass5 : forall (x y : pitchclass), upward_distance x y + 1 = upward_distance x (sharpen y).
+*)

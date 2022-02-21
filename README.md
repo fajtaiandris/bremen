@@ -120,5 +120,10 @@ Definition structure (x : abstractChord): structure
 - Dokumentáció
 - 13 alap zeneelmélet 20 song, római számos analízis, frekvenciák, másik modell 27 állítások bizonyítások
 - összevissza notationöket megszüntetni
+
+## Ötletek
+ - Refrént már azelőtt érezzük, hogy elkezdődne
+ - harmonic partot lehet formalozálni egymáson lévő dallamokként
+ - 
 ## Linkek
 https://softwarefoundations.cis.upenn.edu/lf-current/Poly.html

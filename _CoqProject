@@ -8,9 +8,11 @@ theories/Note.v
 theories/AbstractChord.v
 theories/Chord.v
 theories/Key.v
-theories/Melody.v
+theories/MelodicPart.v
+theories/HarmonicPart.v
 theories/Song.v
 theories/Dynamics.v
 theories/rhythm/Division.v
 theories/rhythm/Duration.v
 theories/rhythm/Meter.v
+theories/physics/Instrument.v

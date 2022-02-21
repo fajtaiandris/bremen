@@ -6,3 +6,4 @@ From Bremen.theories.rhythm Require Import Duration.
 Inductive note : Type :=
   | note_of : pitch -> duration -> dynamic -> note
   | rest_of : duration -> dynamic -> note.
+

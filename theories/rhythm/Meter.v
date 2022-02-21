@@ -22,4 +22,8 @@ Fixpoint sec_duration (x : duration) (m : meter) (bpm : nat) : Q :=
   | tie a b => (sec_duration a m bpm) + (sec_duration b m bpm)
   end.
 
+(*TODO azt jelenti az ütemmutató, hogy hol kell hangsúlyozni a dallamot,
+  , tehát egy dallamra meg lehet hívni az ütemmutatót, hogy behangsúlyozza.*)
+
+(*TODO ugyanígy meg is lehet állapítani egy dallamról az ütemmutatót*)
 Eval compute in sec_duration (DottedEighth_) (meter_from 3 (Quarter)) 60.
