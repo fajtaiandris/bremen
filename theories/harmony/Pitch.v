@@ -46,3 +46,22 @@ Definition wholestep_up (x : pitch) : pitch :=
   sharpen (> x).
 
 Notation ">> X" := (wholestep_up X) (at level 90, right associativity).
+
+
+
+(* TODO
+
+
+(*similar to distance axioms*)
+Theorem pitch1 : forall (x y : pitch), distance x y = 0 -> enharmonix_eq x y.
+Theorem pitch2 : forall (x y : pitch), distance x y + distance y x = 0.
+Theorem pitch3 : forall (x y z : pitch), distance x z =< distance x y + distance y z.
+
+(*some equality axioms*)
+Theorem pitch4 : forall (x : pitch), enharmonic_eq x x.
+Theorem pitch5 : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq y x.
+Theorem pitch6 : forall (x y z : pitch), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
+Theorem pitch7 : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq (halfstep_up x) (halfstep_up y).
+
+
+*)

@@ -175,3 +175,29 @@ Definition plus (x y : intervalName) : intervalName :=
       (*modifier*) (m1 + m2) )
       (*number*)   (n1 + n2 - 1)
    end.
+
+
+(* TODO
+
+
+(*some equality axioms*)
+Theorem intervalname1 : forall (x : intervalName), enharmonic_eq x x.
+Theorem intervalname2 : forall (x y : intervalName), enharmonic_eq x y -> enharmonic_eq y x.
+Theorem intervalname3 : forall (x y z : intervalName), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
+
+(*addition axioms*)
+(*commutativity*)
+Theorem intervalname4 : forall (x y : intervalName), enharmonic_eq (plus x y) (plus y x).
+(*associativity*)
+Theorem intervalname5 : forall (x y z : intervalName), enharmonic_eq (plus (plus x y) z) (plus (plus y z) x).
+(*identity*)
+Theorem intervalname6 : forall (x : intervalName), enharmonic_eq x (plus x {Perfect Unison}).
+(*inverse ?*)
+Theorem intervalname7 : forall (x : intervalName), enharmonic_eq (plus x (minus {Perfect Unison} x) {Perfect Unison}).
+(*distribution ?*)
+
+(*some for invert*)
+Theorem intervalname8 : forall (x : intervalName), enharmonic_eq x (invert (invert x)).
+
+
+*)
