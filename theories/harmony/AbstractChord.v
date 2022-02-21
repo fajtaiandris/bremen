@@ -1,4 +1,4 @@
-From Bremen.theories Require Import PitchClass Letter Interval.
+From Bremen.theories.harmony Require Import PitchClass Letter Interval.
 Require Import ZArith.
 
 Inductive abstractChord : Type :=

@@ -1,5 +1,5 @@
 Require Import ZArith.
-From Bremen.theories Require Import Letter.
+From Bremen.theories.harmony Require Import Letter.
 
 Inductive pitchClass : Type :=
   pitch_class : letter -> Z -> pitchClass.

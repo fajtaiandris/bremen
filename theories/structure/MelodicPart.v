@@ -1,5 +1,7 @@
 Require Import ZArith.
-From Bremen.theories Require Import Letter PitchClass Pitch Chord Key Note Duration Dynamics.
+From Bremen.theories.harmony Require Import Letter PitchClass Pitch Chord Key Note.
+From Bremen.theories.rhythm Require Import Duration.
+From Bremen.theories.physics Require Import Dynamics.
 
 (*=melody*)
 Inductive melodic_part : Type :=

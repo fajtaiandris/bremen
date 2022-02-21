@@ -1,5 +1,6 @@
 Require Import ZArith List.
-From Bremen.theories Require Import Letter PitchClass Pitch Chord Dynamics.
+From Bremen.theories.harmony Require Import Letter PitchClass Pitch Chord.
+From Bremen.theories.physics Require Import Dynamics.
 From Bremen.theories.rhythm Require Import Duration.
 
 (*TODO nagyon átgondolni a restet is*)

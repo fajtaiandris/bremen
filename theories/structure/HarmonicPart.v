@@ -1,4 +1,6 @@
-From Bremen.theories Require Import Duration Dynamics MelodicPart.
+From Bremen.theories.rhythm Require Import Duration.
+From Bremen.theories.physics Require Import Dynamics.
+From Bremen.theories.structure Require Import MelodicPart.
 
 (*this could be formalized many many ways, don't forget to mention in thesis*)
 Inductive harmonic_part : Type :=

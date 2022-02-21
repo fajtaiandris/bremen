@@ -1,5 +1,5 @@
 Require Import ZArith List.
-From Bremen.theories Require Import Letter PitchClass Pitch.
+From Bremen.theories.harmony Require Import Letter PitchClass Pitch.
 
 Inductive chord : Type :=
    | base : pitch -> chord

@@ -1,5 +1,5 @@
 Require Import ZArith List.
-From Bremen.theories Require Import Letter PitchClass Pitch Interval Chord.
+From Bremen.theories.harmony Require Import Letter PitchClass Pitch Interval Chord.
 
 Inductive key_quality : Type :=
   | majorkey

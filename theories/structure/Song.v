@@ -1,4 +1,4 @@
-From Bremen.theories Require Import HarmonicPart.
+From Bremen.theories.structure Require Import HarmonicPart.
 From Bremen.theories.physics Require Import Instrument.
 
 Inductive section :=

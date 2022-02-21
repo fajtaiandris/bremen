@@ -1,5 +1,5 @@
 Require Import ZArith.
-From Bremen.theories Require Import Letter PitchClass Pitch.
+From Bremen.theories.harmony Require Import Letter PitchClass Pitch.
 
 (*TODO find out the right names*)
 Inductive intervalCategory : Type :=
