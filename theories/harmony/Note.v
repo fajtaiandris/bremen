@@ -8,3 +8,8 @@ Inductive note : Type :=
   | note_of : pitch -> duration -> dynamic -> note
   | rest_of : duration -> dynamic -> note.
 
+Definition pitch_class_of (n : note) : option pitchClass :=
+  match n with
+  | note_of (Pitch.p pc _) _ _ => Some pc
+  | rest_of _ _ => None
+  end.

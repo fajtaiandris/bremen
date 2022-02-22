@@ -8,6 +8,11 @@ Inductive melodic_part : Type :=
   | melodic_part_of : note -> melodic_part
   | longer : note -> melodic_part -> melodic_part.
 
+(*TODO*)
+(*
+Definition is_variation (a av : melodic_part) : Prop :=
+  .
+*)
 Definition example_note := note_of (A # 0 ' 4) (Quarter_) (mf).
 Definition example_rest := rest_of (Half_) (f).
 

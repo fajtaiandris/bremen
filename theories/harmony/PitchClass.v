@@ -21,6 +21,11 @@ Definition upward_distance (x y : pitchClass) : nat :=
   | l # m, l' # m' => Z.to_nat (Zmod (Z.of_nat (upward_distance l l') - m + m') 12)
   end.
 
+Definition eqb (x y : pitchClass) : bool :=
+  match x, y with
+  | (l1 # m1), (l2 # m2) => andb (Letter.eqb l1 l2) (Z.eqb m1 m2)
+  end.
+
 Definition enharmonic_eq (x y : pitchClass) : Prop :=
   upward_distance (A # 0) x = upward_distance (A # 0) y.
 

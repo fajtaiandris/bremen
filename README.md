@@ -9,6 +9,7 @@ Bremen is a formal model of music theory written in Coq.
 
 ## Ötletek
  - Refrént már azelőtt érezzük, hogy elkezdődne
+ - Refrén és verze elkülönítése több lépésben. Addig csökken a lehetséges különbség értéke, amíg fel nem ismerődik a két különböző rész.
 
 ## Linkek
 https://softwarefoundations.cis.upenn.edu/

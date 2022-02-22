@@ -100,9 +100,9 @@ Definition between_pitches (x y : pitch) : directionalIntervalName :=
       | iname q n => 
         if (*We leaped over a C letter*)
         andb (Nat.ltb (Letter.upward_distance l1 C) (Letter.upward_distance l2 C))
-        (negb (eqb l1 C))
+        (negb (Letter.eqb l1 C))
         then upward (iname q (n + (o2 - o1 - 1) * 7))
-        else if andb (eqb l2 C) (negb (eqb l1 C)) (*This could be simplified logically*)
+        else if andb (Letter.eqb l2 C) (negb (Letter.eqb l1 C)) (*This could be simplified logically*)
           then upward (iname q (n + (o2 - o1 - 1) * 7))
           else upward (iname q (n + (o2 - o1) * 7))
       end
@@ -113,9 +113,9 @@ Definition between_pitches (x y : pitch) : directionalIntervalName :=
       | iname q n => 
         if
         andb (Nat.ltb (Letter.upward_distance l1 C) (Letter.upward_distance l2 C))
-        (negb (eqb l1 C))
+        (negb (Letter.eqb l1 C))
         then downward (iname q (n + (o2 - o1 - 1) * 7))
-        else if andb (eqb l2 C) (negb (eqb l1 C))
+        else if andb (Letter.eqb l2 C) (negb (Letter.eqb l1 C))
           then downward (iname q (n + (o2 - o1 - 1) * 7))
           else downward (iname q (n + (o2 - o1) * 7))
       end

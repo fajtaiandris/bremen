@@ -29,3 +29,9 @@ Fixpoint transpose (ac : abstractChord) (di : directionalIntervalName) : abstrac
   | base pc => base (directionally_apply_to_pitch_class pc di)
   | following ac' pc => following (transpose ac' di) (directionally_apply_to_pitch_class pc di)
   end.
+
+Fixpoint includes (ac : abstractChord) (pc : pitchClass) : bool :=
+  match ac with
+  | base x => PitchClass.eqb x pc
+  | following remaining x => orb (PitchClass.eqb x pc) (includes remaining pc)
+  end.
