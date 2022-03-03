@@ -26,4 +26,7 @@ Fixpoint fraction (x : duration) : Q :=
 Definition same_fraction (x y : duration) : Prop :=
   fraction x = fraction y.
 
-
+(*Az eltelt idő reprezentálására*)
+Inductive optionalDuration : Type :=
+  | no_time
+  | some_time : duration -> optionalDuration.

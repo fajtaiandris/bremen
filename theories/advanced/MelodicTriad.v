@@ -46,6 +46,7 @@ Inductive quadratonicProgression : Type :=
 (*TODO*)
 Fixpoint first_quad_assumption (melody : melodic_part) (qn : quadratonicName)
   : option quadratonicName :=
+  
   None.
 
 Fixpoint first_quadratonic_of (melody : melodic_part) : option quadratonicName :=

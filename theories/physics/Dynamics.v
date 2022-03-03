@@ -5,4 +5,5 @@ Inductive dynamic : Type :=
 | p
 | pp
 | diminuendo
-| rubato .
+| rubato
+| emphasized .

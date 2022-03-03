@@ -13,3 +13,16 @@ Definition pitch_class_of (n : note) : option pitchClass :=
   | note_of (Pitch.p pc _) _ _ => Some pc
   | rest_of _ _ => None
   end.
+
+Definition emphasized (n : note) : option bool := 
+  match n with
+  | note_of _ _ emphasized => Some true
+  | note_of _ _ _ => Some false
+  | rest_of _ _ => None
+  end.
+
+Definition duration_of (n : note) : duration :=
+  match n with
+  | note_of _ d _ => d
+  | rest_of d _ => d
+  end.
