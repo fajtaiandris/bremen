@@ -1,6 +1,6 @@
 Require Import ZArith.
 From Bremen.theories.harmony Require Import Letter PitchClass Pitch Chord Key Note.
-From Bremen.theories.rhythm Require Import Duration.
+From Bremen.theories.rhythm Require Import Duration Division.
 From Bremen.theories.physics Require Import Dynamics.
 
 (*=melody*)
@@ -47,3 +47,36 @@ Definition example_melody2 :=
 Definition example_melody3 := 
   longer quarter_rest(
   melodic_part_of E_note).
+
+Definition example_melody4 := 
+  longer quarter_rest (
+  longer C_note (
+  longer A_note (
+  longer quarter_rest (
+  melodic_part_of C_note
+)))).
+
+(*Az elejéről leszedi azokat a hangokat, amik még beleférnek a megadott hosszba*)
+Fixpoint head (m : melodic_part) (d : duration) : option melodic_part :=
+  match (longer_equal d (duration_of m)) with
+  | true => Some m
+  | false => match m with
+    | melodic_part_of n  => None
+    | longer n remaining => head remaining d
+    end
+  end.
+
+
+
+Fixpoint first_note (m : melodic_part) : note :=
+  match m with
+  | melodic_part_of n => n
+  | longer _ remaining => first_note remaining
+  end.
+
+Fixpoint second_note (m : melodic_part) : option note :=
+  match m with
+  | melodic_part_of n => None
+  | longer second_n (melodic_part_of n) => Some second_n
+  | longer _ remaining => second_note remaining
+  end.

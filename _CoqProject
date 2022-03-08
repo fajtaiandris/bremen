@@ -9,6 +9,7 @@ theories/harmony/AbstractChord.v
 theories/harmony/Chord.v
 theories/harmony/Key.v
 theories/structure/MelodicPart.v
+theories/structure/MelodicPartArith.v
 theories/structure/HarmonicPart.v
 theories/structure/Song.v
 theories/rhythm/Division.v
