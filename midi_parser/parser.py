@@ -4,6 +4,23 @@ import sys
 import mido
 from music21 import pitch
 
+def bremen_pitch_string(midi_num):
+  m21pitch = pitch.Pitch(midi_num)
+  pitchclass = m21pitch.name
+  modifierstr = m21pitch.accidental.name
+  modifier = 0
+  if modifierstr == "sharp": modifier = 1
+  if modifierstr == "flat" : modifier = -1
+  octave = m21pitch.octave
+  brpitch = pitchclass[0] + ' # ' + str(modifier) + ' \' ' + str(octave)
+  return brpitch
+
+def bremen_duration_string(num, unit):
+  durstr = unit
+  for i in range(num-1):
+    durstr = 'tie (' + durstr + ') (' + unit + ')'
+  return durstr
+
 def parse (midifile) :
   mid = mido.MidiFile(midifile)
   preparsed_midi = []
@@ -14,7 +31,7 @@ def parse (midifile) :
       for msg in track:
         msgdict = msg.dict()
         if msgdict.get('type') == 'note_on':
-          note = str(pitch.Pitch(msgdict.get('note')))
+          note = bremen_pitch_string(msgdict.get('note'))
           event = 'start' if msgdict.get('velocity') != 0 else 'stop'
           deltasec = msgdict.get('time')
           preparsed_midi.append([event, note, deltasec])
@@ -48,22 +65,38 @@ def parse (midifile) :
     for i in parsed_midi:
       notes.append([i[1], i[2]])
     
-    #legkissebb egység
+    #legkisebb egység
     min_delta = 999999
     for i in notes:
       if i[1] != 0 and i[1] < min_delta: min_delta = i[1]
   
     # INNENTŐL FELTESZEM, HOGY A min_delta 2-ES LEOSZTÁSÚ HANGOT TALÁLT
     #hanghosszúság arányok számítása
-        
+       
+    bremen_notes = [] 
     for i in notes:
-      i[1] = round((i[1] / min_delta)*2)
-    
-    
-    output = ""
-    for i in notes:
-      output += i[0] + ' ' + str(i[1]) + '\n'
-  return output
+      i[1] = bremen_duration_string(round((i[1] / min_delta)*2), 'Quarter_')
+      if i[0] == 'rest':
+        bremen_notes.append('rest_of (' + i[1] + ') (mf)')
+      else:
+        bremen_notes.append('note_of (' + i[0] + ') (' + i[1] + ') (mf)')
+
+    melodic_part = ""
+    bremen_notes.reverse()
+    output = '(melodic_part_of ( '+ bremen_notes[0] + ' ))'
+    for i in bremen_notes[1:]:
+      output = '(longer ( ' + i + ')\n' + output + ')'
+      
+    coq_header = \
+"""Require Import ZArith.
+From Bremen.theories.harmony Require Import Letter PitchClass Pitch Chord Key Note.
+From Bremen.theories.rhythm Require Import Duration Division.
+From Bremen.theories.physics Require Import Dynamics.
+From Bremen.theories.structure Require Import MelodicPart.
+
+Definition melody1 :=
+"""
+  return coq_header + output + '.'
 
 
 if len(sys.argv) == 1:
