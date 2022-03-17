@@ -66,7 +66,7 @@ Fixpoint beat_ones (m : list note) : list bool :=
 
 Fixpoint measures (m : list note) (bl : list bool) : list (list note) :=
   match m, bl with
-  | [], [] => [[]]
+  | [], [] => []
   | n1 :: n1_remaining, true :: bl_remaining => 
   (* ütem egy, tehát a legfrissebb ütemhez konkatenáljuk és létrehozunk egy új üres ütemet *)
     match (hd [] (measures n1_remaining bl_remaining)) with
@@ -77,9 +77,11 @@ Fixpoint measures (m : list note) (bl : list bool) : list (list note) :=
     match (hd [] (measures n1_remaining bl_remaining)) with
     | bar => (n1 :: bar) :: (skipn 1 (measures n1_remaining bl_remaining))
     end
-  | _, _ => [[]]
+  | _, _ => []
   end.
 
+Definition whats_the_measures (m : list note) :=
+  measures m (beat_ones m).
 
 Definition example_melody1 := 
   longer quarter_rest (

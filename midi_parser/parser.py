@@ -33,8 +33,9 @@ def parse (midifile) :
         if msgdict.get('type') == 'note_on':
           note = bremen_pitch_string(msgdict.get('note'))
           event = 'start' if msgdict.get('velocity') != 0 else 'stop'
+          dynamic = 'emphasized' if msgdict.get('velocity') > 90 else 'mf'
           deltasec = msgdict.get('time')
-          preparsed_midi.append([event, note, deltasec])
+          preparsed_midi.append([event, note, deltasec, dynamic])
 
     parsed_midi = []
     next_is_start = True
@@ -58,12 +59,16 @@ def parse (midifile) :
               current[1] = 'rest'
               parsed_midi.append(current)
           else: 
+            #A dinamika a hang indításon van, át kell rakni
+            current[3] = previous [3]
             parsed_midi.append(current)
+          
+    
 
     #event címkék törlése
     notes = []
     for i in parsed_midi:
-      notes.append([i[1], i[2]])
+      notes.append([i[1], i[2], i[3]])
     
     #legkisebb egység
     min_delta = 999999
@@ -75,17 +80,16 @@ def parse (midifile) :
        
     bremen_notes = [] 
     for i in notes:
-      i[1] = bremen_duration_string(round((i[1] / min_delta)*2), 'Quarter_')
+      i[1] = bremen_duration_string(round((i[1] / min_delta)*2), 'Sixteenth_')
       if i[0] == 'rest':
-        bremen_notes.append('rest_of (' + i[1] + ') (mf)')
+        bremen_notes.append('rest_of (' + i[1] + ') (' + i[2] + ')')
       else:
-        bremen_notes.append('note_of (' + i[0] + ') (' + i[1] + ') (mf)')
+        bremen_notes.append('note_of (' + i[0] + ') (' + i[1] + ') ('+ i[2] +')')
 
     melodic_part = ""
-    bremen_notes.reverse()
-    output = '(melodic_part_of ( '+ bremen_notes[0] + ' ))'
+    output = '( '+ bremen_notes[0] + ' )\n'
     for i in bremen_notes[1:]:
-      output = '(longer ( ' + i + ')\n' + output + ')'
+      output += '; ( ' + i + ')\n'
       
     coq_header = \
 """Require Import ZArith.
@@ -93,10 +97,12 @@ From Bremen.theories.harmony Require Import Letter PitchClass Pitch Chord Key No
 From Bremen.theories.rhythm Require Import Duration Division.
 From Bremen.theories.physics Require Import Dynamics.
 From Bremen.theories.structure Require Import MelodicPart.
+Require Import List.
+Import ListNotations.
 
-Definition melody1 :=
+Definition melody1 := [
 """
-  return coq_header + output + '.'
+  return coq_header + output + '].'
 
 
 if len(sys.argv) == 1:

@@ -9,6 +9,7 @@ Inductive division : Type :=
 Notation "'Half'"     := ((half whole)) (at level 80, right associativity).
 Notation "'Quarter'"  := ((half (half whole))) (at level 80, right associativity).
 Notation "'Eighth'"   := ((half (half (half whole)))) (at level 80, right associativity).
+Notation "'Sixteenth'"   := ((half(half (half (half whole))))) (at level 80, right associativity).
 Notation "'QTriplet'"  := ((third (half (half whole)))) (at level 80, right associativity).
 Notation "'ETriplet'" := ((third (half (half (half whole))))) (at level 80, right associativity).
 
