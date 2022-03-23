@@ -88,7 +88,28 @@ Fixpoint meters_for_measures (ml : list (list note)) : list meter :=
 Definition whats_the_meter (melody : list note) : list meter :=
   meters_for_measures (measures melody (beat_ones melody)).
 
-Eval compute in whats_the_meter ex_melody.
+Definition eq_meter (m1 m2 : meter) : bool :=
+  match m1, m2 with
+  | meter_from p1 d1 , meter_from p2 d2 => andb (Pos.eqb p1 p2) (Division.eqb d1 d2)
+  end.
+
+Definition constant_meter (melody : list note) : option meter :=
+  match whats_the_meter melody with
+  | [] => None
+  | meters => match hd (meter_from 1 (Quarter)) meters with
+    | first_meter => if forallb (eq_meter first_meter) meters then Some first_meter else None
+    end
+  end.
+
+Definition constant_meter_in_the_middle (melody : list note) : option meter :=
+  match whats_the_meter melody with
+  | [] => None
+  | meters => match skipn 1 (firstn ((length meters) - 1) meters) with
+    | middle_meters => match hd (meter_from 1 (Quarter)) middle_meters with
+      | first_meter => if forallb (eq_meter first_meter) middle_meters then Some first_meter else None
+      end
+    end
+  end.
 
 (*TODO azt jelenti az ütemmutató, hogy hol kell hangsúlyozni a dallamot,
   , tehát egy dallamra meg lehet hívni az ütemmutatót, hogy behangsúlyozza.*)

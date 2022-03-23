@@ -21,6 +21,9 @@ Fixpoint fraction_inverse (x : division) : nat :=
   | third d => 3 * fraction_inverse d
   end.
 
+Definition eqb (d1 d2 : division) : bool :=
+  Nat.eqb (fraction_inverse d1) (fraction_inverse d2).
+
 Fixpoint fraction (x : division) : Q :=
   match x with
   | whole => 1
