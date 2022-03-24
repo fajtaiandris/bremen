@@ -1,8 +1,9 @@
 From Bremen.theories.harmony Require Import Pitch.
-Require Import QArith.
+Require Import QArith ZArith.
 
 Definition A_constant := 440.0.
 
-(*TODO*)
 Definition frequency (p : pitch) : Q :=
-  A_constant * 2.
+  Qpower (Qdiv ((distance_C0 p) # 1) 12) 2 .
+
+Eval compute in frequency Cb4.
