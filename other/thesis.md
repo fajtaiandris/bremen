@@ -79,38 +79,60 @@ Fred Lerdhal és Ray Jackendoff 1977-es *Toward a Formal Theory of Tonal Music* 
 
 ### Összegzés a könnyűzene és a jelfeldolgozás szemszögéből 
 
-Az említett cikkek jól szemléltetik a tudományág kutatásainak fókuszát. Bármely cikk, amely egy elméletet tárgyal, a tonális klasszikus zenét teszi az analízis mindenkori bemenetévé, bár egyértelmű, hogy sokkal nagyobb számban van szükség könnyűzene elemzésére. Ezt tekintve fontos a kérdés tehát, értelmezhetőek-e a klasszikuszene analítikai módszerei könnyűzenén? Mielőtt ezt a kérdést tovább bontanám, fontos megemlíteni a zenetudósok között egy nagyon elterjedt nézetet, az elemzési partikularizmust. **ide kell hivatkozás** A partikularista zenetudósok nem nyilvánítanak nagy jelentőséget az univerzális zenei elemzéseknek, mert úgy gondolják hogy a zeneművek egyediségéből következik, hogy analítikai eszközeiket is egyedileg kell megválasztani. A korábbi kérdés helyett tehát jobb feltenni azt, hogy milyen a könnyűzenére általánosan megállapítható tulajdonság kinyerésére lehet szükség a jelfeldolgozási feladatok során. A korábban bemutatott analíziseknél megfigyelhető, hogy nem fektetnek hangsúlyt az analízis céljának meghatározására, vagyis arra, hogy milyen információ kinyerésének a feladatát valósítja meg, hanem elsősorban lépéseit vázolják. Éppen ezért csak a saját analízisünk célkitűzései után lehet megvizsgálni, hogy a korábbi zeneelméletek közül felhasználható-e valamelyik a feladatra, ezt pedig egy formális rendszerben igazolni is tudnánk. *Értelmezhetőek-e akkor a klasszikuszene analítikai módszerei a könnyűzenén?* Sajnos a válasz az, hogy nem tudjuk, egyáltalán célrevezető-e értelmezni őket, bár valószínűleg értelmezhetőek, azonban azt sem tudhatjuk biztosan, hogy az eredmény mit fog jelenteni.
+Az említett cikkek jól szemléltetik a tudományág kutatásainak fókuszát. Bármely cikk, amely egy elméletet tárgyal, a tonális klasszikus zenét teszi az analízis mindenkori bemenetévé, bár egyértelmű, hogy sokkal nagyobb számban van szükség könnyűzene elemzésére. Ezt tekintve fontos a kérdés tehát, értelmezhetőek-e a klasszikuszene analítikai módszerei könnyűzenén? Mielőtt ezt a kérdést tovább bontanám, fontos megemlíteni a zenetudósok között egy nagyon elterjedt nézetet, az elemzési partikularizmust. **ide kell hivatkozás** A partikularista zenetudósok nem nyilvánítanak nagy jelentőséget az univerzális zenei elemzéseknek, mert úgy gondolják hogy a zeneművek egyediségéből következik, hogy analítikai eszközeiket is egyedileg kell megválasztani. A korábbi kérdés helyett tehát jobb feltenni azt, hogy milyen a könnyűzenére általánosan megállapítható tulajdonság kinyerésére lehet szükség a jelfeldolgozási feladatok során. A korábban bemutatott analíziseknél megfigyelhető, hogy nem fektetnek hangsúlyt az analízis céljának meghatározására, vagyis arra, hogy milyen információ kinyerésének a feladatát valósítja meg, hanem elsősorban lépéseit vázolják. Éppen ezért csak a saját analízisünk célkitűzései után lehet megvizsgálni, hogy a korábbi zeneelméletek közül felhasználható-e valamelyik a feladatra, ezt pedig egy formális rendszerben igazolni is tudnánk. *Értelmezhetőek-e akkor a klasszikuszene analítikai módszerei a könnyűzenén?* Sajnos a válasz az, hogy nem tudjuk, egyáltalán célravezető-e értelmezni őket, bár valószínűleg értelmezhetőek, azonban azt sem tudhatjuk biztosan, hogy az eredmény mit fog jelenteni.
 
 Ugyanennyire fontos, de egyszerűbb kérdés a következő: hogyan használhatóak fel ezek az analízisek zenei jeleken? Természetesen nem egy hatalmas lépésben szeretnénk kinyerni az információt a hanghullámból. A tipikus részfeladatok közé tartozik a különböző transzformációkkal a zenei adat, vagyis a zenei hangok kinyerése. A feladat ezen szintjén amikor zenei hangról beszélünk, igazán egy frekvenciára, egy kezdeti és befejezési időpontra, és különböző dinamikai jellemzőkre gondolunk. Ezeket a primitív zenei hangokat megfelelően tudjuk például MIDI-ben ábrázolni. Ahogy láthattuk az említett cikkek, ber erre külön nem térnek ki, de kottán definiálják az elemzéseket. Ez a gyakorlat elfogadható, lévén céljuk kész zeneművek leirat alapján történő elemzése. Ahhoz azonban, hogy ezeket felhasználhassuk jelfeldolgozás során is, a primitív zenei hangokat valahogyan kottába kell szednünk, vagy definiálnunk alacsonyabb szintre az eredeti analízisekkel megegyező analíziseket. Akárhogy is, a kotta és a nem kotta között tátongó lyukat, névlegesen az ütemmutatót, ritmust, hangnemet és hangneveket valahogyan át kell hidalni.
 
 [hanghullám != primitív hang != kotta]
 
+A számítási zenetudomány irodalmát összevetve könnyűzenei jelfeldolgozás feladatával elmondható, hogy bár vannak jelentős átfedések, a hiányosságok ennél nagyobbak. A hiány először is az adatok reprezentálásának szintjén jelenik meg. A MIR egyik legfontosabb teendőjének tekinti a zenei adatok megfelelő reprezentálást a következő lépés végrehajtásának érdekében, amíg az említett irodalom megelégszik a kottával. Ezenkívűl a formalizáltság hiányát mutatja az, hogy a zenei analízisek szinte minden esetben implementáció nélkül, gyakran szavakkal megfogalmazott szabályokkal jelennek meg, így nehézzé téve alkalmazásukat valós projektekben. Az irodalom végső hiányossága pedig funkcióbeli. Sok a jelfeldolgozás során felmerülő zeneelméleti problémát nem tárgyal, például a hangok ütembeszedését, mivel ahogy korábban láthattuk ez az alacsonyabb zenei szint nem létezik az irodalomban. Ez a különbség kényszeríti ki azt a zeneelméletet, ami már nem a musicγ, hanem a musicυ elemzésére, tehát a zene, mint leirat helyett a zene, mint hang objektum elemzésére szolgál.
 
-legyen olyan a modell, hogy több mindent megállapít
-
-metrikai analízis kottán van elvégezve, de az lejegyzés, nem pedig maga a zene music gamma stb
-
- - nem foglalkoznak a zene struktúrák reprezentálásával
- - a mirnél felmerülő problémák nem pont ezek
- - dolgok összevissza vannak, nincs kipróbálható algoritmus és eszköz sem
-
+[music görögbetűk táblázata, hivatkozás]
 
 konszonancia https://www.jstor.org/stable/40285261?seq=1
 http://gttm.jp/hamanaka/wp-content/uploads/2015/12/ISMIR2007Tutorial_Slide.pdf
 https://www.jstor.org/stable/900759
 
- - nagyon hiányos más szempontokból, pl funkcionális elemzés
- 
- - S W Smoliar A Computer Aid for Schenkerian Analysisban is hasonlóan a Schenkeri zeneelméletet ülteti át Chomsky transformational generative grammatikájára
- - leírja a zenei hang ábrázolását a harmadik oldalon
-
-
 
 ## A téma feldolgozás során alkalmazott módszerek
 
+A munkám legfontosabb célja megállapítani, hogy a zene modellje a lefektetett kritériumoknak megfelelően milyen eszköz használatával formalizálható. A legjelentősebb technológiai kritérium a valós jelfeldolgozási projektekbe való könnyű integrálhatóság. A már létező zenét leíró modellekre jellemző, hogy projekt orientáltak, tehát könnyen bevonhatóak valós feladatokba, viszont ezt leginkább a a formális pontosság feláldozásával érik el, így ebben a fejezetben ebből a két szemszögből nézve határozom meg a megfelelő eszközt a feladatra, példákat mutatva kész modellekből.
+
 ### Az eszköz megválasztásáról
+
+A (számítási) zenei formalizáltságot sokféle képpen el lehet érni. A megvalósítás eszközei három csoportba sorolhatóak. Az első csoportnak nevezhetjük a fájlkonvenciókat. Ezeknek alapvető felhasználási területüknek jellemzően a felhasználói programok adattárolását tekinthetjük. Gondolhatunk akár kottaszerkesztő alkalmazásokra, akár zenei perifériák stúdió programokkal való kommunikáicójára, egyes esetekben akár primitív zenelejátszási felhasználásra is, például retró stílusú játékoknál. Ebbe a kategóriába tartozik a kottaszedés formalizálásaként is felfogható MusicXML és Lilypond, illetve a zenei előadás formalizálásaként felfogható MIDI formátum is. Ezeket a már kész modelleket projektbe való bevonás szempontjából vizsgálva megállapítható egyértelműen, hogy alkalmasak rá. Így a kérdés már csak az, hogy megfelelnek-e a mi formális zene követelményeinknek, vagyis tárgyalják-e azokat a területeket, ahol a zenei modell hiánya fellép (lásd ábra).
+
+[Zenei modell hiánya megint]
+
+A fájlkonvenciók ha implicit módon is, de definiálnak zenei kifejezéseket, ilyen definíció például MusicXML-ben az ütemmutató, vagy MIDI-ben a hang fogalma. 
+
+[MusicXML, MIDI implicit definíció kikövetkeztetése]
+
+A fájlkonvencióra épülő zenei modellek hiányossága azonban az egyoldalúságukban rejlik. Bár a kotta és a zenei előadás is a zenét írja le, de mégis érezhető, hogy ezek formalizálása nem valósítja meg a zene teljes formalizálását. A valóság az, hogy a zene egy igazán öszetett képzelt tárgy, melynek **.....** kutatása szerint négy doménje létezik, a zene, mint **felsorolni...**. Így már egyértelmű, hogy a MusicXML és a Lilypond esetében a music**?** formalizálásról, míg MIDI esetében a music**?** formalizálásról van szó. Egy optimális modell azonban mind a négy domént tárgyalná és lehetőleg definiálná a közöttük lévő kapcsolatot is. Ez a hiányosság teszi alkalmatlanná ezeknek a zenei modelleknek a jelfeldolgozási feladatokban kizárólagos modellként való használatát. A fájlkonvenciókra továbbá kategorikusan is elmondható, hogy nem fognak tudni zeneelméleti függvénygyűjtemény, illetve a zenei kiértékelés hiányán segíteni lévén nem futtathatóak.
+
+A második kategória a zenei modell megvalósításának eszközeiben a program csomagok. Ezekre jellemző, hogy jelfeldolgozás érdekében készítették őket, így az eddig taglalt követelményeink mindegyikének valahogy megfelelnek. Ilyen eszköz az MIT kutatói által fejlesztett Music21, vagy éppen a Mingus nevű python package. A zene négy doménjére visszatekintve felvetődik a kérdés, vajon tárgyalják-e ezek az eszközök mindegyiket. Általánosan megfigyelhető, hogy valamilyen kevert modellt állítanak fel, ami bár nagyon szoros kapcsolatban áll a kottával, vagyis a tiszta zenei leirattal, de emellé beemelnek tulajdonságokat a zene jobban fizikai oldaláról is. Ez a gyakorlat felfogható a zenei leirat egy alacsonyabb, a kottához viszonyítva hiperrealisztikus szintjének.
+
+[Music21 kottaszerűen modellezi a zenét, de kitér a fizikai dolgokra is (mennyire hamis a hang, milyen dinamikai ereje van]
+
+Bár a Music21, mint legjobb zeneelméleti programcsomag is több szinten hiányos, például a zene alacsony (fizikai) és magas (formai) szintjén, illetve az irodalomhoz hűen a tonális klasszikus zenét teszi egyenlővé a zenével, de bővíthetőségének köszönhetően ezek pótolhatóak lennének, így kategorikusan a programcsomag, mint technológiai megvalósítása a zenei modellnek nem utasítható el ezek alapján. Így a kérdés jelen technológiánál már csak az, hogy mennyire tekinthetó jó formális definíciónak egy Python függvény. Tekintsük az alábbi példát:
+
+[Valami egyszerű függvény music21ből és ugyanaz papíron formalizálva]
+
+Az első különbség a papíron és a Pythonban írt definíció között, hogy míg az előbbi a természetes számokon definiálja a **....**-ot, a forráskód az **Int?** standard libraryben szereplő típuson. Bár a neve jelzi, hogy valami hasonló dologról van itt szó, köztudott, hogy ezek különbözően vannak definiálva és működésükben is eltérnek. Vegyük például az alábbi esetet:
+
+[Valami állítás a függvényről, ami papíron működik, de pythonban nem]
+
+Vajon ez az általános működésbeli eltérés van-e akkora jelentőségű, hogy az egyszerű programcsomagok helyett másik eszköz keresés felé forduljunk? A zenei jelfeldolgozás talán nem a legbiztonságkritikusabb terület, így a matematikai megfelelés ilyen szintű hiányosságát el lehet fogadni a zenei modell implementációjában, azonban az eszköz használata során ezzel a korlátozással tisztában kell lennünk. Az előző példa azonban nem csak ezt szemlélteti. Azt is megmutatja, hogy előfordul, hogy állításokat akarunk felírni a definíciókra. A munkámnak nem célja részletezni, hogy imperatív nyelvek milyen lehetőségeket kínálnak erre a célra, mivel az belátható, hogy a matematikai megegyezés hiányában az állítások ha felírhatók is, szigorúbbak lennének a szükségesnél, belátások pedig bonyolultabb. Programcsomagok azonban léteznek funkcionális nyelvekhez is, melyeknél a tárgyalt reprezentációs probléma elkerülhettő, így egyszerűen felírhatóak állítások.
+
+[Funkcionális nyelven felírt állítás]
+
+A harmadik kategória a zenei modell megvalósításának eszközei között funkcionális nyelvek vonálon továbbhaladva a proof assistant programcsomagok kategóriája. Ezek az eszközök a funkciónális nyelveken felírható bizonyítások megoldására való "bizonyítási nyelvvel" való kibővítését jelentik. Ezek közül a két legelterjedtebb eszköz az Agda illetve a Coq. Jelenleg egyik nyelvhez sem létezik komoly zeneelméleti könyvtár, azonban megállapítható, hogy formalizálás szempontjából minden korábbi követelményünk megvalósítására megfelelőek lennének. Egy proof assistantben megírt zenei modellben a zene minden szintjén megfelelően felírhatóak lennének a definíciók, az imperatív nyelvekre jellemző megszorítások nélkül, továbbá egyszerűen megfogalmazhatóak lennének a hipotézisek, melyek bizonyításához ráadásul elegendő a papíron megszokotthoz hasonlóan a bizonyítás vázlatát, nem pedig a bizonyító függvényt megadni.
+
+[Bizonyítás Coqban vázlattal, és a legenerált függvény]
+
+Belátva, hogy zenei formalizálás szempontjából a proof assistant programcsomag megfelel minden kritériumunknak, térjünk vissza az eszköz megválasztásának projektekbe való integrálásának szempontjához. Eddig nem volt szükséges pontosan definiálni ennek kikötéseit, de összegezve alapvetően három szempontból kell jól szerepelnie egy eszköznek, hogy használható legyen valós projektekben. Először is bevonható kell, hogy legyen azokba a nyelvekbe, amelyeken a zenei jelfeldolgozás projektjei tipikusan íródnak. Másodszor lehetőleg minél gyorsabbnak kell lennie (a konkrét zenei feladatok elvégzésében), hiszen zenei jelfeldolgozási projektek nem ritka követelménye a valósidejűség. Harmadikként pedig preferálandó egy olyan eszköz, melynek használata nem áll túl messze a területen dolgozó tipikus fejlesztőktől, mivel ahogy a legtöbb programcsomagnál, itt is a minőség egyik mutatója a projekt életbenmaradása és dinamikus fejlődése, ami egyetemi kutatócsoportot vagy opensource projektet tekintve a fejlesztők cserélődése miatt a minél kevésbé meredek betanulási görbével érhető csak el.
+
  - Coq, Agda
- - Mivel másabb, mint mondjuk egy python package
 
 ### Definíciók
  - Benson Mates' Elementary Logic (197-203): A definíció eliminable és non-creative kell, hogy legyen
