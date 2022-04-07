@@ -1,4 +1,5 @@
 (*Azt nem formalizálom, hogy ez mit jelent*)
+
 Inductive dynamic : Type :=
 | f
 | mf
@@ -6,4 +7,5 @@ Inductive dynamic : Type :=
 | pp
 | diminuendo
 | rubato
-| emphasized .
+| emphasized
+| oneFeel .
