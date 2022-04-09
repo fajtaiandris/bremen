@@ -9,7 +9,10 @@ A kutatás legfőbb célja megállapítani, hogy milyen eszközökkel lehetsége
 
 [zenei modell szintjei kép: 1. követelmények, dokumentációk 2. reprezentálás 3. zeneelméleti definíciók, függvények 4. zenei kiértékelés]()
 
-A zenei modell hiánya legalacsonyabb szinten a feladat megfoglamazásánál, a követelmények egyértelmű definiálásánál jelentkezik. A zenei projektekre jellemző, hogy mivel leggyakrabban zenei háttértudással rendelkező fejlesztők készítik azokat, a zenészek által ismert zeneelmélet mentén fogalmaznak, ezek  viszont gyakran pontatlanok tudnak lenni a különböző zenei stílusok különböző fogalmazásai miatt. John Rahn is ebből indul ki a *Logic, Set Theory, Music Theory* című kutatásában, melyben így fogalmaz: "The music-theoretical literature is a porridge of definitions fallen prey to various dangers, and worse, of "definitions" so-called which are utterances of every possible sort except the sort of definition. If only authors who cannot define would confine themselves to the "you know what I mean" mode of discourse, all would be well. But a statement falsely purporting to define, if taken seriously, utterly destroys the fabric of its context.". Fontos hozzátenni, hogy a művészet központú zeneelmélet nem tekinti céljának a formalizáltságot, ezért alátámasztható, hogy miért hoz meg döntéseket több esetben akár hagyomány alapján is. Ha a zeneelmélet ezen alapvető hiányosságától el is tekintünk, akkor is nehezen található olyan zeneelméleti összefoglaló, ami a hanghullámoktól a zenei formáig és stílusokig egybefüggően tárgyalja a témát, így tehát általánosságban rossz gyakorlat a művészeti zeneelmélet használata követelmények megfogalmazásánál.
+A zenei modell hiánya legalacsonyabb szinten a feladat megfoglamazásánál, a követelmények egyértelmű definiálásánál jelentkezik. A zenei projektekre jellemző, hogy mivel leggyakrabban zenei háttértudással rendelkező fejlesztők készítik azokat, a zenészek által ismert zeneelmélet mentén fogalmaznak, ezek  viszont gyakran pontatlanok tudnak lenni a különböző zenei stílusok különböző fogalmazásai miatt. John Rahn is ebből indul ki a *Logic, Set Theory, Music Theory* című kutatásában, melyben így fogalmaz: 
+>The music-theoretical literature is a porridge of definitions fallen prey to various dangers, and worse, of "definitions" so-called which are utterances of every possible sort except the sort of definition. If only authors who cannot define would confine themselves to the "you know what I mean" mode of discourse, all would be well. But a statement falsely purporting to define, if taken seriously, utterly destroys the fabric of its context.
+
+Fontos hozzátenni, hogy a művészet központú zeneelmélet nem tekinti céljának a formalizáltságot, ezért alátámasztható, hogy miért hoz meg döntéseket több esetben akár hagyomány alapján is. Ha a zeneelmélet ezen alapvető hiányosságától el is tekintünk, akkor is nehezen található olyan zeneelméleti összefoglaló, ami a hanghullámoktól a zenei formáig és stílusokig egybefüggően tárgyalja a témát, így tehát általánosságban rossz gyakorlat a művészeti zeneelmélet használata követelmények megfogalmazásánál.
 
 [Kép béna zenei dokumentációról]()
 [Példa ellentmondó zeneelmélet könyvekből (konszonancia)]()
@@ -38,8 +41,6 @@ Vizsgálni fogom a zenei analízis alapvető kérdését, a zene és nem zene el
 
  - Szakdogám akkordelnevezője is azért olyan szuper, mert sokat tud a program a zenéről
  - zeneelmélet formális alapjait lerakni
-
-
 
 ## A problémakör irodalmának, az előzményének rövid áttekintése
 
@@ -82,7 +83,7 @@ A számítási zenetudomány irodalmát összevetve könnyűzenei jelfeldolgozá
 
 [music görögbetűk táblázata, hivatkozás]()
 
-## A téma feldolgozás során alkalmazott módszerek
+## A téma feldolgozása során alkalmazott módszerek
 
 A munkám legfontosabb célja megállapítani, hogy a zene modellje a lefektetett kritériumoknak megfelelően milyen eszköz használatával formalizálható. A legjelentősebb technológiai kritérium a valós jelfeldolgozási projektekbe való könnyű integrálhatóság. A már létező zenét leíró modellekre jellemző, hogy projekt orientáltak, tehát könnyen bevonhatóak valós feladatokba, viszont ezt leginkább a a formális pontosság feláldozásával érik el, így ebben a fejezetben ebből a két szemszögből nézve határozom meg a megfelelő eszközt a feladatra, példákat mutatva kész modellekből.
 
@@ -148,12 +149,12 @@ A következőkben taglalt Coq library neve Bremen lett.
 
 Korábban már említettem, hogy a számítási zenetudomány irodalma jellemzően nem részletezi a zenei hang reprezentálását, hanem ehelyett a kottára támaszkodva épít fel elméleteket. Elvétve azonban mégis lehet találni pár elgondolást a hang tulajdonságairól. Azokat a zenei kifejezéseket, amelyek használata nem egységes az irodalomban az egyértelműség kedvéért a továbbiakban angolul használom.
 
-| angol        | magyar                | angol műszótár szerint[hiv]()    | magyar műszótár szerint[hiv]() |
+| angol        | magyar                | angol műszótár szerint [hiv]()   | magyar műszótár szerint [hiv]() |
 |-------------|----------------------|-------------------|---|
 | pitch        | hangmagasság          | A hang magassága vagy mélysége            | A hangnak az a sajátossága, ami a hangot előidéző rezgések számától függ |
 | note         | hangjegy              | A zene lejegyzésére használt szimbólumok  | A hangok magasságának és viszonylagos időtartamának jelölésére és megrögzítésére szolgáló különleges írásjelek |
 | register     | regiszter             | Különböző részei egy hangszer vagy énekhang hangterjedelmének  | |
-| pitch class  |                      |                   |
+| pitch class  |                      |                   ||
 
 Az alábbi két példa John Rahn modelljének első definíciója, illetve S. W. Smoliar megjegyzése saját modelljéről.
 
@@ -295,7 +296,7 @@ Ezek mentén tehát elképzelhető egy hangjegyek listáján értelmezett ütemb
 [dia hetedik sor 5, 6 szabály]()
 [dia 6. oldal kotta]()
 
-Felmerül a kérdés, hogy mit is jelent akkor igazán az ütem? A műszótár úgy fogalmazza meg, hogy az ütem az a metrikus egység, ami mindig két főhangsúly (úgynevezett egy) közé esik. A főhangsúlyt egyéb definíció hiányában a legnagyobb hangsúlyok kategóriájának tekintve az ütemvonal jelentése nem más, mint a rákövetkező hangjegy erős hangsúlyozása. Ennek mentén könnyen definiálható egy dallamra az ütemekké tördelő analízis, hiszen egyszerűen szét kell választeni minden olyan hangjegy előtt, amely rendelkezik az "egy érzettel", vagyis főhangsúlyos.
+Felmerül a kérdés, hogy mit is jelent akkor igazán az ütem? A műszótár úgy fogalmazza meg, hogy az ütem az a metrikus egység, ami mindig két főhangsúly (úgynevezett egy) közé esik. A főhangsúlyt egyéb definíció hiányában a legnagyobb hangsúlyok kategóriájának tekintve az ütemvonal jelentése nem más, mint a rákövetkező hangjegy erős hangsúlyozása. Ennek mentén könnyen definiálható egy dallamra az ütemekké tördelő analízis, hiszen egyszerűen szét kell választani minden olyan hangjegy előtt, amely rendelkezik az "egy érzettel", vagyis főhangsúlyos.
 
 ```coq
 Inductive dynamic : Type :=
@@ -304,7 +305,14 @@ Inductive dynamic : Type :=
 .
 ```
 
-Érezhető, hogy ezzel a lépéssel inkább csak egy lejjebbi szintre toltuk a problémát, mintsem megoldottuk. A kérdés most már hogy hogyan ismerhető fel a főhangsúly? A zenei hangsúlyozás négy eszköze közül leggyakoribb dinamikai kiemelés, ami nem más, mint a hang nagyobb hangerővel való megszólaltatása. A hangsúly második formája a harmóniai kiemelés, vagyis egy erőteljes akkord is képes jelölni a főhangsúlyt. A hangsúly ezen formájától egyelőre tekintsünk el a harmóniai erőteljesség nehézkes definiálása miatt. A hangsúlyt ki lehet fejezni a hang enyhe meghosszabbításával, vagy késleltetett kezdésével is. Ezeket általánosan ritmikai hangsúlynak nevezzük, azonban ezek a hangjegyek felfogott ritmikáját nem befolyásolják így a ritmikai változtatás lejegyzésre sem kerülhet. A hangsúlyozás negyedik eszköze a könnyűzenében soha elő nem forduló dallami hangsúlyozás, melynek alkalmazásakor a hangsúlyos hangnak enyhén megváltozik a magassága.
+**Ezt a bekezdést kicsit újrafogalmazni**
+Érezhető, hogy ezzel a lépéssel inkább csak egy lejjebbi szintre toltuk a problémát, mintsem megoldottuk. A kérdés most már hogy hogyan ismerhető fel a főhangsúly? A zenei hangsúlyozás négy eszköze közül leggyakoribb dinamikai kiemelés, ami nem más, mint a hang nagyobb hangerővel való megszólaltatása. A hangsúly második formája a harmóniai kiemelés, vagyis egy erőteljes akkord is képes jelölni a főhangsúlyt. A hangsúly ezen formájától egyelőre tekintsünk el a harmóniai erőteljesség nehézkes definiálása miatt. A hangsúlyt ki lehet fejezni a hang enyhe meghosszabbításával, vagy késleltetett kezdésével is. Ezeket általánosan ritmikai hangsúlynak nevezzük, azonban ezek a hangjegyek felfogott ritmikáját nem befolyásolják így a ritmikai változtatás lejegyzésre sem kerülhet. A hangsúlyozás negyedik eszköze a könnyűzenében soha elő nem forduló dallami hangsúlyozás, melynek alkalmazásakor a hangsúlyos hangnak enyhén megváltozik a magassága. A hangsúlyozás eszközei közül tehát a dinamikai és ritmikai hangsúlyt érdemes figyelembe vennünk a főhangsúlyok megállapításánál, azonban ennek formalizálása nem a lejegyzés szintjén  jelenik meg, mivel ez a hangobjektum egy attribútuma. Az alábbi definíció a későbbiekben ismertetett transcription típuson adja meg, hogy a kapott zenei leirat az ütemmutatók szempontjából megfelel-e az eredeti hangobjektumnak.
+
+```coq
+TRANSCRIPTION is_right ból csak az ütemmutatóra vonatkozó rész
+```
+
+**Az ütemmutató többi dolga**
 
 **az ütemmutató nem része a zenének, de megállapítható róla
 példa: egy ütemmutató algoritmus kiértékel egy hangfájlt, én pedig a modellemmel a hangfájl leiratának birtokában megmondom, hogy jó-e. Végülis egy bizonyítás, de igazán csak egy unit teszt.**
