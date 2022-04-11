@@ -2,9 +2,10 @@
 Bremen is a formal model of music theory written in Coq.  
 
 ## Kijavítani, megcsinálni
-- SoundingObject definíciói
-- Transcription definíciói
-- frekvencia számolás
+- is_music, is_pop_song
+- trumpet példát összerakni
+- python sounding object parser
+- transcription is_right
 - alap típusok állításait felírni és bebizonyítani **idáig**
 - felesleges definíciókat, kommenteket, notationöket kitisztítani
 - típusok, definíciók és állatások neveit átnézni

@@ -1,15 +1,18 @@
 From Bremen.theories.harmony Require Import Pitch.
+From Bremen.theories.physics Require Import A440.
 Require Import QArith ZArith PArith.
 From Coq.PArith Require Import Pnat.
 From Coq.NArith Require Import BinNatDef.
+Require Import List.
+Import ListNotations.
 
 Definition frequency := Q.
 
 Definition A_constant := 440.0.
 
-(*Ez még nem jó*)
+(*could be computed, but the stdlib doesnt include functinos for Q^Q*)
 Definition from_pitch (p : pitch) : Q :=
-  Qpower (Qdiv ((distance_C0 p) # 1) 12) 2 .
+  nth (Z.to_nat (distance_C0 p)) pitches_from_C0 0.0.
 
 Eval compute in from_pitch Cb4.
 

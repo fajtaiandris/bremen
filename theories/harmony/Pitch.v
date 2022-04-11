@@ -6,6 +6,7 @@ Inductive pitch : Set :=
 
 Notation "PC ' O" := (p PC O) (at level 85, right associativity).
 
+Example C2 := (C # 0) ' 2.
 Example Cb4 := (C # - 1) ' 4.
 
 Definition class (x : pitch) : pitchClass :=

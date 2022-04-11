@@ -56,7 +56,7 @@ Teljesülnie kell:
 *)
 
 
-(* EXAMPLE: The trumpet plays a note in the C2 - C3 register *)
+(* EXAMPLE: The trumpet plays a note in the C2 - Cb4 register *)
 Definition example (so : sounding_object) : bool :=
   andb (maximum_one_pitch_with_instrument so trumpet)
-  (lowest_frequency_within so (from_pitch Cb4) (from_pitch Cb4)).
+  (lowest_frequency_within so (from_pitch C2) (from_pitch Cb4)).
