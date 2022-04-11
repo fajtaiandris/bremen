@@ -17,5 +17,7 @@ theories/rhythm/Duration.v
 theories/rhythm/Meter.v
 theories/physics/Dynamics.v
 theories/physics/Instrument.v
+theories/physics/Frequency.v
+theories/physics/FrequencySample.v
 theories/physics/SoundingObject.v
 theories/physics/Transcription.v
