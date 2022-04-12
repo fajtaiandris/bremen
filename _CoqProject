@@ -22,3 +22,5 @@ theories/physics/FrequencySample.v
 theories/physics/SoundingObject.v
 theories/physics/Transcription.v
 theories/physics/A440.v
+
+examples/example1/so1.v
