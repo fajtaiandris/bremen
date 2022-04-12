@@ -73,7 +73,7 @@ Definition measure_meter (measure : list note) : option meter :=
   | Some d => Some (meter_from_duration d)
   end.
 
-Eval compute in measure_meter (hd [] (measures ex_melody (beat_ones ex_melody))).
+Eval compute in measure_meter (hd [] (measures melody1 (beat_ones melody1))).
 
 
 Fixpoint meters_for_measures (ml : list (list note)) : list meter :=
@@ -113,7 +113,7 @@ Definition constant_meter_in_the_middle (melody : list note) : option meter :=
 
 (*TODO azt jelenti az ütemmutató, hogy hol kell hangsúlyozni a dallamot,
   , tehát egy dallamra meg lehet hívni az ütemmutatót, hogy behangsúlyozza.*)
-
+(*
 Fixpoint first_emphasis (m : melodic_part) : option optionalDuration :=
   match m with
   | melodic_part_of n =>
@@ -130,7 +130,7 @@ Fixpoint first_emphasis (m : melodic_part) : option optionalDuration :=
       | _ => None
       end
     end
-  end.
+  end.*)
 (*
 Definition second_emphasis (m : melodic_part) : option duration :=
   match (first_emphasis m) with
@@ -174,8 +174,8 @@ Definition second_emphasis (m : melodic_part) : option duration :=
     end
   end.
 *)
-
-Eval compute in first_emphasis example_melody2.
+(*
+Eval compute in first_emphasis melody1.*)
 (*
 
 Fixpoint bars (m : melodic_part) : list melodic_part :=

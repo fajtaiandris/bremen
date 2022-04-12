@@ -1,4 +1,5 @@
 From Bremen.theories.rhythm Require Import Division Duration Meter.
+From Bremen.theories.structure Require Import Song.
 Require Import QArith PArith.
 
 Definition Q_of_nat (n : nat) : Q :=
@@ -12,11 +13,22 @@ Definition sec_division (x : division) (m : meter) (bpm : nat) : Q :=
       (Q_of_nat (Division.fraction_inverse d)))
   end.
 
-(*TODO*)
 Fixpoint sec_duration (x : duration) (m : meter) (bpm : nat) : Q :=
   match x with
   | dur d => (sec_division d m bpm)
   | tie a b => (sec_duration a m bpm) + (sec_duration b m bpm)
   end.
 
-Eval compute in sec_duration (DottedEighth_) (meter_from 3 (Quarter)) 60.
+(*TODO*)
+Definition song_duration_in_sec (s : song) : N :=
+  match s with | song_ bpm s1 ss =>
+   match ( sec_duration (duration_of s) (meter_from 4 (Quarter)) bpm) with
+    | a # b => match a with
+      | Zneg _ => 0
+      | Z0 => 0
+      | Zpos ap => (N.modulo (N.of_nat (Pos.to_nat ap)) (N.of_nat (Pos.to_nat b)))
+      end
+    end
+  end.
+(*
+Eval compute in song_duration_in_sec s1.*)

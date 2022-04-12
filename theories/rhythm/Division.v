@@ -14,6 +14,7 @@ Notation "'QTriplet'"  := ((third (half (half whole)))) (at level 80, right asso
 Notation "'ETriplet'" := ((third (half (half (half whole))))) (at level 80, right associativity).
 
 (*This is would not be needed if Q.eqb existed to write eqb_division.*)
+(* turns out, it exists Qeq_bool*)
 Fixpoint fraction_inverse (x : division) : nat := 
   match x with
   | whole => 1

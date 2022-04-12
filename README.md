@@ -30,3 +30,7 @@ Bremen is a formal model of music theory written in Coq.
 - ezzel foglalkozni? konszonancia https://www.jstor.org/stable/40285261?seq=1
 http://gttm.jp/hamanaka/wp-content/uploads/2015/12/ISMIR2007Tutorial_Slide.pdf
 https://www.jstor.org/stable/900759
+
+## Esetleg később kijavítani
+ - melodic_part ne lehessen üres lista
+ - durationnél ne így legyen az összekötés, mert ugyanannak a hossznak léteznek különböző összekötései

@@ -9,12 +9,12 @@ theories/harmony/AbstractChord.v
 theories/harmony/Chord.v
 theories/harmony/Key.v
 theories/structure/MelodicPart.v
-theories/structure/MelodicPartArith.v
 theories/structure/HarmonicPart.v
 theories/structure/Song.v
 theories/rhythm/Division.v
 theories/rhythm/Duration.v
 theories/rhythm/Meter.v
+theories/physics/Time.v
 theories/physics/Dynamics.v
 theories/physics/Instrument.v
 theories/physics/Frequency.v

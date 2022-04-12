@@ -5,45 +5,31 @@ From Bremen.theories.physics Require Import Dynamics.
 Require Import List.
 Import ListNotations.
 
-(*=melody*)
-Inductive melodic_part : Type :=
-  | melodic_part_of : note -> melodic_part
-  | longer : note -> melodic_part -> melodic_part.
+Definition melodic_part := list note.
 
-Inductive melodic_part2 : Type :=
-  melody : list note -> melodic_part2.
+Example A_note := note_of (A # 0 ' 4) (Quarter_) (emphasized).
+Example C_note := note_of (C # 0 ' 5) (Quarter_) (mf).
+Example E_note := note_of (E # 0 ' 5) (Quarter_) (mf).
+Example quarter_rest := rest_of (Quarter_) (f).
+Example melody1 : melodic_part :=
+  [ E_note ; quarter_rest ; A_note ; C_note ; A_note ; A_note ; E_note ; E_note ; E_note] .
 
-Definition note_list (m : melodic_part2) : list note :=
+Fixpoint duration_of (m : melodic_part) : option duration :=
   match m with
-  | melody l => l
+  | [] => None
+  | x :: rest => match duration_of rest with
+    | None => Some (Note.duration_of x)
+    | Some restd => Some (tie (Note.duration_of x) restd)
+    end
   end.
 
-Fixpoint duration_of (m : melodic_part) : duration :=
-  match m with
-  | melodic_part_of n => Note.duration_of n
-  | longer n remaining => tie (Note.duration_of n) (duration_of remaining)
-  end.
-
-
-(*TODO*)
-(*
-Definition is_variation (a av : melodic_part) : Prop :=
-  .
-*)
-Definition A_note := note_of (A # 0 ' 4) (Quarter_) (emphasized).
-Definition C_note := note_of (C # 0 ' 5) (Quarter_) (mf).
-Definition E_note := note_of (E # 0 ' 5) (Quarter_) (mf).
-Definition quarter_rest := rest_of (Quarter_) (f).
-
-Definition ex_melody := [ E_note ; quarter_rest ; A_note ; C_note ; A_note ; A_note ; E_note ; E_note ; E_note] .
-
-Fixpoint size (m : list note) : nat :=
+Fixpoint size (m : melodic_part) : nat :=
   match m with
   | [] => 0
   | _ :: remaining => S ( size remaining )
   end.
 
-Fixpoint first_measure (m : list note) : list note :=
+Fixpoint first_measure (m : melodic_part) : melodic_part :=
   match m with
   | [] => []
   | n1 :: n1_remaining => match n1_remaining with
@@ -55,7 +41,7 @@ Fixpoint first_measure (m : list note) : list note :=
     end
   end.
 
-Fixpoint beat_ones (m : list note) : list bool :=
+Fixpoint beat_ones (m : melodic_part) : list bool :=
   match m with
   | [] => []
   | n1 :: n1_remaining => match (Note.emphasized n1) with 
@@ -64,7 +50,7 @@ Fixpoint beat_ones (m : list note) : list bool :=
     end
   end.
 
-Fixpoint measures (m : list note) (bl : list bool) : list (list note) :=
+Fixpoint measures (m : melodic_part) (bl : list bool) : list melodic_part :=
   match m, bl with
   | [], [] => []
   | n1 :: n1_remaining, true :: bl_remaining => 
@@ -80,61 +66,5 @@ Fixpoint measures (m : list note) (bl : list bool) : list (list note) :=
   | _, _ => []
   end.
 
-Definition whats_the_measures (m : list note) :=
+Definition whats_the_measures (m : melodic_part) :=
   measures m (beat_ones m).
-
-Definition example_melody1 := 
-  longer quarter_rest (
-  longer C_note (
-  longer A_note (
-  longer quarter_rest (
-  longer C_note (
-  longer A_note (
-  melodic_part_of E_note
-  )))))).
-
-Definition example_melody2 := 
-  longer quarter_rest (
-  longer C_note (
-  longer A_note (
-  longer quarter_rest (
-  longer C_note (
-  melodic_part_of A_note
-  ))))).
-
-Definition example_melody3 := 
-  longer quarter_rest(
-  melodic_part_of E_note).
-
-Definition example_melody4 := 
-  longer quarter_rest (
-  longer C_note (
-  longer A_note (
-  longer quarter_rest (
-  melodic_part_of C_note
-)))).
-
-(*Az elejéről leszedi azokat a hangokat, amik még beleférnek a megadott hosszba*)
-Fixpoint head (m : melodic_part) (d : duration) : option melodic_part :=
-  match (longer_equal d (duration_of m)) with
-  | true => Some m
-  | false => match m with
-    | melodic_part_of n  => None
-    | longer n remaining => head remaining d
-    end
-  end.
-
-
-
-Fixpoint first_note (m : melodic_part) : note :=
-  match m with
-  | melodic_part_of n => n
-  | longer _ remaining => first_note remaining
-  end.
-
-Fixpoint second_note (m : melodic_part) : option note :=
-  match m with
-  | melodic_part_of n => None
-  | longer second_n (melodic_part_of n) => Some second_n
-  | longer _ remaining => second_note remaining
-  end.
