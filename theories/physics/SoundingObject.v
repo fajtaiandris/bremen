@@ -9,7 +9,7 @@ Definition sampling_rate := N.
 Inductive sounding_object : Type :=
   sounding_obj : sampling_rate -> list frequency_sample -> sounding_object.
 
-Example so1 := sounding_obj 10%N [s1; s1; s1; []; [(5Hz 1.0dB); (10Hz 0.9dB); (15Hz 0.2dB)]; s1].
+Example so1 := sounding_obj 10%N [[]; [(5Hz 1.0dB); (10Hz 0.9dB); (15Hz 0.2dB)]].
 Example so2 := sounding_obj 10%N [s1].
 
 Definition maximum_one_pitch (s : sounding_object) : bool :=

@@ -4,7 +4,6 @@ Bremen is a formal model of music theory written in Coq.
 ## Kijavítani, megcsinálni
 - is_music, is_pop_song
 - trumpet példát összerakni
-- python sounding object parser
 - transcription is_right egyek hangsúlyosak
 - transcription is_right ugyanazok a dolgok szolnak ugyanott
 - alap típusok állításait felírni és bebizonyítani **idáig**
@@ -16,9 +15,9 @@ Bremen is a formal model of music theory written in Coq.
 - _CoqProject fájlt átnézni  
 
 - a ritmus formalizálása részt beefejezni
-- a többszólamúság formalizálását megírni
-- a hangobjektum formalizálását megírni
-- projektbe beágyazást megírni (leginkább példák lesznek)
+- is_musicról írni
+- is_rightról írni
+- példát megírni
 - összegzést megírni **idáig**
 - a zenei hang formalizálásánál a végén felsorolt dolgokat beleírni
 - definíció non-creative, eliminable beleírni

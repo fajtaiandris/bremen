@@ -318,18 +318,136 @@ TRANSCRIPTION is_right ból csak az ütemmutatóra vonatkozó rész
 példa: egy ütemmutató algoritmus kiértékel egy hangfájlt, én pedig a modellemmel a hangfájl leiratának birtokában megmondom, hogy jó-e. Végülis egy bizonyítás, de igazán csak egy unit teszt.**
 
 ### A többszólamúság formalizálásáról
- - dallam
- - többszólamú zene lehetséges formalizálásai
- - variáció definiálása
- - a zene részeinek elkülönítése
+A zenei modell legmagasabb szintű típusa a Song, vagyis a dal. Egy dal részekből áll, minden rész pedig egy hangszer és egy többszólamú leirat kettőseinek listájából. A többszólamú leiratra, vagyis a HarmonicPartra az egyszerre több hangot kiadni képes hangszerek miatt van szükség. Azt a megfogalmazást válaszottam, miszerint a HarmonicPart, dallamok, tehát MelodicPartok olyan kombinációja, melyben létezik egy kitüntetett fő dallam, és emellé létezhet akárhány mellék dallam, továbbá a mellékdallamok kezdődhetnek később, mint a fődallam, és akármilyen rövidek lehetnek, tehát nem kell kiérniük a HarmonicPart végéig. Ez a reprezentálás megköveteli tehát a többszólamú részek aprólékos szólamokra bontását, amire a kottában nincs szükség, bár lehetséges. Ennek a követelménynek azon kívül nincs jelentőssége, hogy így a reprezentáció közelebb áll ahhoz, ahogy az emberek elgondolják a zenét, bár az időben egymást részlegesen fedő hangok leiratára mindenképpen kellene lennie modellben valamilyen eszköznek. Ez az eszköz a kottában a ritmikai átkötés.
+
+[nagyjon jó kotta példa a harmonicpart többszólamúságára]
+
+[ritmikai átkötésre példa]
+
+A modellben a hangszert, csak mint a zenei hang felharmónikusainak amplitudó arányát módosító tényezőt definiáltam. Ehhez először is meg kell, hogy tudjuk adni pusztán egy hang felharmónikusainak erősségét. Ennek kifejezésére a harmonic_quality szolgál, mellyel az első nyolc érték adható meg, amely legtöbb zenei hang esetében bőven elég.
+
+```coq
+(* theories.physics.Instrument.v *)
+(* represents the relative strength of the first 8 overtones to the fundamental note *)
+Inductive harmonic_quality :=
+  harmonics : Q -> Q -> Q -> Q -> Q -> Q -> Q -> Q -> harmonic_quality.
+```
+
+Ez azonban még nem elég ahhoz, hogy leírjuk egy hangszer jellegét, mivel különböző frekvencia tartmoányokban különbözően reagálnak a testek, így a hangszerek is. A complex_harmonic_qualityvel frekvencia ablakokra definiálhatjuk a harmóniai tulajdonságokat, így sok minta használatának esetén nagyon pontosan meg tudjuk adni ezt.
+
+[példa a szakdogámból, hogy a hangmagassággal változik a hangszín]
+
+```coq
+(* theories.physics.Instrument.v *)
+(* represents harmonic samples at given frequencies.
+Between the frequency range of two samples, the higher frequency's sample
+will be assumed to represent the instruments harmonic quality. *)
+(*nem jó, mert a legnagyobb fölött nincs definiálva *)
+Inductive complex_harmonic_quality :=
+  complex_harmonics : list (Q * harmonic_quality) -> complex_harmonic_quality.
+```
+
+Bár jelenleg a további definíciók könnyebb megadása érdekében egy hangszer nem más, mint egy összetett harmóniai tulajdonság, azonban a valóságban ennél tágabb a probléma. Figyelmen kívűl hagytam például, hogy a hangszín függ a hangerőtől, illetve, hogy a legtöbb hangszer megszólaltatható különböző módon különböző hangszíneken, illetve, hogy a hangszer nem csak a  felharmónikusok amplitúdójának kapcsolatát határozza meg, hanem a hang különböző dinamikai tulajdonságait is, például az indítás hirtelenségét, vagy éppen a hang elhalásának függvényét.
+
+[dolgok, amiket nem foglaltam bele a hangszerbe]
 
 ### A hangobjektum formalizálásáról
 
-### A modell beágyazása projektekbe
+Eddig a zenéről csak mint leiratként fogalmaztunk meg definícókat és állításokat, és bár ezt a leiratot a kottánál jóval közelebb hoztuk a zene fizikai csatornájához a hangjegyek kibővített dinamikai tulajdonságának köszönhetően, azonban a zene, mint hangobjektum ábrázolására ez még sem alkalmas, mivel ritmikai és hangmagassági absztrakciókat tartalmaz. A hangobjektum típusának definiálására éppen azért van szükség, hogy ezeknek az absztrakcióknak a jelentését egy alacsonyabb szinten definiálni tudjuk, így megteremtve a kapcsolatot a **music?** és **music?** között.
+
+[zenei görögbetűk kapcsolata]
+
+A zenei jelfeldolgozás alap feladata ennek a kapcsolatnak a megértése. Az automatikus leiratkészítés nehézségét jól szemlélteti, hogy ennek a folyamatnak a fordítottja, a leirat alapján való zene szintetizálás sem oldható meg tökéletesen. Ennek oka, hogy míg az előadás során a zenész a zene, mint leriat és a zene, mint koncepció birtokában készíti el a zene, mint hangobjektumot, a számítógép nem tudja megérteni a zene jelentését, így a szintetizálás sok esetben hiányos eredményt készít. Ezt megfontolva a gépi leiratkészítés feladata nem más, mint utánozni az "emberi" leiratkészítést, azzal a különbséggel, hogy míg az ember a hangobjektumon kívűl a koncepciót is felhasználja erre a feladatra, a számítógépnek alapvetően a zene megértése nélkül kell leiratoznia azt. Gondoljunk csak arra, hogy míg egy zenész egy akkordot az általa keltett érzés alapján el tud nevezni, valószínüleg a feszültségek érzete alapján, a pontos felrakás ismerete nélkül, addig jelfeldolgozással az akkord csak a hangok pontos meghatározása után nevezhető el, ráadásul sok esetben az elnevezés folyamata sem egyértelmű, mivel egy adott dolgot többféle képpen is képesek vagyunk hallani. Mivel a két folyamat nem egyezik meg, a számítógép és a zenész különböző típusú hibákat tudnak elkövetni, ami nagyban megnehezíti egy gépi kottázás kiértékelését. 
+
+[zenei görögbetűk kapcsolata 2]
+
+[példa a zenész és a gép akkordefelismerésére]
+
+A zenei modellemben definiált hangobjektum továbbra is tartalmaz absztrakciót a hang alapvető fizikai valójához képest, hiszen nem a légnyomás változását reprezentálja az idő múlásával, hanem az adott időintervallumokon vett előforduló légnyomáskülönbségváltozások frekvenciáit. Ez mindenképen előnyös választás, először is, mert a definíciók így nem lesznek szükségtelenül bonyolultak, másodszor pedig azért, mert a két fizikai szint összefüggésében a zenének már nincsen szerepe. Azt azonban fontos megjegyezni, hogy a hangobjektumra vontakozó állításoknál feltételeztem, hogy az csak zenei hangokat tartalmaz, viszont a jelfeldolgozás szempontjából szükséges lenne egy olyan reprezentációs szint is, ahol még létezik zaj és zörej, hogy ezek kapcsolata is formalizálható legyen.
+
+[zene fizikai szintjei: hanghullám, diszkrét ablakok, közöttük a zaj]
+
+A hangobjektum mintákon vett frekvenciák listájaként való ábrázolása a jelfeldolgozás során elkerülhetetlen, hiszen a hanghullámból a hangmagasságok kinyerését egymást követő ablakokon vett valamilyen transzformációval lehet megvalósítani, melynek kimenete az általunk definiált hangobjektummal pont megegyezik. A modell nem veszi figyelembe a minták sűrűségét illetve azok hosszát, de az elmondható, hogy az idősíkról a frekvencia spektrumra való képezés során a nagyobb pontosság érdekében rövidebb ablakokat használnak, mint amire nekünk a zenei definíciók megírása megkövetelne, így az átlagos használat során ez nem fog problémát jelenteni.
+
+```coq
+(* theories.physics.Frequency.v *)
+Definition frequency := Q.
+```
+
+```coq
+(* theories.physics.FrequencySample.v *)
+
+(* measured in decibel *)
+Definition amplitude := Q.
+
+Inductive frequency_amplitude :=
+  freq_amp : frequency -> amplitude -> frequency_amplitude.
+
+Notation "A 'Hz' B 'dB'" := (freq_amp A B) (at level 85, right associativity).
+
+Definition frequency_sample := list frequency_amplitude.
+```
+
+```coq
+(* theories.physics.SoundingObject.v *)
+Definition sampling_rate := N.
+
+Inductive sounding_object : Type :=
+  sounding_obj : sampling_rate -> list frequency_sample -> sounding_object.
+
+Example so1 := sounding_obj 10%N [[]; [(5Hz 1.0dB); (10Hz 0.9dB); (15Hz 0.2dB)]].
+```
+
+Mivel zenék gép elbírálására sokszor hatalmas mennyiségben van szükség, fontos lenne definiálni a SoundingObjectre egy olyan állítást, amely eldönti, hogy az adott objektum egyáltalán zene-e, ezzel megspórolva a felesleges analíziseket nem zenét tartalmazó hangfájlok esetén. Bár a zeneelmélet elég sok területre kitér, mégis magának a zenének semmilyen általánosan elfogadható és formalizálható definíciója nem létezik.
+
+**IDE ÍRNI**
+
+```coq 
+is_music
+is_popmusic
+```
+
+A SoundingObject és a Song kapcsolatának vizsgálatára bevezettem a leiratot, vagyis a Transcriptiont, melynek két tagja a hangobjektum és a dal. Azt, hogy egy Song megfelelő leirata-e egy SoundingObjectnek, az alábbi módon ellenőrízhetjük.
+
+```coq
+(* theories.physics.Transcription.v *)
+
+Definition is_right (t : transcription) : bool :=
+  match t with | transcript so song =>
+  andb 
+  (is_music so) 
+  (*nagyjából megegyezik a hossz *)
+  (andb (Nat.leb (N.to_nat (song_duration_in_sec song) * 800) (length_in_msec so))
+        (Nat.leb ((length_in_msec so) * 800) (N.to_nat (song_duration_in_sec song))))
+  end.
+(* Teljesülnie kell:
+   - ugyanazok a dolgok szólnak időben ugyanott (kb ??)
+   - az egyek hangsúlyosabbak, mint a többi dolog
+*)
+```
+
+Az első pontja az `is_right`-nak eldönti, hogy a hangobjektum mintái a megadott mintavételezési frekvencia alapján nagyjából megegyezik-e a dal átlag bpm értékéből számolt hosszal.
+
+**IDE ÍRNI**
+
+[szép kép arról, hogy az is_right miket csekkol]
+
+### Példa a modell projektekben való használatára
+
+A zenei modell célja, hogy segítse a zenei jelfeldolgozást. Az alábbi példában megmutatom, hogy a korábban említett négy területen hogyan használható a modell a színvonalasabb jelfeldolgozási projekt megvalósításának érdekében. Vegyük az alábbi feladatot.
+
+> Nagy adag adott hangfájl feldolgozását követően különítsük el a zenét tartalmazóak közül azokat, amelyeken végig csak egy trombita játszik, a teljes dal a C2 - Cb4 hangtartományon belül van és nem szerepel benne tritónusz lépés.
+
+A modell hiányának első szintje a követelmények megfogalmazásában jelenik meg. A feladatszövegben számos olyan kifejezés olvasható, amelyek csak háttértudással értelmezhetőek, illetve akad olyan is, amelynek még úgy sem egyértelmű a definíciója. A Coqban megadott zenei modell segítségével az egyszerű zenei kifejezések jelentését könnyen megkereshetjük, 
+
  - példa paraméterezhető automatikus bizonyításra, amit egy másik program használni tud
  - a modellt lehet végülis szintetizálásra használni, így könnyen előállíthatók algoritmusoknak teszt esetek, amiket könnyű vizsgálni
 
 ## Az eredmények összefoglaló értékelése és a levonható következtetések
+
+A kutatásom célja volt megkeresni azt az eszközt, mellyel a zene modelljének formalizálása elvégezhető úgy, hogy az használható legyen valós jelfeldolgozási projektekben,  az összes eddigi formalizáltságbeli hiányt betöltve. Láthattuk, hogy azonban a szakterületre jellemző hiányos de
+
+ lehetőséget nyújtson. oly módon, hogy a kész modell könnyen beágyazható legyen zenei jelfeldolgozási feladatokba. Ennek hasznossága illetve szükségessége több szinten megnyilvánul valós projektekben.
 
  - mit lehetett bebizonyítani a zenei struktúrákra
  - mindent kapcsolatba hoz az eszköz mindennel: Midit a kottával, művészi zeneelméletet a fizikával, zenetudományi kutatásokat jelfeldolgozási projektekkel
