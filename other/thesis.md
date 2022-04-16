@@ -445,10 +445,75 @@ A modell hiányának első szintje a követelmények megfogalmazásában jelenik
 
 ## Az eredmények összefoglaló értékelése és a levonható következtetések
 
-A kutatásom célja volt megkeresni azt az eszközt, mellyel a zene modelljének formalizálása elvégezhető úgy, hogy az használható legyen valós jelfeldolgozási projektekben,  az összes eddigi formalizáltságbeli hiányt betöltve. Láthattuk, hogy azonban a szakterületre jellemző hiányos de
+A kutatásom célja volt megkeresni azt az eszközt, mellyel a zene modelljének formalizálása elvégezhető úgy, hogy az használható legyen valós jelfeldolgozási projektekben,  az összes eddigi formalizáltságbeli hiányt betöltve. Láthattuk, hogy azonban a szakterületre jellemző aluldefiniáltság miatt nem csak az eszköz megválasztása jelent kihívást, hanem a fogalmak elkülöntése és a zeneelmélet a zene minden szintjére való kibővítése is. Ennek a feladatnak a megoldása tehát az űr betöltését jelentené a zenetudományi kutatások és a jelfeldolgozási projektek között, de ezzel együtt szükségszerűen összekötné a művészei zeneelméletet a fizikával illetve a kottát a MIDI-vel is.
 
- lehetőséget nyújtson. oly módon, hogy a kész modell könnyen beágyazható legyen zenei jelfeldolgozási feladatokba. Ennek hasznossága illetve szükségessége több szinten megnyilvánul valós projektekben.
+[mit mivel köt össze a bremen]
 
- - mit lehetett bebizonyítani a zenei struktúrákra
- - mindent kapcsolatba hoz az eszköz mindennel: Midit a kottával, művészi zeneelméletet a fizikával, zenetudományi kutatásokat jelfeldolgozási projektekkel
+Mivel nagyon széles területen vállal feladatokat a zenei modell és alig van eszköz amire építkezhet, a zenei reprezentáció szemptonjából alacsonyabb szinteken rengeteg munkát ígényel a kidolgozása, hogy alkalmas legyen az igazán fontos szerepeinek betöltésére magasabb szinteken. Ahhoz, hogy komplexebb példákat mutathassak a munkámban tehát szükségem volt a hangjegy és a ritmus megfelelő definiálására, azonban az ezekre épülő struktúrák megfogalmazása ettől még nem bizonyúlt egyértelműnek. Bár magasabb szintek felé haladva nem zárható ki a további fejlesztések igénye,  úgy gondolom, hogy a formalizálás során a legalacsonyabb szinteken megtartottam, hogy a definíciók szépek, szimmetrikusak és praktikusak legyenek, így ezek változtatására a modell további fejlesztése során sem lesz szükség. A Coq, mint modellt leíró eszköz megfelelő választásnak bizonyúlt mivel teljesítette a könnyen olvasható és matematika típusokra épülő definíciók követelményét. A kapott struktúrákra így tényleg teljesülnek azok az állítások, melyeket elvárnánk, hogy teljesüljenek, hiszen nem függenek imperatív nyelvekre jellemző gépi típusoktól. A célkitűzések között nem szerepelt, de az alábbi állításokat Coqban formálisan beláttam.
+
+```coq
+(* theories.harmony.Letter.v *)
+Lemma upward_distance_xx : forall (x : letter), upward_distance x x = 0.
+Lemma upward_distance_0 : forall (x y : letter), (upward_distance x y = 0) <-> (x = y).
+Lemma upward_distance_12 : forall (x y : letter), ~ x = y -> (upward_distance x y) = 12 - (upward_distance y x).
+
+(* theories.harmony.PitchClass.v *)
+Lemma pitchclass1 : forall (l1 l2 : Letter.letter) (m : Z), l1 = l2 -> (l1 # m) = (l2 # m).
+Lemma pitchclass2 : forall (l1 l2 : Letter.letter) (m1 m2 : Z),
+  eqb (l1 # m1) (l2 # m2) = false <-> 
+  orb (Bool.eqb (Letter.eqb l1 l2) false) (Bool.eqb (Z.eqb m1 m2) false) = true.
+Lemma pitchclass3 : forall (x y : pitchClass),
+  eqb x y = false <->
+  Nat.eqb (upward_distance x y) (12 - (upward_distance y x)) = true.
+Lemma pitchclass16 : forall (l1 l2 : Letter.letter) (m1 m2 : Z), 
+  upward_distance (l1 # m1) (l2 # m1) = upward_distance (l1 # m2) (l2 # m2).
+Theorem pitchclassx : forall (x y z : pitchClass),
+  enharmonic_eqb x y = true <-> upward_distance z x = upward_distance z y.
+Theorem pitchclass3 : forall (x : pitchlass), flatten (sharpen x) = x.
+Theorem pitchclass4 : forall (x y : pitchlass), sharpen x = y -> flatten y = x.
+Theorem pitchclass5 : forall (x y : pitchclass), upward_distance x y + 1 = upward_distance x (sharpen y).
+
+(* theories.harmony.Pitch.v *)
+(*similar to distance axioms*)
+Theorem pitch1 : forall (x y : pitch), distance x y = 0 -> enharmonix_eq x y.
+Theorem pitch2 : forall (x y : pitch), distance x y + distance y x = 0.
+Theorem pitch3 : forall (x y z : pitch), distance x z =< distance x y + distance y z.
+
+(*some equality axioms*)
+Theorem pitch4 : forall (x : pitch), enharmonic_eq x x.
+Theorem pitch5 : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq y x.
+Theorem pitch6 : forall (x y z : pitch), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
+Theorem pitch7 : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq (halfstep_up x) (halfstep_up y).
+
+(* theories.harmony.Interval.v *)
+(*some equality axioms*)
+Theorem intervalname1 : forall (x : intervalName), enharmonic_eq x x.
+Theorem intervalname2 : forall (x y : intervalName), enharmonic_eq x y -> enharmonic_eq y x.
+Theorem intervalname3 : forall (x y z : intervalName), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
+
+(*addition axioms*)
+(*commutativity*)
+Theorem intervalname4 : forall (x y : intervalName), enharmonic_eq (plus x y) (plus y x).
+(*associativity*)
+Theorem intervalname5 : forall (x y z : intervalName), enharmonic_eq (plus (plus x y) z) (plus (plus y z) x).
+(*identity*)
+Theorem intervalname6 : forall (x : intervalName), enharmonic_eq x (plus x {Perfect Unison}).
+(*inverse ?*)
+Theorem intervalname7 : forall (x : intervalName), enharmonic_eq (plus x (minus {Perfect Unison} x) {Perfect Unison}).
+(*distribution ?*)
+
+(*some for invert*)
+Theorem intervalname8 : forall (x : intervalName), enharmonic_eq x (invert (invert x)).
+```
+
+Az állítások közül sok magától értetődő, azonban a szakterület irodalmában ezek még kimondásra nem kerültek, így összegyűjtésük és bizonyításuk igazi áttörést jelent a zenei formalizálás felé. Jelentősségüket tovább növeli, hogy ahhoz, hogy magasabb szinten érdekesebb állításokat vizsgálhassunk, az alacsony szintű zenei struktúráknak ezen tulajdonságait kell majd felhasználnunk. A felvázolt zenei modell tehát bőven betölti a jelfeldolgozási feladatok követelményeinél jelentkező aluldefiniáltságot, hiszen olyan zeneelméletet nyújt, amelyen struktúrákat és a struktúrákon bizonyításokat is be lehet hivatkozni, mely azon felül, hogy egyértelműsíti a leírást, a háttértudással nem rendelkező fejlesztőt be is vezeti a zeneelméletbe anélkül, hogy annak a zenével egyáltalán foglalkoznia kellene.
+
+Sokszor esett már szó a zene eltárolásáról, pontosabban annak megfelelő módjának hiányáról. Láthattuk, hogy ez a feladat leginkább azért jelent problémát, mert sem a MIDI, sem a kotta nem pontosan azokat a tulajdonságait reprezentálja a zenének, amelyekre nekünk szükségünk van. Általánosan elmondható, hogy míg a kotta túl absztrakt, és túl sok mindent bíz az interpretálóra, addig a MIDI túl konkrét és kevés dolog állapítható meg belőle feldolgozás nélkül. Az elkészült modellben szereplő Song struktúra a kottától eltér abban, hogy nem használ ütemeket, és ami ennél még fontosabb, hogy egy másik eszközzel, a független szólamokra bontással ad lehetőséget az átfedő hangok leírására. Ezek a változtatások és a hangjegyek tetszőleges részletességgel megadható dinamikai tulajdonsága teszik lehetővé a Song rugalmas használatát a jelfeldolgozás különböző munkafázisaiban.
+
+A modell a zeneelméleti függvénygyűjtemény szerepét is sikeresen betöltötte. Az előrelépés más gyüjteményekhez képest, elsődlegesen az, hogy ezek a függvények megfelelő struktúrákra építenek. Ezen kívűl nagy öröm, hogy egy helyen szerepelnek a fizikai és művészeti definíciók, így téve könnyebbé a közöttük lévő kapcsolat vizsgálatát. Gondolhatnánk azonban a szakirodalom számos analízisére is, mint magasabb szintű függvényekre. Ezek közös modellen feletti implementálása nagyban elősegítené elbírálásukat, összehasonlításukat és természetesen használatukat is. Úgy gondolom, hogy egy ilyenfajta gyűjteménynek is a jövőben helye tudna lenni az általam leírt formalizáció, amely így akár egy zenei lexikon és irodalmi példatár hibridjeként tudná megkönnyíteni a számítási zenetudományi kutatásokba való bekapcsolódást.
+
+
+
+Ez inkább a kiértékeléshez. Ezen felül összefüggéseket állapítottam meg a Song és a SoundingObject, vagyis a zene absztrakt és konkrét reprezentációi közötti kapcsolatot
+
  - Toward a formal theory 2. oldal "One of the virtues of formal theory ..."

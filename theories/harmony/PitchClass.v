@@ -49,6 +49,7 @@ end.
 Lemma pitchclass1 : forall (l1 l2 : Letter.letter) (m : Z), l1 = l2 -> (l1 # m) = (l2 # m).
 Proof. intros l1 l2 m. intro H. rewrite -> H. reflexivity.
 Qed.
+
 (*
 Lemma pitchclass15 : forall (l1 l2 : Letter.letter) (m1 m2 : Z), (l1 # m1) = (l2 # m2) -> l1 = l2.
 Proof. intros l1 l2 m1 m2. enough (l1 = l2 \/ ~ l1 = l2 ) as [H|H].
@@ -57,7 +58,7 @@ Proof. intros l1 l2 m1 m2. enough (l1 = l2 \/ ~ l1 = l2 ) as [H|H].
  destruct (l1 = l2) eqn:LL. intro H. rewrite -> H. destruct (Z.eqb m1 m2) eqn:EM.
   -  destruct (Letter.eqb l1 l2) eqn:EL1L2. auto. auto.
   - destruct (Letter.eqb l1 l2) eqn:EL1L2. auto. auto.
-Qed.
+Qed.*)
 
 Lemma pitchclass2 : forall (l1 l2 : Letter.letter) (m1 m2 : Z),
   eqb (l1 # m1) (l2 # m2) = false <-> 
@@ -76,6 +77,7 @@ intros. split.
   *** simpl. rewrite -> eqM1M2. rewrite -> eqL1L2. auto.
 Qed.
 
+(*
 Lemma pitchclass3 : forall (x y : pitchClass),
   eqb x y = false <->
   Nat.eqb (upward_distance x y) (12 - (upward_distance y x)) = true.
@@ -94,14 +96,14 @@ intros x y. destruct (eqb x y) eqn:EXY.
   *****  simpl. induction (Z.neg p) eqn:ZP.
   ******  simpl.
 Admitted.
-
+*)
 Lemma pitchclass16 : forall (l1 l2 : Letter.letter) (m1 m2 : Z), 
   upward_distance (l1 # m1) (l2 # m1) = upward_distance (l1 # m2) (l2 # m2).
 Proof.
 intros.
 unfold upward_distance.
 Admitted.
-
+(*
 Theorem pitchclassx : forall (x y z : pitchClass),
   enharmonic_eqb x y = true <-> upward_distance z x = upward_distance z y.
 Proof.

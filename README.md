@@ -7,6 +7,7 @@ Bremen is a formal model of music theory written in Coq.
 - transcription is_right egyek hangsúlyosak
 - transcription is_right ugyanazok a dolgok szolnak ugyanott
 - alap típusok állításait felírni és bebizonyítani **idáig**
+- bizonyításokat elnevezni, átfogalmazni
 - felesleges definíciókat, kommenteket, notationöket kitisztítani
 - típusok, definíciók és állatások neveit átnézni
 - unitteszteket írni
