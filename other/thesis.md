@@ -1,46 +1,55 @@
 # A könnyűzene formális modellje
 
-## Abstract
+## 1. Absztrakt
 A zenei jelfeldolgozással foglalkozó algoritmusok gyakran figyelmen kívül hagyják magának a zenének az elméletét. Ennek oka a formális zenei modell hiánya. A munkámban megmutatom, hogy a formalizált zeneelmélet felhasználható a jelfeldolgozási kimenetek gépi elbírálásában. Megvizsgálom, hogy a zenei modell megválasztása hogyan befolyásolja a feldolgozás egyes szintjeit, hogyan lehet segítségükre, és hogyan verifikálhatóak számítógéppel az eredményeik. Arra is kitérek, hogy ez a számítási zenetudományi feladat milyen szoftvertechnológiai kihívásokkal jár, és azok hogyan oldhatóak meg.  
 
-## A kutatási célok meghatározása
+## 2. A kutatási célok meghatározása
 
 A kutatás legfőbb célja megállapítani, hogy milyen eszközökkel lehetséges a zene modelljét formalizálni oly módon, hogy a kész modell könnyen beágyazható legyen zenei jelfeldolgozási feladatokba. Ennek hasznossága illetve szükségessége több szinten megnyilvánul valós projektekben.
 
-[zenei modell szintjei kép: 1. követelmények, dokumentációk 2. reprezentálás 3. zeneelméleti definíciók, függvények 4. zenei kiértékelés]()
+![](./images/1.svg)
+
+*1. ábra: A zenei modell jelfeldolgozási feladatoknál jelentkező hiányának szintjei*
 
 A zenei modell hiánya legalacsonyabb szinten a feladat megfoglamazásánál, a követelmények egyértelmű definiálásánál jelentkezik. A zenei projektekre jellemző, hogy mivel leggyakrabban zenei háttértudással rendelkező fejlesztők készítik azokat, a zenészek által ismert zeneelmélet mentén fogalmaznak, ezek  viszont gyakran pontatlanok tudnak lenni a különböző zenei stílusok különböző fogalmazásai miatt. John Rahn is ebből indul ki a *Logic, Set Theory, Music Theory* című kutatásában, melyben így fogalmaz: 
->The music-theoretical literature is a porridge of definitions fallen prey to various dangers, and worse, of "definitions" so-called which are utterances of every possible sort except the sort of definition. If only authors who cannot define would confine themselves to the "you know what I mean" mode of discourse, all would be well. But a statement falsely purporting to define, if taken seriously, utterly destroys the fabric of its context.
+>A zeneelméleti irodalom számos veszély áldozatául esett definíciók keveréke, és ami mégrosszabb, olyan "definícióké" amelyek minden létező kifejezésmód közül éppen csak definiálástól állnak távol. Ha csak minden olyan szerző aki nem tud definiálni lekorlátozná magát a "tudod hogy értem" fajta fogalmazásra, minden rendben lenne, de a tévesen definíciónak nevezett állítás, ha komolyan veszik azt, végletekig elrontja saját kontextusát.
 
 Fontos hozzátenni, hogy a művészet központú zeneelmélet nem tekinti céljának a formalizáltságot, ezért alátámasztható, hogy miért hoz meg döntéseket több esetben akár hagyomány alapján is. Ha a zeneelmélet ezen alapvető hiányosságától el is tekintünk, akkor is nehezen található olyan zeneelméleti összefoglaló, ami a hanghullámoktól a zenei formáig és stílusokig egybefüggően tárgyalja a témát, így tehát általánosságban rossz gyakorlat a művészeti zeneelmélet használata követelmények megfogalmazásánál.
 
-[Kép béna zenei dokumentációról]()
-[Példa ellentmondó zeneelmélet könyvekből (konszonancia)]()
+```python
+def is_enharmonic(note1, note2):
+    """Test whether note1 and note2 are enharmonic, i.e. they sound the same."""
+```
+*1. kódrészlet: "Tudod hogy értem" típusú dokumentáció példa a Mingus nevű, Python zeneelméleti libraryből*
 
-A modell szerepe a zenei adatok tárolásában is megjelenik. Dalok reprezentálására két módszert használnak a gyakorlatban. Az egyik a hangok MIDI fájlként való tárolása. Ennek egyértelmű hátránya, hogy a ritmikai információ kinyerése feldolgozást igényel. Ennek oka, hogy a hangok kezdete és vége van csak eltárolva, a hangérték megállíptása pedig sok esetben nem egyértelmű ezek alapján. Minden hanghoz a hang magasságán kívűl még a hang erősségének értéke van feljegyezve. Ennek a számnak az interpretálása szintén nem egyértelmű, hiszen egyszerre fejezi ki a hangszer hangerejét, a hang dinamikáját, a dal adott részének a dinamikáját illetve akár a hang ütemben kapott szerepét is. Ezen indokok miatt a MIDI formátum bár a zene fizikai leírásának megfelelő reprezentáció tud lenni, sok esetben további feldolgozást igényel, így általánosságban véve nem tekinthető magasszintű zenei jelfeldolgozási feladatoknál megfelelő kimeneti formátumnak.
+![Példa ellentmondó zeneelmélet könyvekből (konszonancia)]()
 
-[MIDI példa, esetleg valami nem egyértelmű ritmikai dologról]()
+A modell szerepe a zenei adatok tárolásában is megjelenik. Dalok reprezentálására két módszert használnak a gyakorlatban. Az egyik a hangok MIDI fájlként való tárolása. Ennek egyértelmű hátránya, hogy a ritmikai információ kinyerése feldolgozást igényel. Az emögött rejlő ok, hogy a hangok kezdete és vége van csak eltárolva, a hangérték megállíptása pedig sok esetben nem egyértelmű ezek alapján. Minden hanghoz a hang magasságán kívűl még a hang erősségének értéke van feljegyezve. Ennek a számnak az interpretálása szintén nem egyértelmű, hiszen egyszerre fejezi ki a hangszer hangerejét, a hang dinamikáját, a dal adott részének a dinamikáját illetve akár a hang ütemben kapott szerepét is. Ezen indokok miatt a MIDI formátum bár a zene fizikai leírásának megfelelő reprezentáció tud lenni, sok esetben további feldolgozást igényel, így általánosságban véve nem tekinthető magasszintű zenei jelfeldolgozási feladatoknál megfelelő kimeneti formátumnak.
+
+![MIDI példa, esetleg valami nem egyértelmű ritmikai dologról]()
 
 A zeneművek másik reprezentálási formája jellemzően valamilyen kottaszerű ábrázolást jelent. Bár ezen a területen megvalósítás és célkitűzések szempontjából széles skálán mozognak az eszközök, gyakori probléma viszont a jelfeldolgozáshoz való használatukban, hogy nem magát a zenét, hanem a kottát reprezentálják, ez pedig azon felül, hogy szükségtelen komplikációkat okoz, több esetben félrevezeti a fejlesztőket az eredmények értékelésénél, vagy a célok meghatározásában. Erre példaként hozható az ütemmutató és az ütemen belüli hangsúlyozás feljegyzése. Mivel az ütemmutató meghatározza, hogy az adott ütemen belül mely hangokra kerül nagyobb hangsúly, ezeken a hangokon kottában a megfelelő hangsúlyozást külön jelölni felesleges, viszont jelfeldolgozási feladatoknál minden egyes hang pontos hangsúlyozását elhagyni nagymértékű adatkiesést jelentene és nagyban megnehezítené a további feldolgozást. Ezen kívűl a kottába feljegyezhető dinamikai kifejezések gépi értelmezése lehetetlen vállalkozás lenne, ezek nélkül viszont nem megfelelő a zene reprezentálása kottában, így a kotta bár megfelelő végkimeneti formátum magasszintű jelfeldolgozási feladatoknak, a feladat végrehajtása közben viszont rossz gyakorlat a használata. Fontos megjegyezni, hogy léteznek olyan kottaszerű reprezentáló eszközök, amelyek jól kezelnek a most említett nehézségek közül többet is.
 
-[Kotta példa]()
-[Music21 nem is olyan rossz példa]()
-[reprezentálás szintjei: alul MIDI felül kotta középen hiányzik a megfelelő eszköz]()
+![Kotta példa]()
+![Music21 nem is olyan rossz példa]()
+
+![](./images/2.svg)
+
+*2. ábra: A reprezentáció szintjei jelfeldolgozási feladatoknál*
 
 Egy általános zenei modellre a jelfeldolgozás során mint függvény gyűjteményre is szükség van. Erre a problémára számos zeneelmélet könyvtár létezik, viszont ezek saját típusokat használnak, amik nehezen kapcsolódnak zenei reprezentációs eszközökhöz. Másik általános hiányosságuk, hogy a fizikai zeneelmélet definícióit nem tartalmazzák.
 
-[Music21 voicing dolog hogy viszonyul egy többszólamú rész reprezentálásához MIDI-ben?]()
+![Music21 voicing dolog hogy viszonyul egy többszólamú rész reprezentálásához MIDI-ben?]()
 
 Legmagasabb szinten pedig a zene formális modellje használható lenne jelfeldolgozó algoritmusok kimenetének zenei kiértékelésére. Bár ez használat szempontjából nem különül el a korábban említett zeneelmélet könyvtár eszközöktől, abból a szempontból fontos elkülöníteni mégis, hogy ez a feladat sokkal magasabb szintű zenei formalizálást igényel. Példaként hozható egy dal részeinek megnevezése, vagy műfajának felismerése.
 
-[Ide is valami]()
+![Ide is valami]()
 
-A modell formalizálásnak eszközének megválasztásán kívül megvizsgálom, azt is, hogy melyek azok a zeneelméleti területek illetve konkrét feladatok amelyeket egy ilyen modellnek tárgyalnia kell annak érdekében, hogy mai jelfeldolgozási feladatokat megfelelően tudjon támogatni. Az elmúlt évtizedekben a számítási zenetudomány leginkább klasszikus zene köré épített elemzéseket, melyek sokszor könnyűzenére nem értelmezhetőek, illetve az könnyűzenére átültethető analízisek közül is kevés olyan akad, aminek gyakorlati haszna lenne egy tipikus mai projektben. Az elmúlt években robbanásszerűen növekedett a zenei jelfeldolgozás alkalmazása. Megjelent a streaming szolgáltatóknál és a zenei megosztó felületeken is, megbízható működésüknek szükségét pedig mi sem fejezné ki jobban, mint hogy eredményeik gyakran jogi következményeket vonnak maguk után. A futurisztikusnak tűnő okoserősítőkben pedig nem ritka funkció már a virtuális zenekar, amely minden instrukció nélkül real time kíséri a játékost a dalban, vagy akár együtt improvizál vele. Egy ilyen eszköz korábban nem látott feladatok merülnek fel. 
+A modell formalizálásnak eszközének megválasztásán kívül megvizsgálom, azt is, hogy melyek azok a zeneelméleti területek illetve konkrét feladatok amelyeket egy ilyen modellnek tárgyalnia kell annak érdekében, hogy mai jelfeldolgozási feladatokat megfelelően tudjon támogatni. Az elmúlt évtizedekben a számítási zenetudomány leginkább klasszikus zene köré épített elemzéseket, melyek sokszor könnyűzenére nem értelmezhetőek, illetve az könnyűzenére átültethető analízisek közül is kevés olyan akad, aminek gyakorlati haszna lenne egy tipikus mai projektben. Azonban az elmúlt években robbanásszerűen növekedett a zenei jelfeldolgozás alkalmazása. Megjelent a streaming szolgáltatóknál és a zenei megosztó felületeken is, megbízható működésüknek szükségét pedig mi sem fejezné ki jobban, mint hogy eredményeik gyakran jogi következményeket vonnak maguk után. A futurisztikusnak tűnő okoserősítőkben pedig nem ritka funkció már a virtuális zenekar, amely minden instrukció nélkül real time kíséri a játékost a dalban, vagy akár együtt improvizál vele. Egy ilyen eszköz korábban nem látott feladatok merülnek fel. 
 
-Vizsgálni fogom a zenei analízis alapvető kérdését, a zene és nem zene elválasztását. Minél szigorúbb állításokkal fogom szűkíteni a könnyűzene fogalmát és tanulmányozni fogom ennek a szigorításnak a jelentősségét. Kitérek az ütem és az ehhez tartozó fogalmak jelentésére, különböző definiálási lehetőségeire és az ezekhez tartozó ütemmutató felismerésének lehetséges megvalósításaira. Végül pedig megvizsgálom, hogy milyen fogalmak mentén definiálható a zenei variáció és a variáció mentén hogyan adható meg egy dal felépítése és részeinek kapcsolata.
+A munkám során továbbá vizsgálni fogom a zenei analízis alapvető kérdését, a zene és nem zene elválasztását. Minél szigorúbb állításokkal fogom szűkíteni a könnyűzene fogalmát és tanulmányozni fogom ennek a szigorításnak a jelentősségét. Kitérek az ütem és az ehhez tartozó fogalmak jelentésére, különböző definiálási lehetőségeire és az ezekhez tartozó ütemmutató felismerésének lehetséges megvalósításaira. **Végül pedig megvizsgálom, hogy milyen fogalmak mentén definiálható a zenei variáció és a variáció mentén hogyan adható meg egy dal felépítése és részeinek kapcsolata.**
 
  - Szakdogám akkordelnevezője is azért olyan szuper, mert sokat tud a program a zenéről
- - zeneelmélet formális alapjait lerakni
 
 ## A problémakör irodalmának, az előzményének rövid áttekintése
 
@@ -248,7 +257,7 @@ követelményeknél nem lehet egy az egybe a coqot használni, de coqban le lehe
 
 ### A ritmus formalizálásáról
 
-A ritmus a zenei műszótár szerint a hangok időrendi sorrendjének rendje, egymáshoz való időértékviszonya. Ennek megfelelően vegyük az alábbi formalizációt:
+A ritmus a zenei műszótár szerint a hangok időbeli sorrendjének rendje, egymáshoz való időértékviszonya. Ennek megfelelően vegyük az alábbi formalizációt:
 
 ```coq
 (* rhythm.Division.v *)
@@ -510,10 +519,14 @@ Az állítások közül sok magától értetődő, azonban a szakterület irodal
 
 Sokszor esett már szó a zene eltárolásáról, pontosabban annak megfelelő módjának hiányáról. Láthattuk, hogy ez a feladat leginkább azért jelent problémát, mert sem a MIDI, sem a kotta nem pontosan azokat a tulajdonságait reprezentálja a zenének, amelyekre nekünk szükségünk van. Általánosan elmondható, hogy míg a kotta túl absztrakt, és túl sok mindent bíz az interpretálóra, addig a MIDI túl konkrét és kevés dolog állapítható meg belőle feldolgozás nélkül. Az elkészült modellben szereplő Song struktúra a kottától eltér abban, hogy nem használ ütemeket, és ami ennél még fontosabb, hogy egy másik eszközzel, a független szólamokra bontással ad lehetőséget az átfedő hangok leírására. Ezek a változtatások és a hangjegyek tetszőleges részletességgel megadható dinamikai tulajdonsága teszik lehetővé a Song rugalmas használatát a jelfeldolgozás különböző munkafázisaiban.
 
-A modell a zeneelméleti függvénygyűjtemény szerepét is sikeresen betöltötte. Az előrelépés más gyüjteményekhez képest, elsődlegesen az, hogy ezek a függvények megfelelő struktúrákra építenek. Ezen kívűl nagy öröm, hogy egy helyen szerepelnek a fizikai és művészeti definíciók, így téve könnyebbé a közöttük lévő kapcsolat vizsgálatát. Gondolhatnánk azonban a szakirodalom számos analízisére is, mint magasabb szintű függvényekre. Ezek közös modellen feletti implementálása nagyban elősegítené elbírálásukat, összehasonlításukat és természetesen használatukat is. Úgy gondolom, hogy egy ilyenfajta gyűjteménynek is a jövőben helye tudna lenni az általam leírt formalizáció, amely így akár egy zenei lexikon és irodalmi példatár hibridjeként tudná megkönnyíteni a számítási zenetudományi kutatásokba való bekapcsolódást.
+A modell a zeneelméleti függvénygyűjtemény szerepét is sikeresen betöltötte. Az előrelépés más gyüjteményekhez képest, elsődlegesen az, hogy ezek a függvények megfelelő struktúrákra építenek. Ezen kívűl nagy öröm, hogy egy helyen szerepelnek a fizikai és művészeti definíciók, így téve könnyebbé a közöttük lévő kapcsolat vizsgálatát. Gondolhatnánk azonban a szakirodalom számos analízisére is, mint magasabb szintű függvényekre. Ezek közös modellen feletti implementálása nagyban elősegítené elbírálásukat, összehasonlításukat és természetesen használatukat is. Úgy gondolom, hogy egy ilyenfajta gyűjteménynek is a jövőben alapja tudna lenni az általam leírt formalizáció, amely így akár egy zenei lexikon és irodalmi példatár hibridjeként tudná megkönnyíteni a számítási zenetudományi kutatásokba való bekapcsolódást.
 
+A magasszintű zenei kiértékelés támogatása egy összetett problémának bizonyúlt, melyhez az alacsonyabb szintű problémák megfelelő megoldása ahogy láthattuk elkerülhetetlen. Ennek a fajta kiértékelésnek három kategóriájával is foglalkoztam munkámban. Először is a SoundingObjectről fogalmaztam meg definíciókat, mellyel olyan információk nyerhetők ki a zenéből, amiket általában csak absztraktabb szinten van lehetőségünk megszerezni. Az ilyen kiértékelés nagyban le tudja csökkenteni nagymennyiségű zenei adat feladolgozását, mivel ezek így részlegesen elbírálhatóak a kottaszerű leirat elkészítése nélkül. Másodszor példát mutattam arra, hogyan definiálhatóak a legmagasabb szintű zenei vizsgálatok, mint például a Song ütemmutatójának  megállapítása, felépítési egységeinek elkülönítése, vagy a hangnemének kiszámolása. Az ilyen típusú analízisek sokkal egyértelműebbek, mint a korábban említett Schenkeri zeneelmélet variánsai, hiszen a megfelelő reprezentálásnak köszönhetően nem okoz kérdést, hogy mit és mit nem tudunk a zenéről. Végül pedig a Transcription segítségével összefüggéseket állapítottam meg a Song és a SoundingObject, vagyis a zene absztrakt és konkrét reprezentációi között. Ez a fajtai kiértékelés például a zenei jelfeldolgozási eszközláncolatok minőségbeli ellenőrzőjeként használható fel. Az így megépített rendszer miután automatikusan leiratot készít egy hangfájlból, automatikusan el is tudná bírálni annak helyességét. Ennek hatalmas előnye, hogy nagymennyiségű adat feldolgozása esetén is könnyű az evaluáció, hiszen nincsen szükség emberi beavatkozásra. További előrelépés, hogy ezt a módszert használó jelfeldolgozó programok helyességének megállapításánál nincsen szükség a várt kimenet ismeretére sem, tehát a bemeneti adatbázis összeállítása elhagyható feladat. Ezeknek az eredményeknek köszönhetően dinamikusabban, kevesebb idő alatt építhető nagy jelfeldolgozó rendszer, illetve könnyebben értékelhetőek adott transzformációk és részfeladatok közötti viszony.
 
+![zene automatikus lekottázása és elbírálása]()
 
-Ez inkább a kiértékeléshez. Ezen felül összefüggéseket állapítottam meg a Song és a SoundingObject, vagyis a zene absztrakt és konkrét reprezentációi közötti kapcsolatot
+**coq hogy teljesít**
 
- - Toward a formal theory 2. oldal "One of the virtues of formal theory ..."
+**lezárás**
+
+Toward a formal theory 2. oldal "One of the virtues of formal theory ..."
