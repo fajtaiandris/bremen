@@ -12,26 +12,19 @@ Bremen is a formal model of music theory written in Coq.
 - típusok, definíciók és állatások neveit átnézni
 - unitteszteket írni
 - dokumentációs kommenteket írni
-- dokumentáció generálást megoldani
 - _CoqProject fájlt átnézni  
 
-- a ritmus formalizálása részt beefejezni
 - is_music
 - is_right
 - példa
-- lezárást
+- lezárás
 - coq hogyan teljesít
-- képek
-- hivatkozásokat belerakni
 - helyesírás
 - szerkesztés
 - 19. kódrészlet
 - 24. kódrészlet
 - 26. kódrészletet kicserélni, ha megírtam rendesen
 
-- ezzel foglalkozni? konszonancia https://www.jstor.org/stable/40285261?seq=1
-http://gttm.jp/hamanaka/wp-content/uploads/2015/12/ISMIR2007Tutorial_Slide.pdf
-https://www.jstor.org/stable/900759
 
 ## Esetleg később kijavítani
  - melodic_part ne lehessen üres lista
