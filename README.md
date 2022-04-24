@@ -21,13 +21,13 @@ Bremen is a formal model of music theory written in Coq.
 - példa
 - lezárást
 - coq hogyan teljesít
-- a zenei hang formalizálásánál a végén felsorolt dolgokat beleírni
-- definíció non-creative, eliminable beleírni
-- akkordelnevezőt beleírni
 - képek
 - hivatkozásokat belerakni
 - helyesírás
 - szerkesztés
+- 19. kódrészlet
+- 24. kódrészlet
+- 26. kódrészletet kicserélni, ha megírtam rendesen
 
 - ezzel foglalkozni? konszonancia https://www.jstor.org/stable/40285261?seq=1
 http://gttm.jp/hamanaka/wp-content/uploads/2015/12/ISMIR2007Tutorial_Slide.pdf
