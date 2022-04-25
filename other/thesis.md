@@ -48,7 +48,9 @@ Egy általános zenei modellre a jelfeldolgozás során mint függvény gyűjtem
 
 Legmagasabb szinten pedig a zene formális modellje használható lenne jelfeldolgozó algoritmusok kimenetének zenei kiértékelésére. Bár ez használat szempontjából nem különül el a korábban említett zeneelmélet könyvtár eszközöktől, abból a szempontból fontos elkülöníteni mégis, hogy ez a feladat sokkal magasabb szintű zenei formalizálást igényel. Példaként hozható egy dal részeinek megnevezése, vagy műfajának felismerése.
 
-![Ide is valami]()
+![](./images/10.svg)
+
+*x.ábra: A zenére formálisan megfogalmazott állítások segítségével kiértékelhetőek adott zenei feldolgozások. Nagy bemenetgyűjtemény esetén pedig magára a feldolgozó algoritmusra is levonhatóak következtetések.*
 
 A modell formalizálásnak eszközének megválasztásán kívül megvizsgálom, azt is, hogy melyek azok a zeneelméleti területek illetve konkrét feladatok amelyeket egy ilyen modellnek tárgyalnia kell annak érdekében, hogy mai jelfeldolgozási feladatokat megfelelően tudjon támogatni.
 
