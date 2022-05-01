@@ -1,7 +1,7 @@
 # A könnyűzene formális modellje
 
 ## 1. Absztrakt
-A zenei jelfeldolgozással foglalkozó algoritmusok gyakran figyelmen kívül hagyják magának a zenének az elméletét. Ennek oka a formális zenei modell hiánya. A munkámban megmutatom, hogy a formalizált zeneelmélet felhasználható a jelfeldolgozási kimenetek gépi elbírálásában. Megvizsgálom, hogy a zenei modell megválasztása hogyan befolyásolja a feldolgozás egyes szintjeit, hogyan lehet segítségükre, és hogyan verifikálhatóak számítógéppel az eredményeik. Arra is kitérek, hogy ez a számítási zenetudományi feladat milyen szoftvertechnológiai kihívásokkal jár, és azok hogyan oldhatóak meg.  
+A zenei jelfeldolgozással foglalkozó algoritmusok gyakran figyelmen kívül hagyják magának a zenének az elméletét. Ennek oka a formális zenei modell hiánya. A munkámban megmutatom, hogy a formalizált zeneelmélet felhasználható a jelfeldolgozási kimenetek gépi kiértékelésében. Megvizsgálom, hogy a zenei modell megválasztása hogyan befolyásolja a feldolgozás egyes szintjeit, hogyan lehet segítségükre, és hogyan verifikálhatóak számítógéppel az eredményeik. Arra is kitérek, hogy ez a számítási zenetudományi feladat milyen szoftvertechnológiai kihívásokkal jár, és azok hogyan oldhatóak meg.  
 
 ## 2. A kutatási célok meghatározása
 
@@ -50,7 +50,7 @@ Legmagasabb szinten pedig a zene formális modellje használható lenne jelfeldo
 
 ![](./images/10.svg)
 
-*x.ábra: A zenére formálisan megfogalmazott állítások segítségével kiértékelhetőek adott zenei feldolgozások. Nagy bemenetgyűjtemény esetén pedig magára a feldolgozó algoritmusra is levonhatóak következtetések.*
+*5.ábra: A zenére formálisan megfogalmazott állítások segítségével kiértékelhetőek adott zenei feldolgozások. Nagy bemenetgyűjtemény esetén pedig magára a feldolgozó algoritmusra is levonhatóak következtetések.*
 
 A modell formalizálásnak eszközének megválasztásán kívül megvizsgálom, azt is, hogy melyek azok a zeneelméleti területek illetve konkrét feladatok amelyeket egy ilyen modellnek tárgyalnia kell annak érdekében, hogy mai jelfeldolgozási feladatokat megfelelően tudjon támogatni.
 
@@ -64,17 +64,17 @@ Heinrich Schenker zeneelmélete számos zenei analízis alapjává vált, mivel 
 
 ![](./images/10.png)
 
-*5. ábra: Felül az eredeti zenemű, alul pedig a belőle schenkeri analízissel megállapított kivonat [[2]](https://en.wikipedia.org/wiki/Schenkerian_analysis)*
+*6. ábra: Felül az eredeti zenemű, alul pedig a belőle schenkeri analízissel megállapított kivonat [[2]](https://en.wikipedia.org/wiki/Schenkerian_analysis)*
 
 Mivel Schenker zeneelmélete átírási szabályokon alapul, nagyon jól kapcsolatba hozható Chomsky transzformációs generatív grammatikájával. Ezen az ötleten alapul Stephen W. Smoliar *A Computational Aid for Schenkerian Analysis* [[3]](https://www.jstor.org/stable/3680082) című cikkje, melyben az említett zenei analízist elvégző program működését részletezi. Ennek megvalósítása során Smoliar felismerte, hogy a Schenkeri zeneelmélet alapvető problémája az aluldefiniáltság, így az csak alapgondolatok ötleteként szolgált a saját zeneelméletének formalizálásában.
 
 ![](./images/4.svg)
 
-*6. ábra: Egy generatív gammatikával felírt mondat*
+*7. ábra: Egy generatív gammatikával felírt mondat*
 
 ![](./images/12.png)
 
-*7. ábra: Smoliar modelljében faként ábrázolt zene. A SIM az egyszerre megszólalást, a SEQ pedig az adott sorrendben való rákövetkezést jelenti. Érdekesség, hogy ez a zenei modell eltekint a hangok hosszától. [[3]](https://www.jstor.org/stable/3680082)*
+*8. ábra: Smoliar modelljében faként ábrázolt zene. A SIM az egyszerre megszólalást, a SEQ pedig az adott sorrendben való rákövetkezést jelenti. Érdekesség, hogy ez a zenei modell eltekint a hangok hosszától. [[3]](https://www.jstor.org/stable/3680082)*
 
 Smoliar mellett John Rahn is kutatásában próbát tesz egy formális, de a Schenkeri zeneelmélethez hasonló modell felépítésére. A *Logic, Set Theory, Music Theory* [[1]](https://www.jstor.org/stable/40351760) című cikkében egy kezdetleges modellt épít fel halmazelmélettel, viszont a sorravett definíciókban hamar megjelennek korábban nem definiált zenei kifejezések, melyeket később sem tárgyal.
 
@@ -95,7 +95,12 @@ A kutatás arra is kitér, hogy a modell több szintaktikailag helyes, de elker�
 
 ### 3.2. A tonális zene generatív elmélete (GTTM)
 
-Fred Lerdhal és Ray Jackendoff 1977-es *Toward a Formal Theory of Tonal Music* [[4]](https://www.jstor.org/stable/843480) kutatása új gondolatokat hozott a zene formalizálásának területére. Kitűzték, hogy a zeneelméletnek legalább négy doménje van, névlegesen csoportosító analízis, metrikus analízis, időintervallum redukció, és prolongációs redukció. Ezt a négyest a tonális zene generatív elméletének nevezték el. A modelljükben mind a négy elemzéshez a lehetséges struktúrális leírások meghatározására well-formedness szabályokat, a lehetséges leírások közötti a "tapasztalt hallgatónak" megfelelő leírás kiválasztására pedig preference szabályokat definiáltak. A csoportosító analízis a zenebén szereplő hangcsoportok hierarchiai rendjét adja meg, a metrikus analízis pedig az erős és gyenge ütések rendjét. A prolongációs redukció erősen párhuzamba hozható a Schenkeri zeneelmélettel, céljában megegyezik vele, míg a szabályokat a formalizáltság érdekében ahogy Smoliarnál és Rahnnál is láthattuk, máshogy kényszerűl definiálni. Az időintervallum redukció abban tér el a prolongációs redukciótól, hogy az egyszerűsítést a zene hangcsoportjain értelmezi.
+Fred Lerdhal és Ray Jackendoff 1977-es *Toward a Formal Theory of Tonal Music* [[4]](https://www.jstor.org/stable/843480) kutatása új gondolatokat hozott a zene formalizálásának területére. Kitűzték, hogy a zeneelméletnek legalább négy doménje van, névlegesen csoportosító analízis, metrikus analízis, időintervallum redukció, és prolongációs redukció. Ezt a négyest a tonális zene generatív elméletének nevezték el. A modelljükben mind a négy elemzéshez a lehetséges struktúrális leírások meghatározására well-formedness szabályokat, a lehetséges leírások közötti a "tapasztalt hallgatónak" megfelelő leírás kiválasztására pedig preference szabályokat definiáltak. 
+
+- A csoportosító analízis a zenebén szereplő hangcsoportok hierarchiai rendjét,
+- a metrikus analízis pedig az erős és gyenge ütések rendjét adja meg.
+- A prolongációs redukció erősen párhuzamba hozható a Schenkeri zeneelmélettel, céljában megegyezik vele, míg a szabályokat a formalizáltság érdekében ahogy Smoliarnál és Rahnnál is láthattuk, máshogy kényszerűl definiálni.
+- Az időintervallum redukció abban tér el a prolongációs redukciótól, hogy az egyszerűsítést a zene hangcsoportjain értelmezi.
 
 ```
 GWFR1 Any contiguous sequence of pitch-events, drum beats, or the like can constitute a group, and only contiguous sequences can constitute a group.
@@ -119,11 +124,11 @@ changes.
 
 ![](./images/5.svg)
 
-*8. ábra: A 6. kódrészletben felsorolt négy eset szemléltetése kottán.*
+*9. ábra: A 6. kódrészletben felsorolt négy eset szemléltetése kottán.*
 
 ![](./images/8.png)
 
-*9. ábra: A csoportosító analízis eredménye W. A. Mozart 40. szimfoniájának egy részletén.*
+*10. ábra: A csoportosító analízis eredménye W. A. Mozart 40. szimfoniájának egy részletén.*
 
 ### 3.3. Összegzés a könnyűzene és a jelfeldolgozás szemszögéből 
 
@@ -133,9 +138,9 @@ Ugyanennyire fontos, de egyszerűbb kérdés a következő: hogyan használható
 
 ![](./images/3.svg)
 
-*10. ábra: A hanghullám, a primitív zenei hangok és a kotta is a zenét reprezentálja, mégis különböző információk nyerhetőek ki belőlük.*
+*11. ábra: A hanghullám, a primitív zenei hangok és a kotta is a zenét reprezentálja, mégis különböző információk nyerhetőek ki belőlük.*
 
-A számítási zenetudomány irodalmát összevetve könnyűzenei jelfeldolgozás feladatával elmondható, hogy bár vannak jelentős átfedések, a hiányosságok ennél nagyobbak. A hiány először is az adatok reprezentálásának szintjén jelenik meg. A MIR egyik legfontosabb teendőjének tekinti a zenei adatok megfelelő reprezentálást a következő lépés végrehajtásának érdekében, amíg az említett irodalom megelégszik a kottával. Ezenkívűl a formalizáltság hiányát mutatja az, hogy a zenei analízisek szinte minden esetben implementáció nélkül, gyakran szavakkal megfogalmazott szabályokkal jelennek meg, így nehézzé téve alkalmazásukat valós projektekben. Az irodalom végső hiányossága pedig funkcióbeli. Sok a jelfeldolgozás során felmerülő zeneelméleti problémát nem tárgyal, például a hangok ütembeszedését, mivel ahogy korábban láthattuk ez az alacsonyabb zenei szint nem létezik az irodalomban. Ez a különbség kényszeríti ki azt a zeneelméletet, ami már nem a musicγ, hanem a musicυ elemzésére, tehát a zene, mint leirat helyett a zene, mint hang objektum elemzésére szolgál.
+A számítási zenetudomány irodalmát összevetve könnyűzenei jelfeldolgozás feladatával elmondható, hogy bár vannak jelentős átfedések, a hiányosságok ennél nagyobbak. A hiány először is az adatok reprezentálásának szintjén jelenik meg. A musical information retrieval (MIR) egyik legfontosabb teendőjének tekinti a zenei adatok megfelelő reprezentálást a következő lépés végrehajtásának érdekében, amíg az említett irodalom megelégszik a kottával. Ezenkívűl a formalizáltság hiányát mutatja az, hogy a zenei analízisek szinte minden esetben implementáció nélkül, gyakran szavakkal megfogalmazott szabályokkal jelennek meg, így nehézzé téve alkalmazásukat valós projektekben. Az irodalom végső hiányossága pedig funkcióbeli. Sok a jelfeldolgozás során felmerülő zeneelméleti problémát nem tárgyal, például a hangok ütembeszedését, mivel ahogy korábban láthattuk ez az alacsonyabb zenei szint nem létezik az irodalomban. Ez a különbség kényszeríti ki azt a zeneelméletet, ami már nem a music<sub>γ</sub>, hanem a music<sub>υ</sub> elemzésére, tehát a zene, mint leirat helyett a zene, mint hang objektum elemzésére szolgál.
 
 | csatorna          | leírás                  |
 | ----------------- | ----------------------- |
@@ -144,7 +149,7 @@ A számítási zenetudomány irodalmát összevetve könnyűzenei jelfeldolgozá
 | music<sub>υ</sub> | zene, mint hangobjektum |
 | music<sub>φ</sub> | zene, mint érzékelés    |
 
-*11. ábra: A zene Philip Tagg által névlegesített csatornái [[5]](https://www.jstor.org/stable/852975)*
+*12. ábra: A zene Philip Tagg által névlegesített csatornái [[5]](https://www.jstor.org/stable/852975)*
 
 ## 4. A téma feldolgozása során alkalmazott módszerek
 
@@ -282,7 +287,11 @@ Definition apply_to_pitch (p : pitch) (i : intervalName) : pitch :=
 
 A harmadik kategória a zenei modell megvalósításának eszközei között funkcionális nyelvek vonálon továbbhaladva a proof assistant programcsomagok kategóriája. Ezek az eszközök a funkciónális nyelveken felírható bizonyítások megoldására szánt "bizonyítási nyelvvel" való kibővítését jelentik. Ezek közül a két legelterjedtebb eszköz az Agda illetve a Coq. Jelenleg egyik nyelvhez sem létezik komoly zeneelméleti könyvtár, azonban megállapítható, hogy formalizálás szempontjából minden korábbi követelményünk megvalósítására megfelelőek lennének. Egy proof assistantben megírt zenei modellben a zene minden szintjén megfelelően felírhatóak lennének a definíciók, továbbá egyszerűen megfogalmazhatóak lennének a hipotézisek, melyek bizonyításához ráadásul elegendő a papíron megszokotthoz hasonlóan a bizonyítás vázlatát, nem pedig a bizonyító függvényt megadni.
 
-Belátva, hogy zenei formalizálás szempontjából a proof assistant programcsomag megfelel minden kritériumunknak, térjünk vissza az eszköz megválasztásának projektekbe való integrálásának szempontjához. Eddig nem volt szükséges pontosan definiálni ennek kikötéseit, de összegezve alapvetően három szempontból kell jól szerepelnie egy eszköznek, hogy használható legyen valós projektekben. Először is bevonható kell, hogy legyen azokba a nyelvekbe, amelyeken a zenei jelfeldolgozás projektjei tipikusan íródnak. Másodszor lehetőleg minél gyorsabbnak kell lennie (a konkrét zenei feladatok elvégzésében), hiszen zenei jelfeldolgozási projektek nem ritka követelménye a valósidejűség. Harmadikként pedig preferálandó egy olyan eszköz, melynek használata nem áll túl messze a területen dolgozó tipikus fejlesztőktől, mivel ahogy a legtöbb programcsomagnál, itt is a minőség egyik mutatója a projekt életbenmaradása és dinamikus fejlődése, ami egyetemi kutatócsoportot vagy opensource projektet tekintve a fejlesztők cserélődése miatt a minél kevésbé meredek betanulási görbével érhető csak el.
+Belátva, hogy zenei formalizálás szempontjából a proof assistant programcsomag megfelel minden kritériumunknak, térjünk vissza az eszköz megválasztásának projektekbe való integrálásának szempontjához. Eddig nem volt szükséges pontosan definiálni ennek kikötéseit, de összegezve alapvetően három szempontból kell jól szerepelnie egy eszköznek, hogy használható legyen valós projektekben:
+
+- Először is bevonható kell, hogy legyen azokba a nyelvekbe, amelyeken a zenei jelfeldolgozás projektjei tipikusan íródnak.
+- Másodszor lehetőleg minél gyorsabbnak kell lennie (a konkrét zenei feladatok elvégzésében), hiszen zenei jelfeldolgozási projektek nem ritka követelménye a valósidejűség.
+- Harmadikként pedig preferálandó egy olyan eszköz, melynek használata nem áll túl messze a területen dolgozó tipikus fejlesztőktől, mivel ahogy a legtöbb programcsomagnál, itt is a minőség egyik mutatója a projekt életbenmaradása és dinamikus fejlődése, ami egyetemi kutatócsoportot vagy opensource projektet tekintve a fejlesztők cserélődése miatt a minél kevésbé meredek betanulási görbével érhető csak el.
 
 Mielőtt az Agda és a Coq, mint a két legelterjedtebb proof assistant különbségeit a felsorolt szempontok szerint áttekintenénk, fontos megemlíteni a hasonlóságaikat is. Mindkét nyelvben a matematikai bizonyítások és a programkód közötti kapcsolatot a Curry-Howard izomorfizmus valósítja meg, mely röviden annyit jelent, hogy egy függvény felfogható bizonyításként is. Az alábbi példa ezt szemlélteti. Mindkét nyelv Martin Löf függő típusos elméletén alapul melynek célja a konstruktív matematikai felépítést támogatni.
 
@@ -315,7 +324,7 @@ Az alábbi fejezetben a legalacsonyabb zene szinttől haladva mutatom be az elk�
 
 ![](./images/14.png)
 
-*10. ábra: Brémai muzsikusok*
+*13. ábra: Brémai muzsikusok*
 
 ### 5.1. A zenei hang formalizálásáról
 
@@ -326,7 +335,7 @@ Korábban már említettem, hogy a számítási zenetudomány irodalma jellemző
 | pitch        | hangmagasság          | A hang magassága vagy mélysége            | A hangnak az a sajátossága, ami a hangot előidéző rezgések számától függ |
 | note         | hangjegy              | A zene lejegyzésére használt szimbólumok  | A hangok magasságának és viszonylagos időtartamának jelölésére és megrögzítésére szolgáló különleges írásjelek |
 
-*11. ábra: A hangmagasság és a hangjegy fogalma*
+*14. ábra: A hangmagasság és a hangjegy fogalma*
 
 Tekintsük az alábbi két kódrészletet:
 
@@ -372,7 +381,7 @@ Example Gbb4 := (G # - 2) ' 4.
 
 Ez a reprezentálás egyértelműen (és helyesen) különíti el a szinteket és megfeleltethető az SPN-nek azzal a különbséggel, hogy a módosítójelek, mivel azok szintaktikai cukorként is felfoghatóak, nem képezik részét a reprezentációnak, hanem helyettük a módosítás mértékét egy egész szám jelöli, ahol a pozitív a keresztek és a negatív a bék irányát mutatja, így elkerülve a szabálytalan pitchek lejegyzését.
 
-Az eddigi formalizálás megfelel a zenei szótáraknak, azonban ez a párhuzam a note szintjén elkezd szétválni. Ennek oka, hogy a note a kottához kötött dolog, azonban egy optimális zenei modell a zene minden csatornáját magába foglalná, melyek közül a zenei lejegyzés, a kotta csak az egyik. A musicυ (zene, mint hangobjektum) formalizáláshoz való közelítés egyik lehetséges formája minél több fizikai tulajdonsággal ellátni a note-ot. Vegyük az alábbi típust:
+Az eddigi formalizálás megfelel a zenei szótáraknak, azonban ez a párhuzam a note szintjén elkezd szétválni. Ennek oka, hogy a note a kottához kötött dolog, azonban egy optimális zenei modell a zene minden csatornáját magába foglalná, melyek közül a zenei lejegyzés, a kotta csak az egyik. A music<sub>υ</sub> (zene, mint hangobjektum) formalizáláshoz való közelítés egyik lehetséges formája minél több fizikai tulajdonsággal ellátni a note-ot. Vegyük az alábbi típust:
 
 ```coq
 (* harmony.Note.v *)
@@ -419,13 +428,52 @@ Inductive abstractChord : Type :=
 
 *18. kódrészlet: Pitch és pitch class csoportosítására definiált struktúrák*
 
-A bemutatott típusokra számos állítás definiálható, melyeket alapvetően elvárnánk, hogy egy zenei modellben teljesüljenek. Ahogy láthattuk, előfordul azonban, hogy olyan dolog reprezentálására kényszerülünk, melyről nem olvastunk még korábban, így hasonlítási alapunk sincsen, így összesen a praktikusság és az esztétika az amire támaszkodhatunk.
+A bemutatott típusokra számos állítás definiálható, melyeket alapvetően elvárnánk, hogy egy zenei modellben teljesüljenek. Ahogy láthattuk, előfordul azonban, hogy olyan dolog reprezentálására kényszerülünk, melyről nem olvastunk még korábban, így hasonlítási alapunk sincsen, ezért összesen a praktikusság és az esztétika az amire támaszkodhatunk.
 
 ```coq
-állítás és bizonyítás abstract chordra
+(* theories.harmony.Letter.v *)
+Definition upward_distance_from_A (x : letter) : nat :=
+  match x with
+  | A => 0
+  | B => 2
+  | C => 3
+  | D => 5
+  | E => 7
+  | F => 8
+  | G => 10
+  end.
+
+Definition upward_distance (x y : letter) : nat :=
+  Z.to_nat(
+    Zmod
+    (Zminus 
+      (Z.of_nat (upward_distance_from_A y))
+      (Z.of_nat (upward_distance_from_A x)))
+    12)
+.
+
+Lemma upward_distance_xx : forall (x : letter), upward_distance x x = 0.
+Proof. destruct x; try auto.
+Qed.
+
+Lemma upward_distance_0 : forall (x y : letter), 
+  (upward_distance x y = 0) <-> (x = y).
+Proof.
+  intros.
+  unfold upward_distance. unfold upward_distance_from_A. destruct y; destruct x;
+     ( simpl; split; reflexivity )
+  || ( simpl; unfold Pos.to_nat; unfold Pos.iter_op; simpl; split; discriminate).
+Qed.
+
+Lemma upward_distance_12 : forall (x y : letter), ~ x = y -> (upward_distance x y) = 12 - (upward_distance y x).
+Proof.
+    intros.
+    unfold upward_distance. unfold upward_distance_from_A. unfold Z.to_nat. unfold Z.of_nat. unfold Pos.to_nat.
+    destruct x; destruct y; (simpl; contradiction) || auto.
+Qed.
 ```
 
-*19. kódrészlet: ...........*
+*19. kódrészlet: A letter-re bár az irodalom nem tekint önálló típusként, a formális modellből nem hagyható el. Két letter távolságának definiálásánál kifejezetten fontos a praktikusság és az esztétika, hiszen ha ezt a lépést megfelelően valósítjuk meg, amellett, hogy szép tulajdonságokkal fog rendelkezni a típusunk, a teljes zeneelmélet leírásunkban konkrét számok használatára már nem lesz szükség.*
 
 ### 5.2. A ritmus formalizálásáról
 
@@ -457,7 +505,7 @@ A hangok hosszának egymáshoz való viszonyításának eszköze a duration, vag
 
 ![](./images/6.svg)
 
-*12. ábra: A pontozott negyedhang leirata*
+*15. ábra: A pontozott negyedhang leirata*
 
 Bár egy dallam nem más, mint hangjegyek listája, a számítási zenetudomány területén megalkotott dallam analízisek között bőven léteznek olyanok, amelyek pusztán hangjegyek listáján, az ütemekbe tördeltség hiánya miatt mégsem értelmezhetőek. Az ütemvonal a kottában egy elválasztó eszköz, mely amellett, hogy segít a kottán belüli tájékozódásban, a zene hangsúlyozását fejezei ki, az ütemekhez tartozó ütemmutató pedig az ütem hosszát illetve az ütem alapvető felosztási egységét adja meg. Mivel a zenei jelfeldolgozás során kezdetben a zenei információt MIDI szerűen, tehát időben elhelyezett hangmagasságokként tudjuk kinyerni, ahhoz, hogy például a Schenkeri zeneelméleten alapuló valamelyik formális elemzést alkalmazni tudjuk, muszáj ütemekbe tördelni a hangokat. Ez a feladat tekinthető jelfeldolgozási számítási zenetudomány legfontosabb problémájának.
 
@@ -470,7 +518,7 @@ Az ütem és a zene kapcsolatát elemezve számos megfigyelést tehetünk.
 
 ![](./images/7.svg)
 
-*13. ábra: Az ütemekről levonható összefüggések Olivia Rodrigo "jealousy, jealousy" című dalának részletén. A fenti felsorolás alapján egyest a sárga, kettest a zöld, hármast a piros és a négyes pontot pedig a kék szín jelöli.*
+*16. ábra: Az ütemekről levonható összefüggések Olivia Rodrigo "jealousy, jealousy" című dalának részletén. A fenti felsorolás alapján egyest a sárga, kettest a zöld, hármast a piros és a négyes pontot pedig a kék szín jelöli.*
 
 Ezek mentén tehát elképzelhető egy hangjegyek listáján értelmezett ütembe tördelő analízis, amely sok esetben megfelelően működne, főleg ha figyelembe vesszük, hogy ezek a tulajdonságok minden egyes hangszer szólamában külön külön előfordulnak és ezek nem mindig esnek egybe, viszont az ütemeknek egybe kell esniük a teljes dalon minden hangszeren. Ez a módszer azonban egyértelműen nem tudna minden esetben jól működni, bár nem kizárt, hogy elég jól működne ahhoz, hogy eredményesen segítse a további zenei analízist, ezért az ütembetördelés ezenfajta megvalósítása további kutatást igényel. Az azonban belátható, hogy egy ilyen megvalósításnak a Coq nem is lenne a legjobb technológiai választás, ráadásul állításokat sem tudnánk megfogalmazni a feladat és a megvalósítás között. Egy másik megoldás utáni keresés utolsó indokaként pedig tekintsük a GTTM csoportosító analízisének szabályait. Látható, hogy a prefrencia szabályok ugyanazokat a szempontokat részesítik előnyben, amelyeket mi is előnyben részesítenénk az ütemvonalak behúzására, azonban a csoportosító analízis célja nem az ütemek meghatározása, hanem az értelmileg összefüggő egységek határainak megkeresése, ami a korábbi példán (9. ábra) látszik, hogy előfordul, hogy nem esik egybe.
 
@@ -493,13 +541,7 @@ Inductive dynamic : Type :=
 
 *23. kódrészlet: A dinamikai tulajdonság lehetség kibővítése az egyek lejegyzésére*
 
-Érezhető azonban, hogy ezzel a lépéssel inkább csak egy lejjebbi szintre toltuk a problémát, mintsem megoldottuk. A kérdés most már hogy hogyan ismerhető fel a főhangsúly? A zenei hangsúlyozásnak négy eszköze létezik, melyek közül leggyakoribb a dinamikai kiemelés, ami nem más, mint a hang nagyobb hangerővel való megszólaltatása. A hangsúly második formája a harmóniai kiemelés, vagyis egy erőteljes akkord játszása. A hangsúly ezen formájától egyelőre tekintsünk el a harmóniai erőteljesség nehézkes definiálása miatt. A hangsúlyt ki lehet fejezni a hang enyhe meghosszabbításával, vagy késleltetett kezdésével is. Ezeket általánosan ritmikai hangsúlynak nevezzük, azonban ezek a hangjegyek felfogott ritmikáját nem befolyásolják így a ritmikai változtatás bár hallható, kottába nem kerül. A hangsúlyozás negyedik eszköze a könnyűzenében soha elő nem forduló dallami hangsúlyozás, melynek alkalmazásakor a hangsúlyos hangnak enyhén megváltozik a magassága. A hangsúlyozás eszközei közül tehát a dinamikai és ritmikai hangsúlyt érdemes figyelembe vennünk a főhangsúlyok megállapításánál, azonban ennek formalizálása nem a lejegyzés szintjén  jelenik meg, mivel ez a hangobjektum egy attribútuma. Az alábbi definíció a későbbiekben ismertetett transcription típuson adja meg, hogy a kapott zenei leirat az ütemmutatók szempontjából megfelel-e az eredeti hangobjektumnak.
-
-```coq
-TRANSCRIPTION is_right ból csak az ütemmutatóra vonatkozó rész
-```
-
-*24. kódrészlet: A hangobjektumhoz társitott leirat ütemmutatóbeli helyességének vizsgálata*
+Érezhető azonban, hogy ezzel a lépéssel inkább csak egy lejjebbi szintre toltuk a problémát, mintsem megoldottuk. A kérdés most már hogy hogyan ismerhető fel a főhangsúly? A zenei hangsúlyozásnak négy eszköze létezik, melyek közül leggyakoribb a dinamikai kiemelés, ami nem más, mint a hang nagyobb hangerővel való megszólaltatása. A hangsúly második formája a harmóniai kiemelés, vagyis egy erőteljes akkord játszása. A hangsúly ezen formájától egyelőre tekintsünk el a harmóniai erőteljesség nehézkes definiálása miatt. A hangsúlyt ki lehet fejezni a hang enyhe meghosszabbításával, vagy késleltetett kezdésével is. Ezeket általánosan ritmikai hangsúlynak nevezzük, azonban ezek a hangjegyek felfogott ritmikáját nem befolyásolják így a ritmikai változtatás bár hallható, kottába nem kerül. A hangsúlyozás negyedik eszköze a könnyűzenében soha elő nem forduló dallami hangsúlyozás, melynek alkalmazásakor a hangsúlyos hangnak enyhén megváltozik a magassága. A hangsúlyozás eszközei közül tehát a dinamikai és ritmikai hangsúlyt érdemes figyelembe vennünk a főhangsúlyok megállapításánál, azonban ennek formalizálása nem a lejegyzés szintjén  jelenik meg, mivel ez a hangobjektum egy attribútuma. A későbbiekben tárgyalt transcription típus `is_right` függvénye tehát a most felsorolt eszközök mentén kell, hogy eldöntse, hogy a kapott zenei leirat az ütemmutatók szempontjából megfelel-e az eredeti hangobjektumnak.
 
 ### 5.3. A többszólamúság formalizálásáról
 
@@ -507,11 +549,11 @@ A zenei modell legmagasabb szintű típusa a song, vagyis a dal. Egy dal részek
 
 [nagyjon jó kotta példa a harmonicpart többszólamúságára]
 
-*14. ábra:*
+*17. ábra:*
 
 [ritmikai átkötésre példa]
 
-*15. ábra:*
+*18. ábra:*
 
 A modellben a hangszert,  mint a zenei hang felharmónikusainak amplitudó arányát módosító tényezőt, mint hangszínt definiáltam. Ehhez először is meg kell, hogy tudjuk adni pusztán egy hang felharmónikusainak erősségét. 
 
@@ -522,39 +564,35 @@ Inductive harmonic_quality :=
   harmonics : Q -> Q -> Q -> Q -> Q -> Q -> Q -> Q -> harmonic_quality.
 ```
 
-*25. kódrészlet: A harmonic_quality egy zenei hang első nyolc felharmonikusának erősségének reprezentálására szolgál.*
+*24. kódrészlet: A harmonic_quality egy zenei hang első nyolc felharmonikusának erősségének reprezentálására szolgál.*
 
 ![](./images/15.png)
 
-*16. ábra: Különböző hangszerek felharmonikusainak erősségei [10]*
+*19. ábra: Különböző hangszerek felharmonikusainak erősségei [10]*
 
 Ennyi azonban még nem elég ahhoz, hogy leírjuk egy hangszer jellegét, mivel különböző frekvencia tartmoányokban különbözően reagálnak a testek, így a hangszerek is. A complex_harmonic_qualityvel frekvencia ablakokra definiálhatjuk a harmóniai tulajdonságokat, így sok minta használatának esetén nagyon pontosan meg tudjuk adni azt.
 
 ![](./images/16.png)
 
-*17. ábra: Alt szaxofon egymás melletti hangmagasságokon vett felharmonikusbeli különbsége [10]* 
+*20. ábra: Alt szaxofon egymás melletti hangmagasságokon vett felharmonikusbeli különbsége [10]* 
 
 ```coq
 (* theories.physics.Instrument.v *)
-(* represents harmonic samples at given frequencies.
-Between the frequency range of two samples, the higher frequency's sample
-will be assumed to represent the instruments harmonic quality. *)
-(*nem jó, mert a legnagyobb fölött nincs definiálva *)
 Inductive complex_harmonic_quality :=
   complex_harmonics : list (Q * harmonic_quality) -> complex_harmonic_quality.
 ```
 
-*26. kódrészlet: Az összetett harmóniai tulajdonságot leíró típus definíciója*
+*25. kódrészlet: Az összetett harmóniai tulajdonságot leíró típus definíciója*
 
 Bár jelenleg a további definíciók könnyebb megadása érdekében egy hangszer nem más, mint egy összetett harmóniai tulajdonság, azonban a valóságban ennél tágabb a probléma. Figyelmen kívűl hagytam például, hogy a hangszín függ a hangerőtől, illetve, hogy a legtöbb hangszer megszólaltatható különböző módon különböző hangszíneken, illetve, hogy a hangszer nem csak a  felharmónikusok amplitúdójának kapcsolatát határozza meg, hanem a hang különböző dinamikai tulajdonságait is, például az indítás hirtelenségét, vagy éppen a hang elhalásának függvényét.
 
 ![](./images/9.png)
 
-*18. ábra: A zongorán (a) és hegedűn (b) megszólaltatott hang dinamikai különbségei [11]* 
+*21. ábra: A zongorán (a) és hegedűn (b) megszólaltatott hang dinamikai különbségei [11]* 
 
 ![](./images/17.png)
 
-*19. ábra: Alt szaxofonon különböző dinamikai árnyalások által keletkezett felharmonikusbeli különbségek [10]*
+*22. ábra: Alt szaxofonon különböző dinamikai árnyalások által keletkezett felharmonikusbeli különbségek [10]*
 
 ### 5.4. A hangobjektum formalizálásáról
 
@@ -562,13 +600,13 @@ Eddig a zenéről csak mint leiratként fogalmaztunk meg definícókat és áll�
 
 ![](./images/18.png)
 
-*20. ábra: A zenei csatornák kapcsolata a zenei előadás szemszögéből*
+*23. ábra: A zenei csatornák kapcsolata a zenei előadás szemszögéből*
 
 A zenei jelfeldolgozás alap feladata ennek a kapcsolatnak a megértése. Az automatikus leiratkészítés nehézségét jól szemlélteti, hogy ennek a folyamatnak a fordítottja, a leirat alapján való zene szintetizálás sem oldható meg tökéletesen. Ennek oka, hogy míg az előadás során a zenész a zene, mint leriat és a zene, mint koncepció birtokában készíti el a zene, mint hangobjektumot, a számítógép nem tudja megérteni a zene jelentését, így a szintetizálás sok esetben hiányos eredményt készít. Ezt megfontolva a gépi leiratkészítés feladata nem más, mint utánozni az "emberi" leiratkészítést, azzal a különbséggel, hogy míg az ember a hangobjektumon kívűl a koncepciót is felhasználja erre a feladatra, a számítógépnek alapvetően a zene megértése nélkül kell leiratoznia azt. Gondoljunk csak arra, hogy míg egy zenész egy akkordot az általa keltett érzés és benne rejlő feszültségek alapján el tud nevezni, a pontos felrakás ismerete nélkül, addig jelfeldolgozással az akkord csak a hangok pontos meghatározása után nevezhető el, ráadásul sok esetben az elnevezés folyamata sem egyértelmű, mivel egy adott dolgot többféle képpen is képesek vagyunk hallani. Mivel a két folyamat nem egyezik meg, a számítógép és a zenész különböző típusú hibákat tudnak elkövetni, ami nagyban megnehezíti egy gépi kottázás kiértékelését.
 
 ![](./images/19.png)
 
-*21. ábra: A zenei csatornák kapcsolata a leiratkészítés szemszögéből*
+*24. ábra: A zenei csatornák kapcsolata a leiratkészítés szemszögéből*
 
 A zenei modellemben definiált hangobjektum továbbra is tartalmaz absztrakciót a hang alapvető fizikai valójához képest, hiszen nem a légnyomás változását reprezentálja az idő múlásával, hanem az adott időintervallumokon vett előforduló légnyomáskülönbségváltozások frekvenciáit. Ez mindenképen előnyös választás, először is, mert a definíciók így nem lesznek szükségtelenül bonyolultak, másodszor pedig azért, mert a két fizikai szint összefüggésében a zenének már nincsen szerepe. Azt azonban fontos megjegyezni, hogy a hangobjektumra vontakozó állításoknál feltételeztem, hogy az csak zenei hangokat tartalmaz, viszont a jelfeldolgozás szempontjából szükséges lenne egy olyan reprezentációs szint is, ahol még létezik zaj és zörej, hogy ezek kapcsolata is formalizálható legyen.
 
@@ -591,7 +629,7 @@ Notation "A 'Hz' B 'dB'" := (freq_amp A B) (at level 85, right associativity).
 Definition frequency_sample := list frequency_amplitude.
 ```
 
-*27. kódrészlet: Egy minta frekvencia és amplitúdó értékek listájából áll*
+*26. kódrészlet: Egy minta frekvencia és amplitúdó értékek listájából áll*
 
 ```coq
 (* theories.physics.SoundingObject.v *)
@@ -603,23 +641,36 @@ Inductive sounding_object : Type :=
 Example so1 := sounding_obj 10%N [[]; [(5Hz 1.0dB); (10Hz 0.9dB); (15Hz 0.2dB)]].
 ```
 
-*28. kódrészlet: A hangobjektum definíciója*
+*27. kódrészlet: A hangobjektum definíciója*
 
-Mivel zenék gépi elbírálására sokszor hatalmas mennyiségben van szükség, fontos lenne definiálni a SoundingObjectre egy olyan állítást, amely eldönti, hogy az adott objektum egyáltalán zene-e, ezzel megspórolva a felesleges analíziseket nem zenét tartalmazó hangfájlok esetén. Bár a zeneelmélet elég sok területre kitér, mégis magának a zenének semmilyen általánosan elfogadható és formalizálható definíciója nem létezik.
+Mivel zenék gépi elbírálására sokszor hatalmas mennyiségben van szükség, fontos lenne definiálni a SoundingObjectre egy olyan állítást, amely eldönti, hogy az adott objektum egyáltalán zene-e, ezzel megspórolva a felesleges analíziseket nem zenét tartalmazó hangfájlok esetén. Bár a zeneelmélet elég sok területre kitér, mégis magának a zenének semmilyen általánosan elfogadható és formalizálható definíciója nem létezik. Alapvetően három dolgot várnánk el egy hangobjektumtól ahhoz, hogy zenének nevezhessük:
 
-**IDE ÍRNI**
+1. Legyen legalább pár másodperces hossza,
+2. legyen benne felismerhető hangsúlyozás, és
+3. tartalmazzon zeneileg értelmezhető hangokat.
+
+Ezek az elvárások ebben a formában alig értelmezhetőek. Tudjuk bár, hogy a felismerhető hangsúlyozás alatt olyan ideiglenes zenei erősségbeli megnövekedést értünk, amelyet direkt keltettek, tehát értelmezhető zenei kontextusban, a zeneileg értelmezhető hangok alatt pedig olyan hangokra gondolunk, amelyek valamilyen szempontból szabályosak és lehetőség szerint azokat elkülönítve ha nehezen is, de megnevezhető hangszerek keltették, azt mégsem tudjuk, hogy ezek a fogalmak hogyan írhatóak le. Annak érdekében tehát, hogy egy a zene és nem zene hangobjektum szinten való elkülönítését megfelelően formalizálni tudjuk, komoly pszichoakusztikai kutatásra van szükségünk, kifejezetten a 2. és 3. pont által kijelölt területen.
 
 ```coq 
-is_music
+(* theories.physics.SoundingObject.v *)
+
+Definition is_music (so : sounding_object) : bool :=
+  andb(
+    andb
+      (*Van hossza*)
+      (Nat.ltb 3000 (length_in_msec so))
+      (*Van benne hangsúly*)
+      (match so with
+        | sounding_obj rate samples => (existsb (above_average_strength so) samples)
+      end))
+  (*van benne zenei minta*)
+  (match so with
+     | sounding_obj rate samples => (existsb is_musical samples)
+   end)
+  .
 ```
 
-*29. kódrészlet:*
-
-```coq
-is_popmusic
-```
-
-*30. kódrészlet:*
+*28. kódrészlet: A zene és nem zene formális elkülönítése*
 
 A SoundingObject és a Song kapcsolatának vizsgálatára bevezettem a leiratot, vagyis a Transcriptiont, melynek két tagja a hangobjektum és a dal. Azt, hogy egy Song megfelelő leirata-e egy SoundingObjectnek, az alábbi módon ellenőrízhetjük.
 
@@ -633,22 +684,19 @@ Definition is_right (t : transcription) : bool :=
   (*nagyjából megegyezik a hossz *)
   (andb (Nat.leb (N.to_nat (song_duration_in_sec song) * 800) (length_in_msec so))
         (Nat.leb ((length_in_msec so) * 800) (N.to_nat (song_duration_in_sec song))))
+  (*az egyek hangsúlyosak*)
+  (*ugyanazok a dolgok szólnak időben ugyanott*)
+  (* ... *)
   end.
-(* Még bele kell írnom:
-   - ugyanazok a dolgok szólnak időben ugyanott (kb ??)
-   - az egyek hangsúlyosabbak, mint a többi dolog
-*)
 ```
 
-*31. kódrészlet:*
+*29. kódrészlet: A leirat helyességének vizsgálata*
 
-Az első pontja az `is_right`-nak eldönti, hogy a hangobjektum mintái a megadott mintavételezési frekvencia alapján nagyjából megegyezik-e a dal átlag bpm értékéből számolt hosszal.
-
-**IDE ÍRNI**
+Az első pontja az `is_right`-nak eldönti, hogy a hangobjektum hossza a megadott mintavételezési frekvencia alapján nagyjából megegyezik-e a dal átlag bpm értékéből számolt hosszal. Ezen kívűl ennek a függvénynek feladata megállapítani, hogy a dalban szereplő egyek helyén a hangobjektumban tényleg érzékelhető-e a nagyobb hangsúly, illetve, hogy általánosan ugyanazok a dolgok szólnak-e nagyjából ugyanazon a helyen. Ez a két alfeladat szintén pszichoakusztikai megfontolásokat és magasszintű formalizációt igényel. Ezek leírása Coq-ban továbbá elég magas számításigényű, így már rövid hangobjektumok is vagy csak nagyon lassan értékelhetőek ki, vagy egyáltalán nem.
 
 [szép kép arról, hogy az is_right miket csekkol]
 
-*22. ábra*:
+*25. ábra*:
 
 ### 5.5. Példa a modell projektekben való használatára
 
@@ -664,17 +712,22 @@ A kutatásom célja volt megkeresni azt az eszközt, mellyel a zene modelljének
 
 [mit mivel köt össze a bremen]
 
+*26. ábra:*
+
 Mivel nagyon széles területen vállal feladatokat a zenei modell és alig van eszköz amire építkezhet, a zenei reprezentáció szemptonjából alacsonyabb szinteken rengeteg munkát ígényel a kidolgozása, hogy alkalmas legyen az igazán fontos szerepeinek betöltésére magasabb szinteken. Ahhoz, hogy komplexebb példákat mutathassak a munkámban tehát szükségem volt a hangjegy és a ritmus megfelelő definiálására, azonban az ezekre épülő struktúrák megfogalmazása ettől még nem bizonyúlt egyértelműnek. Bár magasabb szintek felé haladva nem zárható ki a további fejlesztések igénye,  úgy gondolom, hogy a formalizálás során a legalacsonyabb szinteken megtartottam, hogy a definíciók szépek, szimmetrikusak és praktikusak legyenek, így ezek változtatására a modell további fejlesztése során sem lesz szükség. A Coq, mint modellt leíró eszköz megfelelő választásnak bizonyúlt mivel teljesítette a könnyen olvasható és matematika típusokra épülő definíciók követelményét. A kapott struktúrákra így tényleg teljesülnek azok az állítások, melyeket elvárnánk, hogy teljesüljenek, hiszen nem függenek imperatív nyelvekre jellemző gépi típusoktól. A célkitűzések között nem szerepelt, de az alábbi állításokat Coqban formálisan beláttam.
 
 ```coq
 (* theories.harmony.Letter.v *)
+(* betűk közötti távolságra vonatkozó állítások *)
 Lemma upward_distance_xx : forall (x : letter), upward_distance x x = 0.
 Lemma upward_distance_0 : forall (x y : letter), (upward_distance x y = 0) <-> (x = y).
 Lemma upward_distance_12 : forall (x y : letter), ~ x = y -> (upward_distance x y) = 12 - (upward_distance y x).
 
 (* theories.harmony.PitchClass.v *)
-Lemma pitchclass1 : forall (l1 l2 : Letter.letter) (m : Z), l1 = l2 -> (l1 # m) = (l2 # m).
-Lemma pitchclass2 : forall (l1 l2 : Letter.letter) (m1 m2 : Z),
+(* megegyező betűk esetén azonos módosító mellett a pitch class-ek is megegyeznek *)
+Lemma same_letter_same_pitch_class : forall (l1 l2 : Letter.letter) (m : Z), l1 = l2 -> (l1 # m) = (l2 # m).
+(* két különböző pitch class esetén vagy a betűk, vagy a módosítók nem egyeznek meg *)
+Lemma different_pitch_classes : forall (l1 l2 : Letter.letter) (m1 m2 : Z),
   eqb (l1 # m1) (l2 # m2) = false <-> 
   orb (Bool.eqb (Letter.eqb l1 l2) false) (Bool.eqb (Z.eqb m1 m2) false) = true.
 Lemma pitchclass3 : forall (x y : pitchClass),
@@ -720,6 +773,8 @@ Theorem intervalname7 : forall (x : intervalName), enharmonic_eq (plus x (minus 
 (*some for invert*)
 Theorem intervalname8 : forall (x : intervalName), enharmonic_eq x (invert (invert x)).
 ```
+
+*30. kódrészlet: A modell pár bebizonyított alapvető állítása*
 
 Az állítások közül sok magától értetődő, azonban a szakterület irodalmában ezek még kimondásra nem kerültek, így összegyűjtésük és bizonyításuk igazi áttörést jelent a zenei formalizálás felé. Jelentősségüket tovább növeli, hogy ahhoz, hogy magasabb szinten érdekesebb állításokat vizsgálhassunk, az alacsony szintű zenei struktúráknak ezen tulajdonságait kell majd felhasználnunk. A felvázolt zenei modell tehát bőven betölti a jelfeldolgozási feladatok követelményeinél jelentkező aluldefiniáltságot, hiszen olyan zeneelméletet nyújt, amelyen struktúrákat és a struktúrákon bizonyításokat is be lehet hivatkozni, mely azon felül, hogy egyértelműsíti a leírást, a háttértudással nem rendelkező fejlesztőt be is vezeti a zeneelméletbe anélkül, hogy annak a zenével egyáltalán foglalkoznia kellene.
 

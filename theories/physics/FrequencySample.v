@@ -34,4 +34,14 @@ Definition lowest_frequency_within (f1 f2 : frequency) (s : frequency_sample) : 
   | (f Hz _ dB) :: _ => andb (Qle_bool f1 f) (Qle_bool f f2)
   end.
 
+
+Fixpoint strength (s : frequency_sample) : Q :=
+  match s with
+  | [] => 0.0
+  | (_ Hz a dB) :: ss => Qplus a (strength ss)
+  end.
+
+Definition is_musical (s : frequency_sample) : bool :=
+  true.
+
 Eval compute in lowest_frequency_within 9.0 8.0 s1.

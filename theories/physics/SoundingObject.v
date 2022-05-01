@@ -38,22 +38,41 @@ Definition length_in_msec (so : sounding_object) : nat :=
 
 Eval compute in length_in_msec so2.
 
-(* Noodling is not music *)
-Definition is_music (so : sounding_object) : bool :=
-  Nat.ltb 3000 (length_in_msec so).
-(*
- - van benne egyértelmű hangsúly, legalább két ütem egy
- - van benne zenei hang
-*)
+Fixpoint sum_strength (ls: list frequency_sample) : Q :=
+  match ls with
+  | [] => 0.0
+  | s :: ss => Qplus (strength s) (sum_strength ss)
+  end.
 
+Definition average_strength (so : sounding_object) : Q :=
+  match so with
+  | sounding_obj rate samples => Qdiv (sum_strength samples) (Z.of_nat (length samples) # 1)
+  end.
+
+Definition above_average_strength (so: sounding_object) (s : frequency_sample) : bool :=
+  Qle_bool (average_strength so) (strength s).
+
+Definition is_music (so : sounding_object) : bool :=
+  andb(
+    andb
+      (*Van hossza*)
+      (Nat.ltb 3000 (length_in_msec so))
+      (*Van benne hangsúly*)
+      (match so with
+        | sounding_obj rate samples => (existsb (above_average_strength so) samples)
+      end))
+  (*van benne zenei minta*)
+  (match so with
+     | sounding_obj rate samples => (existsb is_musical samples)
+   end)
+  .
 
 Definition is_pop_song (so : sounding_object) : bool :=
-  is_music so.
-(*
-Teljesülnie kell:
- - stabilan ütemekre bontható
- - van benne tetőpont, refrén, valami
-*)
+  andb
+    (is_music so)
+    (**)
+    (true)
+.
 
 
 (* EXAMPLE: The trumpet plays a note in the C2 - Cb4 register *)

@@ -46,21 +46,20 @@ Definition halfstep_up (x : pitchClass) : pitchClass :=
     next l # (m - Z.of_nat(upward_distance (l # 0) (next l # 0)) + 1)
 end.
 
-Lemma pitchclass1 : forall (l1 l2 : Letter.letter) (m : Z), l1 = l2 -> (l1 # m) = (l2 # m).
+Lemma same_letter_same_pitch_class : forall (l1 l2 : Letter.letter) (m : Z), l1 = l2 -> (l1 # m) = (l2 # m).
 Proof. intros l1 l2 m. intro H. rewrite -> H. reflexivity.
 Qed.
 
 (*
-Lemma pitchclass15 : forall (l1 l2 : Letter.letter) (m1 m2 : Z), (l1 # m1) = (l2 # m2) -> l1 = l2.
+Lemma same_pitch_class_same_letter : forall (l1 l2 : Letter.letter) (m1 m2 : Z), (l1 # m1) = (l2 # m2) -> l1 = l2.
 Proof. intros l1 l2 m1 m2. enough (l1 = l2 \/ ~ l1 = l2 ) as [H|H].
   - rewrite -> H. reflexivity.
-  - 
- destruct (l1 = l2) eqn:LL. intro H. rewrite -> H. destruct (Z.eqb m1 m2) eqn:EM.
+  -  destruct (l1 = l2) eqn:LL. intro H. rewrite -> H. destruct (Z.eqb m1 m2) eqn:EM.
   -  destruct (Letter.eqb l1 l2) eqn:EL1L2. auto. auto.
   - destruct (Letter.eqb l1 l2) eqn:EL1L2. auto. auto.
 Qed.*)
 
-Lemma pitchclass2 : forall (l1 l2 : Letter.letter) (m1 m2 : Z),
+Lemma different_pitch_classes : forall (l1 l2 : Letter.letter) (m1 m2 : Z),
   eqb (l1 # m1) (l2 # m2) = false <-> 
   orb (Bool.eqb (Letter.eqb l1 l2) false) (Bool.eqb (Z.eqb m1 m2) false) = true.
 Proof.
@@ -97,6 +96,7 @@ intros x y. destruct (eqb x y) eqn:EXY.
   ******  simpl.
 Admitted.
 *)
+
 Lemma pitchclass16 : forall (l1 l2 : Letter.letter) (m1 m2 : Z), 
   upward_distance (l1 # m1) (l2 # m1) = upward_distance (l1 # m2) (l2 # m2).
 Proof.
