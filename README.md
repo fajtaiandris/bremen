@@ -4,10 +4,8 @@ Bremen is a formal model of music theory written in Coq.
 ## Kijavítani, megcsinálni
 
 - köszönetnyilvánítás
-- 26. ábra
 - lezárás
 - coq agda
-- coq hogyan teljesít
 - helyesírás
 
 - glossarry
