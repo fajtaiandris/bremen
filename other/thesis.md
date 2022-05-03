@@ -547,13 +547,13 @@ Inductive dynamic : Type :=
 
 A zenei modell legmagasabb szintű típusa a song, vagyis a dal. Egy dal részekből áll, minden rész pedig egy hangszer és egy többszólamú leirat kettőseinek listájából. A többszólamú leiratra, vagyis a harmonicPartra az egyszerre több hangot kiadni képes hangszerek miatt van szükség. Azt a megfogalmazást válaszottam, miszerint a harmonicPart, dallamok, tehát melodicPartok olyan kombinációja, melyben létezik egy kitüntetett fő dallam, és emellé létezhet akárhány mellék dallam, továbbá a mellékdallamok kezdődhetnek később, mint a fődallam, és akármilyen rövidek lehetnek, tehát nem kell kiérniük a harmonicPart végéig. Ez a reprezentálás megköveteli tehát a többszólamú részek aprólékos szólamokra bontását, amire a kottában nincs szükség, bár lehetséges. Ennek a követelménynek azon kívül nincs jelentőssége, hogy így a reprezentáció közelebb áll ahhoz, ahogy az emberek elgondolják a zenét, bár az időben egymást részlegesen fedő hangok leiratára mindenképpen kellene lennie modellben valamilyen eszköznek. Ez az eszköz a kottában a ritmikai átkötés.
 
-[nagyjon jó kotta példa a harmonicpart többszólamúságára]
+![](./images/21.png)
 
-*17. ábra:*
+*17. ábra: A kottában ritmikai átkötéssel leírt többszólamú részek gyakran nehezen olvashatóak, mivel elrejtik a szólamok számát és a hangjegyek hosszát.*
 
-[ritmikai átkötésre példa]
+![](./images/20.png)
 
-*18. ábra:*
+*18. ábra: Az előző ábrán szereplő zene szólamokra bontott, tehát a modellemnek is megfelelő leirata.*
 
 A modellben a hangszert,  mint a zenei hang felharmónikusainak amplitudó arányát módosító tényezőt, mint hangszínt definiáltam. Ehhez először is meg kell, hogy tudjuk adni pusztán egy hang felharmónikusainak erősségét. 
 
@@ -685,7 +685,7 @@ Definition is_right (t : transcription) : bool :=
   (andb (Nat.leb (N.to_nat (song_duration_in_sec song) * 800) (length_in_msec so))
         (Nat.leb ((length_in_msec so) * 800) (N.to_nat (song_duration_in_sec song))))
   (*az egyek hangsúlyosak*)
-  (*ugyanazok a dolgok szólnak időben ugyanott*)
+  (*ugyanazok a dolgok szólnak időben nagyjából ugyanott*)
   (* ... *)
   end.
 ```
@@ -694,9 +694,9 @@ Definition is_right (t : transcription) : bool :=
 
 Az első pontja az `is_right`-nak eldönti, hogy a hangobjektum hossza a megadott mintavételezési frekvencia alapján nagyjából megegyezik-e a dal átlag bpm értékéből számolt hosszal. Ezen kívűl ennek a függvénynek feladata megállapítani, hogy a dalban szereplő egyek helyén a hangobjektumban tényleg érzékelhető-e a nagyobb hangsúly, illetve, hogy általánosan ugyanazok a dolgok szólnak-e nagyjából ugyanazon a helyen. Ez a két alfeladat szintén pszichoakusztikai megfontolásokat és magasszintű formalizációt igényel. Ezek leírása Coq-ban továbbá elég magas számításigényű, így már rövid hangobjektumok is vagy csak nagyon lassan értékelhetőek ki, vagy egyáltalán nem.
 
-[szép kép arról, hogy az is_right miket csekkol]
+![](./images/11.svg)
 
-*25. ábra*:
+*25. ábra: Az automatikus leirat verifikáció lépései. A minták az olvashatóság kedvéért nem frekvencia tömbök, hanem hanghullámokként vannak felrajzolva.*
 
 ### 5.5. Példa a modell projektekben való használatára
 
@@ -710,9 +710,9 @@ A modell hiányának első szintje a követelmények megfogalmazásában jelenik
 
 A kutatásom célja volt megkeresni azt az eszközt, mellyel a zene modelljének formalizálása elvégezhető úgy, hogy az használható legyen valós jelfeldolgozási projektekben,  az összes eddigi formalizáltságbeli hiányt betöltve. Láthattuk, hogy azonban a szakterületre jellemző aluldefiniáltság miatt nem csak az eszköz megválasztása jelent kihívást, hanem a fogalmak elkülöntése és a zeneelmélet a zene minden szintjére való kibővítése is. Ennek a feladatnak a megoldása tehát az űr betöltését jelentené a zenetudományi kutatások és a jelfeldolgozási projektek között, de ezzel együtt szükségszerűen összekötné a művészei zeneelméletet a fizikával illetve a kottát a MIDI-vel is.
 
-[mit mivel köt össze a bremen]
+![](./images/12.svg)
 
-*26. ábra:*
+*26. ábra: A zenei modell összeköti a zene tudományos és művészeti oldalát*
 
 Mivel nagyon széles területen vállal feladatokat a zenei modell és alig van eszköz amire építkezhet, a zenei reprezentáció szemptonjából alacsonyabb szinteken rengeteg munkát ígényel a kidolgozása, hogy alkalmas legyen az igazán fontos szerepeinek betöltésére magasabb szinteken. Ahhoz, hogy komplexebb példákat mutathassak a munkámban tehát szükségem volt a hangjegy és a ritmus megfelelő definiálására, azonban az ezekre épülő struktúrák megfogalmazása ettől még nem bizonyúlt egyértelműnek. Bár magasabb szintek felé haladva nem zárható ki a további fejlesztések igénye,  úgy gondolom, hogy a formalizálás során a legalacsonyabb szinteken megtartottam, hogy a definíciók szépek, szimmetrikusak és praktikusak legyenek, így ezek változtatására a modell további fejlesztése során sem lesz szükség. A Coq, mint modellt leíró eszköz megfelelő választásnak bizonyúlt mivel teljesítette a könnyen olvasható és matematika típusokra épülő definíciók követelményét. A kapott struktúrákra így tényleg teljesülnek azok az állítások, melyeket elvárnánk, hogy teljesüljenek, hiszen nem függenek imperatív nyelvekre jellemző gépi típusoktól. A célkitűzések között nem szerepelt, de az alábbi állításokat Coqban formálisan beláttam.
 
@@ -789,6 +789,14 @@ A magasszintű zenei kiértékelés támogatása egy összetett problémának bi
 **coq hogy teljesít**
 
 **lezárás**
+
+> The most rational minds in history have always yielded to a slight mystic haze when the subject of music has been broached, recognizing the beatuiful and utterly satisfying combination of mathematics and magic that music is.
+> (…)
+> We bumble. We imitate scientific method in our attempts to explain the magic phenomena by fact, forces, mass, energy.
+> (…)
+> Still we go on trying to shed some light on the mystery. There is a human urge to clarify, rationalize, justify, analyze, limit, describe.
+
+*- Leonard Bernstein: The Joy of Music*
 
 Toward a formal theory 2. oldal "One of the virtues of formal theory ..."
 
