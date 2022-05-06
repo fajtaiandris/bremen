@@ -847,7 +847,7 @@ Amplitude = {x ∈ ℝ | -100 < x < 100}
 HarmonicQuality = (ℝ<sub>≥0</sub><sup>n</sup> | n ∈ ℕ<sup>+</sup>)   
 `Describes the ratio between the first n harmonics of a pitch.`  
 ComplexHarmonicQuality = ((HarmonicQuality × Frequency)<sup>n</sup> | n ∈ ℕ<sup>+</sup>)  
-`Describes samples of harmonic qualities at given frequencies. ` 
+`Describes samples of harmonic qualities at given frequencies.`  
 Instrument = ComplexHarmonicQuality  
 
 Section = ((Instrument × HarmonicPart)<sup>n</sup> | n ∈ ℕ<sup>+</sup>)  
