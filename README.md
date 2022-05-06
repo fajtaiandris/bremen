@@ -4,11 +4,6 @@ Bremen is a formal model of music theory written in Coq.
 ## Kijavítani, megcsinálni
 
 - köszönetnyilvánítás
-- coq agda
-- helyesírás
-- idézeteket lefordítani
-- cím nevek
-
 
 - bizonyításokat elnevezni, átfogalmazni
 - felesleges definíciókat, kommenteket, notationöket kitisztítani
@@ -17,7 +12,7 @@ Bremen is a formal model of music theory written in Coq.
 - _CoqProject fájlt átnézni
 
 - szerkesztés
-
+- helyesírás
 
 ## Esetleg később kijavítani
  - melodic_part ne lehessen üres lista

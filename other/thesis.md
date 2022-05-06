@@ -1,6 +1,11 @@
 # A könnyűzene formális modellje
 
+**Köszönetnyilvánítás**
+
+Különleges élmény volt, hogy szinte a mesterképzésem teljes időtartama alatt a frissen alakult Research for Understanding Music, Beat and Acoustics kutatócsoport tagjaként elmélyülhettem ebben az érdekes interdiszciplináris kutatási területben, a számítási zenetudományban. Nagy hálával tartozom ezért
+
 ## 1. Absztrakt
+
 A zenei jelfeldolgozással foglalkozó algoritmusok gyakran figyelmen kívül hagyják magának a zenének az elméletét. Ennek oka a formális zenei modell hiánya. A munkámban megmutatom, hogy a formalizált zeneelmélet felhasználható a jelfeldolgozási kimenetek gépi kiértékelésében. Megvizsgálom, hogy a zenei modell megválasztása hogyan befolyásolja a feldolgozás egyes szintjeit, hogyan lehet segítségükre, és hogyan verifikálhatóak számítógéppel az eredményeik. Arra is kitérek, hogy ez a számítási zenetudományi feladat milyen szoftvertechnológiai kihívásokkal jár, és azok hogyan oldhatóak meg.  
 
 ## 2. A kutatási célok meghatározása
@@ -293,7 +298,7 @@ Belátva, hogy zenei formalizálás szempontjából a proof assistant programcso
 - Másodszor lehetőleg minél gyorsabbnak kell lennie (a konkrét zenei feladatok elvégzésében), hiszen zenei jelfeldolgozási projektek nem ritka követelménye a valósidejűség.
 - Harmadikként pedig preferálandó egy olyan eszköz, melynek használata nem áll túl messze a területen dolgozó tipikus fejlesztőktől, mivel ahogy a legtöbb programcsomagnál, itt is a minőség egyik mutatója a projekt életbenmaradása és dinamikus fejlődése, ami egyetemi kutatócsoportot vagy opensource projektet tekintve a fejlesztők cserélődése miatt a minél kevésbé meredek betanulási görbével érhető csak el.
 
-Mielőtt az Agda és a Coq, mint a két legelterjedtebb proof assistant különbségeit a felsorolt szempontok szerint áttekintenénk, fontos megemlíteni a hasonlóságaikat is. Mindkét nyelvben a matematikai bizonyítások és a programkód közötti kapcsolatot a Curry-Howard izomorfizmus valósítja meg, mely röviden annyit jelent, hogy egy függvény felfogható bizonyításként is. Az alábbi példa ezt szemlélteti. Mindkét nyelv Martin Löf függő típusos elméletén alapul melynek célja a konstruktív matematikai felépítést támogatni.
+Mielőtt az Agda és a Coq, mint a két legelterjedtebb proof assistant különbségeit a felsorolt szempontok szerint áttekintenénk, fontos megemlíteni a hasonlóságaikat is. Mindkét nyelvben a matematikai bizonyítások és a programkód közötti kapcsolatot a Curry-Howard izomorfizmus valósítja meg, mely röviden annyit jelent, hogy egy függvény felfogható bizonyításként is. Az alábbi példa ezt szemlélteti. Mindkét nyelv köthető Martin Löf függő típusos elméletéhez, melynek célja a konstruktív matematikai felépítést támogatni.
 
 ```coq
 plus_comm =
@@ -330,7 +335,7 @@ Az alábbi fejezetben a legalacsonyabb zene szinttől haladva mutatom be az elk�
 
 Korábban már említettem, hogy a számítási zenetudomány irodalma jellemzően nem részletezi a zenei hang reprezentálását, hanem ehelyett a kottára támaszkodva épít fel elméleteket. Elvétve azonban mégis lehet találni pár elgondolást a hang tulajdonságairól. Azokat az ide tartozó a zenei kifejezéseket, amelyek használata nem egységes az irodalomban az egyértelműség kedvéért a továbbiakban angolul használom.
 
-| angol        | magyar                | angol műszótár [[8]](Alfred's pocket dictionary) | magyar műszótár [[9]](Böhm műszótár) |
+| angol        | magyar                | angol műszótár [[8]](Alfred's Pocket Dictionary of Music) | magyar műszótár [[9]](Böhm László: Zenei műszótár) |
 |-------------|----------------------|-------------------|---|
 | pitch        | hangmagasság          | A hang magassága vagy mélysége            | A hangnak az a sajátossága, ami a hangot előidéző rezgések számától függ |
 | note         | hangjegy              | A zene lejegyzésére használt szimbólumok  | A hangok magasságának és viszonylagos időtartamának jelölésére és megrögzítésére szolgáló különleges írásjelek |
@@ -574,7 +579,7 @@ Ennyi azonban még nem elég ahhoz, hogy leírjuk egy hangszer jellegét, mivel 
 
 ![](./images/16.png)
 
-*20. ábra: Alt szaxofon egymás melletti hangmagasságokon vett felharmonikusbeli különbsége [10]* 
+*20. ábra: Alt szaxofon egymás melletti hangmagasságokon vett felharmonikusbeli különbsége [(1)](http://plaza.ufl.edu/badavis/EEL6825_Project.html)* 
 
 ```coq
 (* theories.physics.Instrument.v *)
@@ -588,11 +593,11 @@ Bár jelenleg a további definíciók könnyebb megadása érdekében egy hangsz
 
 ![](./images/9.png)
 
-*21. ábra: A zongorán (a) és hegedűn (b) megszólaltatott hang dinamikai különbségei [11]* 
+*21. ábra: A zongorán (a) és hegedűn (b) megszólaltatott hang dinamikai különbségei (2)
 
 ![](./images/17.png)
 
-*22. ábra: Alt szaxofonon különböző dinamikai árnyalások által keletkezett felharmonikusbeli különbségek [10]*
+*22. ábra: Alt szaxofonon különböző dinamikai árnyalások által keletkezett felharmonikusbeli különbségek [(1)](http://plaza.ufl.edu/badavis/EEL6825_Project.html)*
 
 ### 5.4. A hangobjektum formalizálásáról
 
@@ -681,7 +686,7 @@ Definition is_right (t : transcription) : bool :=
   match t with | transcript so song =>
   andb 
   (is_music so) 
-  (*nagyjából megegyezik a hossz *)
+  (*nagyjából megegyezik a hossz*)
   (andb (Nat.leb (N.to_nat (song_duration_in_sec song) * 800) (length_in_msec so))
         (Nat.leb ((length_in_msec so) * 800) (N.to_nat (song_duration_in_sec song))))
   (*az egyek hangsúlyosak*)
@@ -697,14 +702,6 @@ Az első pontja az `is_right`-nak eldönti, hogy a hangobjektum hossza a megadot
 ![](./images/11.svg)
 
 *25. ábra: Az automatikus leirat verifikáció lépései. A minták az olvashatóság kedvéért nem frekvencia tömbök, hanem hanghullámokként vannak felrajzolva.*
-
-### 5.5. Példa a modell projektekben való használatára
-
-A zenei modell célja, hogy segítse a zenei jelfeldolgozást. Az alábbi példában megmutatom, hogy a korábban említett négy területen hogyan használható a modell a színvonalasabb jelfeldolgozási projekt megvalósításának érdekében. Vegyük az alábbi feladatot.
-
-> Nagy mennyiségű hangfájl feldolgozását követően különítsük el a zenét tartalmazóak közül azokat, amelyeken végig csak egy trombita játszik, a teljes dal a C2 - Cb4 hangtartományon belül van és nem szerepel benne tritónusz lépés.
-
-A modell hiányának első szintje a követelmények megfogalmazásában jelenik meg. A feladatszövegben számos olyan kifejezés olvasható, amelyek csak háttértudással értelmezhetőek, illetve akad olyan is, amelynek még úgy sem egyértelmű a definíciója. A Coqban megadott zenei modell segítségével az egyszerű zenei kifejezések jelentését könnyen megkereshetjük, és 
 
 ## 6. Az eredmények összefoglaló értékelése és a levonható következtetések
 
@@ -730,48 +727,41 @@ Lemma same_letter_same_pitch_class : forall (l1 l2 : Letter.letter) (m : Z), l1 
 Lemma different_pitch_classes : forall (l1 l2 : Letter.letter) (m1 m2 : Z),
   eqb (l1 # m1) (l2 # m2) = false <-> 
   orb (Bool.eqb (Letter.eqb l1 l2) false) (Bool.eqb (Z.eqb m1 m2) false) = true.
-Lemma pitchclass3 : forall (x y : pitchClass),
+(* pitch class-ek távolságára vontakozó állítások *)
+Lemma upward_distance_12 : forall (x y : pitchClass),
   eqb x y = false <->
   Nat.eqb (upward_distance x y) (12 - (upward_distance y x)) = true.
-Lemma pitchclass16 : forall (l1 l2 : Letter.letter) (m1 m2 : Z), 
+Lemma upward_distance_modifier : forall (l1 l2 : Letter.letter) (m1 m2 : Z), 
   upward_distance (l1 # m1) (l2 # m1) = upward_distance (l1 # m2) (l2 # m2).
-Theorem pitchclassx : forall (x y z : pitchClass),
+Theorem upward_distance_enharmonic : forall (x y z : pitchClass),
   enharmonic_eqb x y = true <-> upward_distance z x = upward_distance z y.
-Theorem pitchclass3 : forall (x : pitchlass), flatten (sharpen x) = x.
-Theorem pitchclass4 : forall (x y : pitchlass), sharpen x = y -> flatten y = x.
-Theorem pitchclass5 : forall (x y : pitchclass), upward_distance x y + 1 = upward_distance x (sharpen y).
+(* A flatten és a sharpen kapcsolatára vonatkozó állítások *)
+Theorem flatten_sharpen_1 : forall (x : pitchlass), flatten (sharpen x) = x.
+Theorem flatten_sharpen_2 : forall (x y : pitchlass), sharpen x = y -> flatten y = x.
+Theorem upward_distance_sharpen : forall (x y : pitchclass), upward_distance x y + 1 = upward_distance x (sharpen y).
 
 (* theories.harmony.Pitch.v *)
-(*similar to distance axioms*)
-Theorem pitch1 : forall (x y : pitch), distance x y = 0 -> enharmonix_eq x y.
-Theorem pitch2 : forall (x y : pitch), distance x y + distance y x = 0.
-Theorem pitch3 : forall (x y z : pitch), distance x z =< distance x y + distance y z.
+(* pitch-ek távolságára vonatkozó állítások *)
+Theorem distance_enharmonic : forall (x y : pitch), distance x y = 0 -> enharmonic_eq x y.
+Theorem distance_to_from : forall (x y : pitch), distance x y + distance y x = 0.
+Theorem distance_triangle : forall (x y z : pitch), distance x z =< distance x y + distance y z.
 
-(*some equality axioms*)
-Theorem pitch4 : forall (x : pitch), enharmonic_eq x x.
-Theorem pitch5 : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq y x.
-Theorem pitch6 : forall (x y z : pitch), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
-Theorem pitch7 : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq (halfstep_up x) (halfstep_up y).
+(* pitch-ek enharmóniai összefüggései *)
+Theorem enharmonic_xx : forall (x : pitch), enharmonic_eq x x.
+Theorem enharmonix_xy_yx : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq y x.
+Theorem enharmonic_transitivity : forall (x y z : pitch), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
+Theorem enharmonic_halfstep_up : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq (halfstep_up x) (halfstep_up y).
 
 (* theories.harmony.Interval.v *)
-(*some equality axioms*)
-Theorem intervalname1 : forall (x : intervalName), enharmonic_eq x x.
-Theorem intervalname2 : forall (x y : intervalName), enharmonic_eq x y -> enharmonic_eq y x.
-Theorem intervalname3 : forall (x y z : intervalName), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
+(* Hangközök egyenlőségére vonatkozó állítások *)
+Theorem enharmonic_xx : forall (x : intervalName), enharmonic_eq x x.
+Theorem enharmonic_xy_yx : forall (x y : intervalName), enharmonic_eq x y -> enharmonic_eq y x.
+Theorem enharmonic_transitivity : forall (x y z : intervalName), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
 
-(*addition axioms*)
-(*commutativity*)
-Theorem intervalname4 : forall (x y : intervalName), enharmonic_eq (plus x y) (plus y x).
-(*associativity*)
-Theorem intervalname5 : forall (x y z : intervalName), enharmonic_eq (plus (plus x y) z) (plus (plus y z) x).
-(*identity*)
-Theorem intervalname6 : forall (x : intervalName), enharmonic_eq x (plus x {Perfect Unison}).
-(*inverse ?*)
-Theorem intervalname7 : forall (x : intervalName), enharmonic_eq (plus x (minus {Perfect Unison} x) {Perfect Unison}).
-(*distribution ?*)
-
-(*some for invert*)
-Theorem intervalname8 : forall (x : intervalName), enharmonic_eq x (invert (invert x)).
+(* Hangközök összeadására vonatkozó állítások *)
+Theorem commutativity : forall (x y : intervalName), enharmonic_eq (plus x y) (plus y x).
+Theorem associativity : forall (x y z : intervalName), enharmonic_eq (plus (plus x y) z) (plus (plus y z) x).
+Theorem identity : forall (x : intervalName), enharmonic_eq x (plus x {Perfect Unison}).
 ```
 
 *30. kódrészlet: A modell pár alapvető állítása*
@@ -790,23 +780,25 @@ A magasszintű zenei kiértékelés támogatása egy összetett problémának bi
 
 Ezeknek az eredményeknek köszönhetően dinamikusabban, kevesebb idő alatt építhető nagy jelfeldolgozó rendszer, illetve könnyebben értékelhetőek adott transzformációk és részfeladatok közötti viszony.
 
-Bár a Coq-ban felírt modell elméletben képes betölteni a zenei formalizáltságbeli hiányosságokat a jelfeldolgozási projektekben, gyakorlatban azonban a valós projektben való használat szempontjából mégis rosszul teljesít. Ennek legnagyobb oka természetesen a gyorsaság. Ettől a zenei eszköztől elvárnánk, hogy összetettebb számításokat is real-time képes legyen elvégezni, azonban ehhez képest messze alul teljesít. Bár a Coq source code extraction funkciójával elképzelhető, hogy más nyelveken jobb teljesítményt tudunk elérni, az sajnos továbbra sem reális cél, hogy akár egy fél perces átlagos mintavételezési frekvenciájú hangobjektumot kivárható idő alatt kiértékeljünk. Így tehát, a Coq nyelv, mint a zene formális modelljének leíró eszköze, éppen csak a leírásra alkalmas, a számításra pedig nem. Ne gondoljuk azonban, hogy ez félsiker, hiszen a leiratot sablonként használva tetszőleges imperatív nyelven a modell implementálható. Az így kapott implementáció teljesítményét jól ismert eszközökkel javítani tudjuk, a formális mintától  ily módon való eltérést pedig felfoghatjuk használhatóságért tett áldozatul.
+Bár a Coq-ban felírt modell elméletben képes betölteni a zenei formalizáltságbeli hiányosságokat a jelfeldolgozási projektekben, gyakorlatban azonban a valós projektben való használat szempontjából mégis rosszul teljesít. Ennek legnagyobb oka a gyorsaság. Ettől a zenei eszköztől elvárnánk, hogy összetettebb számításokat is real-time képes legyen elvégezni, azonban ehhez képest messze alul teljesít. Bár a Coq source code extraction funkciójával elképzelhető, hogy más nyelveken jobb teljesítményt tudunk elérni, az sajnos továbbra sem reális cél, hogy akár egy fél perces átlagos mintavételezési frekvenciájú hangobjektumot kivárható idő alatt kiértékeljünk. Így tehát, a Coq nyelv, mint a zene formális modelljének leíró eszköze, éppen csak a leírásra alkalmas, a számításra pedig nem. Ne gondoljuk azonban, hogy ez félsiker, hiszen a leiratot sablonként használva tetszőleges imperatív nyelven a modell implementálható. Az így kapott implementáció teljesítményét jól ismert eszközökkel javítani tudjuk, a formális mintától  ily módon való eltérést pedig felfoghatjuk használhatóságért tett áldozatul.
 
 A Bremen, vagy bármely más jövőben elkészülő zenei formális modell használatának választásához mérlegelni kell, hogy az említett problémák kiküszöbölésének érdekében megéri-e az új technológia megismerésébe fektetett energia. Egyetemi kutatócsoportokat szemelőtt tartva elmondható, hogy igen. Viszont utoljára tegyük fel még egyszer a kérdést: *Tényleg megoldjuk egy ilyen eszköz használatával általánosságban az összen zeneelmélet jellegű problémát?* Azt feltehetjük, hogy a rendszer formálisan megfelelően definiált, állításokkal és (Coq által elfogadott) bizonyításokkal teleírt, így az imperatív programcsomagokhoz képest mindenképpen megfelelőbb eredményre számíthatunk ezen a téren. Tudjuk tehát, hogy egy formális zenei modellről van szó, de az viszont megfontolandó dolog, hogy ez a modell megfelel-e zenei szempontból, tehát azt fejezei-e ki, amit elvárnánk tőle. Ezen döntés mellett a területen tapasztalható zenei modell konszenzusának hiányában az egyetlen érv éppen csak a korábban olvasható törekvések listája tud lenni. Ha elfogadjuk tehát, hogy a Bremen egy "jó" zeneelmélet, az alapján, hogy éppen erre törekszik, akkor viszont már rendet tudunk rakni az összes többi zenei definíció és modell között.
 
-> One of the virtues of a formal theory is not that it is necessarily more "true", but that, even where incorrect or inadequate, it clarifies issues precisely.
+> A formális elmélet előnye nem az, hogy feltétlenül "igazabb", hanem hogy ha hibás vagy nem megfelelő is, a problémák pontosan kirajzolódnak.
 
-*- Fred Lerdhal and Ray Jackendoff: Toward a Formal Theory of Tonal Music*
+*- Fred Lerdhal and Ray Jackendoff: Toward a Formal Theory of Tonal Music [[4]](https://www.jstor.org/stable/843480)*
 
-> The most rational minds in history have always yielded to a slight mystic haze when the subject of music has been broached, recognizing the beatuiful and utterly satisfying combination of mathematics and magic that music is.
-> (…)
-> We bumble. We imitate scientific method in our attempts to explain the magic phenomena by fact, forces, mass, energy.
-> (…)
-> Still we go on trying to shed some light on the mystery. There is a human urge to clarify, rationalize, justify, analyze, limit, describe.
+>Ha zenéről volt szó, a történelem legracionálisabb elméi is mindig egy kissé misztikus ködön át látták - felismervén a matematikának és a mágikus varázsnak azt a gyönyörűséges és teljesen meggyőző ötvözetét, ami maga a zene.
+>(...)
+>Fontoskodunk csupán. Tudományos módszereket majmolunk, abban az igyekezetben, hogy tényekkel, erővel, tömemggel, energiával magyarázzuk meg a mágikus jelenségeket.
+>(...)
+>Mégis igyekszünk némi fényt deríteni a rejtélyre. Hiszen az embert vele született hajlama ösztönzi a dolgok tisztázására, megmagyarázására, igazolására, elemzésére, körülhatárolására, leírására.
 
-*- Leonard Bernstein: The Joy of Music*
+*- Leonard Bernstein: The Joy of Music [10]*
 
-## Melléklet
+## 7. Melléklet: Formális zenei nevezéktan
+
+Az alábbi nevezéktant, mint a zenei modell rövid áttekintőjét, az ELTE Research for Understanding Music, Beat and Acoustics kutatócsoport számára készítettem. Ezzel célom, hogy a jövőben elkerüljük a félrenevezéseket és általánosan egy magasabb szintű formalizáltsághoz tartsuk magunkat azokon a helyeken is, ahol a Bremen használata nem megoldható.
 
 Letter = {A, B, C, D, E, F, G}
 PitchClass = (Letter × ℤ)
@@ -839,6 +831,7 @@ Meter = (ℕ<sup>+</sup> × Division)
 > four four = (4, (1 / 4)) ∈ Meter
 
 Dynamic ∈ {{ff, mf, p, pp}, ... }
+`Describes a set of dynamic attributes. Dynamic depends on context.`
 Note = (Pitch × Duration × Dynamic) ⋃ (Duration × Dynamic)
 
 > quarter length C4 = (((C, 0), 4), (1 / 4), mf) ∈ Note
@@ -847,24 +840,43 @@ Note = (Pitch × Duration × Dynamic) ⋃ (Duration × Dynamic)
 MelodicPart = (Note<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
 HarmonicPart = (MelodicPart<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
 
-HarmonicQuality = (ℝ<sub>≥0</sub><sup>n</sup> | n ∈ ℕ<sup>+</sup>)
-ComplexHarmonicQuality = ((HarmonicQuality × ℝ<sub>≥0</sub>)<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
+Frequency = ℝ<sub>>0</sub>
+`Describes frequency value measured in Hz.`
+Amplitude = {x ∈ ℝ | -100 < x < 100}
+`Describes amplitude value measured in dB.`
+HarmonicQuality = (ℝ<sub>≥0</sub><sup>n</sup> | n ∈ ℕ<sup>+</sup>) 
+`Describes the ratio between the first n harmonics of a pitch.`
+ComplexHarmonicQuality = ((HarmonicQuality × Frequency)<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
+`Describes samples of harmonic qualities at given frequencies.`
 Instrument = ComplexHarmonicQuality
 
 Section = ((Instrument × HarmonicPart)<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
-Song = ({x ∈ ℕ | 20 < x < 400 } × (Section<sup>n</sup> | n ∈ ℕ<sup>+</sup>))
+Bpm = {x ∈ ℕ | 20 < x < 400}
+Song = (Bpm × (Section<sup>n</sup> | n ∈ ℕ<sup>+</sup>))
 
-Frequency = ℝ<sub>>0</sub>
-Amplitude = {x ∈ ℝ | -100 < x < 100}
 SamplingRate = ℕ<sup>+</sup>
 Sample = ((Frequency × Amplitude)<sup>n</sup> | n ∈ ℕ)
 SoundingObject = (SamplingRate × (Sample<sup>n</sup> | n ∈ ℕ))
 Transcription = (SoundingObject × Song)
 
-## hivatkozások
+## 8. Irodalomjegyzék
 
-- [10] Bryan Davis: Wind Instrument Classification, Department of Electrical and
+- [[1]](https://www.jstor.org/stable/40351760) Rahn, John: Logic, Set Theory, Music Theory, *College Music Symposium*, vol. 19, no. 1, 1979, pp. 114–27
+- [[2]](https://en.wikipedia.org/wiki/Schenkerian_analysis) https://en.wikipedia.org/wiki/Schenkerian_analysis, Hozzáférés dátuma: 2022. május 5.
+- [[3]](https://www.jstor.org/stable/3680082) Smoliar, Stephen W.: A Computer Aid for Schenkerian Analysis, *Computer Music Journal*, vol. 4, no. 2, 1980, pp. 41–59
+-  [[4]](https://www.jstor.org/stable/843480) Lerdahl, Fred, and Ray Jackendoff: Toward a Formal Theory of Tonal Music, *Journal of Music Theory*, vol. 21, no. 1, 1977, pp. 111–71
+- [[5]](https://www.jstor.org/stable/852975) Tagg, Philip: Analysing Popular Music: Theory, Method and Practice, *Popular Music*, vol. 2, 1982, pp. 37–67
+- [[6]](https://web.mit.edu/music21/doc/index.html) https://web.mit.edu/music21/doc/index.html, Hozzáférés dátuma: 2022. május 5.
+- [[7]](https://bspaans.github.io/python-mingus/) https://bspaans.github.io/python-mingus/, Hozzáférés dátuma: 2022. május 5.
+- [8] Sandy Feldstein: Alfred's Pocket Dictionary of Music, *Alfred Music*, 1985, [240], ISBN 0-88284-349-4.
+- [9] Böhm László: Zenei műszótár, *Editio Musica Budapest*, 1961, [348], ISBN 963-330-738-4.
+- [10] Leonard Bernstein: The Joy of Music, *Amadeus Press*, 2004, [315], ISBN 157-467-104-9.
+
+## 9. Ábrajegyzék
+
+-  [(1)](http://plaza.ufl.edu/badavis/EEL6825_Project.html) Bryan Davis: Wind Instrument Classification, Department of Electrical and
   Computer Engineering, Unversity of Florida, 2001.
   Elérhető: http://plaza.ufl.edu/badavis/EEL6825_Project.html
-  Hozzáférés dátuma: 2020. április 29.
-- [11] Az a könyv
+  Hozzáférés dátuma: 2022. május 5.
+- (2) Meinard Müller: Music Processing, Springer International Publishing, 2015, [487],
+  ISBN 978-3-319-21945-5.
