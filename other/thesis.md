@@ -806,7 +806,62 @@ A Bremen, vagy bármely más jövőben elkészülő zenei formális modell haszn
 
 *- Leonard Bernstein: The Joy of Music*
 
-# hivatkozások
+## Melléklet
+
+Letter = {A, B, C, D, E, F, G}
+PitchClass = (Letter × ℤ)
+Pitch = (PitchClass × ℕ)
+
+> C♭4 = ((C, -1), 4) ∈ Pitch
+> G♯♯1 = ((G, 2), 1) ∈ Pitch
+
+IntervalCategory = {Perfect, MajorMinor}
+IntervalQuality = (IntervalCategory × ℤ)
+IntervalName = (IntervalQuality × ℕ<sup>+</sup>)
+
+> perfect fourth = ((Perfect, 0), 4) ∈ IntervalName
+> minor seventh = ((MajorMinor, -1), 7) ∈ IntervalName
+
+AbstractChord = (PitchClass<sup>n</sup> | n ∈ ℕ<sup>+</sup> / {1})
+Chord = (Pitch<sup>n</sup> | n ∈ ℕ<sup>+</sup> / {1})
+
+> G major scale = ((G, 0), (A, 0), (B, 0), (C, 0), (D, 0), (E, 0), (F, 1), (G, 0)) ∈ AbstractChord
+> A major triad = ((A, 0), (C, 1), (E, 0)) ∈ AbstractChord
+> A major voicing = (((A, 0), 4), ((E, 0), 5), ((C, 1), 6), ((A, 0), 6)) ∈ Chord
+
+Division = {x ∈ ℚ | (0 < x ≤ 1) ∧ (∃ a, b ∈ ℕ : x = 1 / (2<sup>a</sup> * 3<sup>b</sup>))} 
+Duration = {Division<sup>n</sup> | n ∈ ℕ<sup>+</sup>} 
+Meter = (ℕ<sup>+</sup> × Division)
+
+> quarter = 1 / 4 ∈  Division
+> eighth note triplet = (1 / 4) / 3 =1 / 12 ∈ Division
+> dotted half = ((1 / 2), (1 / 4)) ∈ Duration
+> four four = (4, (1 / 4)) ∈ Meter
+
+Dynamic ∈ {{ff, mf, p, pp}, ... }
+Note = (Pitch × Duration × Dynamic) ⋃ (Duration × Dynamic)
+
+> quarter length C4 = (((C, 0), 4), (1 / 4), mf) ∈ Note
+> whole note rest = ((1), p) ∈ Note
+
+MelodicPart = (Note<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
+HarmonicPart = (MelodicPart<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
+
+HarmonicQuality = (ℝ<sub>≥0</sub><sup>n</sup> | n ∈ ℕ<sup>+</sup>)
+ComplexHarmonicQuality = ((HarmonicQuality × ℝ<sub>≥0</sub>)<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
+Instrument = ComplexHarmonicQuality
+
+Section = ((Instrument × HarmonicPart)<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
+Song = ({x ∈ ℕ | 20 < x < 400 } × (Section<sup>n</sup> | n ∈ ℕ<sup>+</sup>))
+
+Frequency = ℝ<sub>>0</sub>
+Amplitude = {x ∈ ℝ | -100 < x < 100}
+SamplingRate = ℕ<sup>+</sup>
+Sample = ((Frequency × Amplitude)<sup>n</sup> | n ∈ ℕ)
+SoundingObject = (SamplingRate × (Sample<sup>n</sup> | n ∈ ℕ))
+Transcription = (SoundingObject × Song)
+
+## hivatkozások
 
 - [10] Bryan Davis: Wind Instrument Classification, Department of Electrical and
   Computer Engineering, Unversity of Florida, 2001.
