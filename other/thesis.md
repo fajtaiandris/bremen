@@ -800,64 +800,64 @@ A Bremen, vagy bármely más jövőben elkészülő zenei formális modell haszn
 
 Az alábbi nevezéktant, mint a zenei modell rövid áttekintőjét, az ELTE Research for Understanding Music, Beat and Acoustics kutatócsoport számára készítettem. Ezzel célom, hogy a jövőben elkerüljük a félrenevezéseket és általánosan egy magasabb szintű formalizáltsághoz tartsuk magunkat azokon a helyeken is, ahol a Bremen használata nem megoldható.
 
-Letter = {A, B, C, D, E, F, G}
-PitchClass = (Letter × ℤ)
-Pitch = (PitchClass × ℕ)
+Letter = {A, B, C, D, E, F, G}  
+PitchClass = (Letter × ℤ)  
+Pitch = (PitchClass × ℕ)  
 
-> C♭4 = ((C, -1), 4) ∈ Pitch
+> C♭4 = ((C, -1), 4) ∈ Pitch  
 > G♯♯1 = ((G, 2), 1) ∈ Pitch
 
-IntervalCategory = {Perfect, MajorMinor}
-IntervalQuality = (IntervalCategory × ℤ)
-IntervalName = (IntervalQuality × ℕ<sup>+</sup>)
+IntervalCategory = {Perfect, MajorMinor}  
+IntervalQuality = (IntervalCategory × ℤ)  
+IntervalName = (IntervalQuality × ℕ<sup>+</sup>)  
 
-> perfect fourth = ((Perfect, 0), 4) ∈ IntervalName
-> minor seventh = ((MajorMinor, -1), 7) ∈ IntervalName
+> perfect fourth = ((Perfect, 0), 4) ∈ IntervalName  
+> minor seventh = ((MajorMinor, -1), 7) ∈ IntervalName  
 
-AbstractChord = (PitchClass<sup>n</sup> | n ∈ ℕ<sup>+</sup> / {1})
-Chord = (Pitch<sup>n</sup> | n ∈ ℕ<sup>+</sup> / {1})
+AbstractChord = (PitchClass<sup>n</sup> | n ∈ ℕ<sup>+</sup> / {1})  
+Chord = (Pitch<sup>n</sup> | n ∈ ℕ<sup>+</sup> / {1})  
 
-> G major scale = ((G, 0), (A, 0), (B, 0), (C, 0), (D, 0), (E, 0), (F, 1), (G, 0)) ∈ AbstractChord
-> A major triad = ((A, 0), (C, 1), (E, 0)) ∈ AbstractChord
-> A major voicing = (((A, 0), 4), ((E, 0), 5), ((C, 1), 6), ((A, 0), 6)) ∈ Chord
+> G major scale = ((G, 0), (A, 0), (B, 0), (C, 0), (D, 0), (E, 0), (F, 1), (G, 0)) ∈ AbstractChord  
+> A major triad = ((A, 0), (C, 1), (E, 0)) ∈ AbstractChord  
+> A major voicing = (((A, 0), 4), ((E, 0), 5), ((C, 1), 6), ((A, 0), 6)) ∈ Chord  
 
-Division = {x ∈ ℚ | (0 < x ≤ 1) ∧ (∃ a, b ∈ ℕ : x = 1 / (2<sup>a</sup> * 3<sup>b</sup>))} 
-Duration = {Division<sup>n</sup> | n ∈ ℕ<sup>+</sup>} 
-Meter = (ℕ<sup>+</sup> × Division)
+Division = {x ∈ ℚ | (0 < x ≤ 1) ∧ (∃ a, b ∈ ℕ : x = 1 / (2<sup>a</sup> * 3<sup>b</sup>))}   
+Duration = {Division<sup>n</sup> | n ∈ ℕ<sup>+</sup>}   
+Meter = (ℕ<sup>+</sup> × Division)  
 
-> quarter = 1 / 4 ∈  Division
-> eighth note triplet = (1 / 4) / 3 =1 / 12 ∈ Division
-> dotted half = ((1 / 2), (1 / 4)) ∈ Duration
-> four four = (4, (1 / 4)) ∈ Meter
+> quarter = 1 / 4 ∈  Division  
+> eighth note triplet = (1 / 4) / 3 =1 / 12 ∈ Division  
+> dotted half = ((1 / 2), (1 / 4)) ∈ Duration  
+> four four = (4, (1 / 4)) ∈ Meter  
 
-Dynamic ∈ {{ff, mf, p, pp}, ... }
-`Describes a set of dynamic attributes. Dynamic depends on context.`
-Note = (Pitch × Duration × Dynamic) ⋃ (Duration × Dynamic)
+Dynamic ∈ {{ff, mf, p, pp}, ... }  
+`Describes a set of dynamic attributes. Dynamic depends on context.`  
+Note = (Pitch × Duration × Dynamic) ⋃ (Duration × Dynamic)   
 
-> quarter length C4 = (((C, 0), 4), (1 / 4), mf) ∈ Note
-> whole note rest = ((1), p) ∈ Note
+> quarter length C4 = (((C, 0), 4), (1 / 4), mf) ∈ Note  
+> whole note rest = ((1), p) ∈ Note  
 
-MelodicPart = (Note<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
-HarmonicPart = (MelodicPart<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
+MelodicPart = (Note<sup>n</sup> | n ∈ ℕ<sup>+</sup>)  
+HarmonicPart = (MelodicPart<sup>n</sup> | n ∈ ℕ<sup>+</sup>)  
 
-Frequency = ℝ<sub>>0</sub>
-`Describes frequency value measured in Hz.`
-Amplitude = {x ∈ ℝ | -100 < x < 100}
-`Describes amplitude value measured in dB.`
-HarmonicQuality = (ℝ<sub>≥0</sub><sup>n</sup> | n ∈ ℕ<sup>+</sup>) 
-`Describes the ratio between the first n harmonics of a pitch.`
-ComplexHarmonicQuality = ((HarmonicQuality × Frequency)<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
-`Describes samples of harmonic qualities at given frequencies.`
-Instrument = ComplexHarmonicQuality
+Frequency = ℝ<sub>>0</sub>  
+`Describes frequency value measured in Hz.`  
+Amplitude = {x ∈ ℝ | -100 < x < 100}  
+`Describes amplitude value measured in dB.`  
+HarmonicQuality = (ℝ<sub>≥0</sub><sup>n</sup> | n ∈ ℕ<sup>+</sup>)   
+`Describes the ratio between the first n harmonics of a pitch.`  
+ComplexHarmonicQuality = ((HarmonicQuality × Frequency)<sup>n</sup> | n ∈ ℕ<sup>+</sup>)  
+`Describes samples of harmonic qualities at given frequencies. ` 
+Instrument = ComplexHarmonicQuality  
 
-Section = ((Instrument × HarmonicPart)<sup>n</sup> | n ∈ ℕ<sup>+</sup>)
-Bpm = {x ∈ ℕ | 20 < x < 400}
-Song = (Bpm × (Section<sup>n</sup> | n ∈ ℕ<sup>+</sup>))
+Section = ((Instrument × HarmonicPart)<sup>n</sup> | n ∈ ℕ<sup>+</sup>)  
+Bpm = {x ∈ ℕ | 20 < x < 400}  
+Song = (Bpm × (Section<sup>n</sup> | n ∈ ℕ<sup>+</sup>))  
 
-SamplingRate = ℕ<sup>+</sup>
-Sample = ((Frequency × Amplitude)<sup>n</sup> | n ∈ ℕ)
-SoundingObject = (SamplingRate × (Sample<sup>n</sup> | n ∈ ℕ))
-Transcription = (SoundingObject × Song)
+SamplingRate = ℕ<sup>+</sup>  
+Sample = ((Frequency × Amplitude)<sup>n</sup> | n ∈ ℕ)  
+SoundingObject = (SamplingRate × (Sample<sup>n</sup> | n ∈ ℕ))  
+Transcription = (SoundingObject × Song)  
 
 ## 8. Irodalomjegyzék
 
