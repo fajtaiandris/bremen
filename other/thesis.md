@@ -2,7 +2,7 @@
 
 **Köszönetnyilvánítás**
 
-Különleges élmény volt, hogy szinte a mesterképzésem teljes időtartama alatt a frissen alakult Research for Understanding Music, Beat and Acoustics kutatócsoport tagjaként elmélyülhettem ebben az érdekes interdiszciplináris kutatási területben, a számítási zenetudományban. Nagy hálával tartozom ezért
+Különleges élmény volt, hogy szinte a mesterképzésem teljes időtartama alatt a frissen alakult Research for Understanding Music, Beat and Acoustics kutatócsoport keretein belül elmélyülhettem ebben az érdekes interdiszciplináris kutatási területben, a számítási zenetudományban. Nagy hálával kívánok ezért további lelkes tagokat és megannyi diplomamunkát másodszoros témavezetőmnek, Gera Zoltánnak.
 
 ## 1. Absztrakt
 
@@ -535,7 +535,7 @@ GPR6 (Parallelism) Where two or more segments of music can be construed as paral
 
 *22. kódrészlet: A GTTM csoportosító analízisének ötödik és hatodik szabálya*
 
-Felmerül a kérdés, hogy mit is jelent akkor igazán az ütem? A műszótár úgy fogalmazza meg, hogy az ütem az a metrikus egység, ami mindig két főhangsúly (úgynevezett "egy") közé esik. A főhangsúlyt egyéb definíció hiányában a legnagyobb hangsúlyok kategóriájának tekintve az ütemvonal jelentése nem más, mint a rákövetkező hangjegy erős hangsúlyozása. Ennek mentén könnyen definiálható egy dallamra az ütemekké tördelő analízis, hiszen egyszerűen szét kell választani minden olyan hangjegy előtt, amely rendelkezik az "egy érzettel", vagyis főhangsúlyos.
+Felmerül a kérdés, hogy mit is jelent akkor igazán az ütem? Egy korábbi ELTE RUMBA kutatás során, melynek célja egy hangfájl ütemmutatójának megállapítása volt, több különböző frekvenciasávban elvégzett erősségbeli lokális maximumok keresésével és azok összefoglalásával sikerült megfelelő eredményt kapni. A hangerő és az ütemek között tehát szoros kapcsolat kell, hogy legyen. A műszótár úgy fogalmazza meg, hogy az ütem az a metrikus egység, ami mindig két főhangsúly (úgynevezett "egy") közé esik. A főhangsúlyt egyéb definíció hiányában a legnagyobb hangsúlyok kategóriájának tekintve az ütemvonal jelentése nem más, mint a rákövetkező hangjegy erős hangsúlyozása. Ennek mentén könnyen definiálható egy dallamra az ütemekké tördelő analízis, hiszen egyszerűen szét kell választani minden olyan hangjegy előtt, amely rendelkezik az "egy érzettel", vagyis főhangsúlyos.
 
 ```coq
 Inductive dynamic : Type :=
