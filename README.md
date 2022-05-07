@@ -1,14 +1,12 @@
 # <img src="bremen.png" alt="the town musicians of bremen" width="70"/> Bremen
 Bremen is a formal model of music theory written in Coq.  
 
-## Kijavítani, megcsinálni
+## Build
 
-- unitteszteket írni
-- _CoqProject fájlt átnézni
+```bash
+$ make
+```
 
-- szerkesztés
-- helyesírás
-
-## Esetleg később kijavítani
- - melodic_part ne lehessen üres lista
- - durationnél ne így legyen az összekötés, mert ugyanannak a hossznak léteznek különböző összekötései
+## Places for improvement
+ - melodic_part can be an empty list
+ - ties in duration can be described differently, while meaning the same length

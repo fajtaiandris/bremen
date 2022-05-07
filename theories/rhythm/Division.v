@@ -25,12 +25,18 @@ Fixpoint fraction_inverse (x : division) : nat :=
 Definition eqb (d1 d2 : division) : bool :=
   Nat.eqb (fraction_inverse d1) (fraction_inverse d2).
 
+Lemma unittest1 : eqb (Half) (Half) = true. Proof. auto. Qed.
+Lemma unittest2 : eqb (Half) (Quarter) = false. Proof. auto. Qed.
+
 Fixpoint fraction (x : division) : Q :=
   match x with
   | whole => 1
   | half d => ((fraction d) / 2)
   | third d => ((fraction d) / 3)
   end.
+
+Lemma unittest3 : fraction (Half) = 1 / 2 . Proof. unfold fraction. reflexivity. Qed.
+Lemma unittest4 : fraction (QTriplet) = 1 / 2 / 2 / 3 . Proof. unfold fraction. reflexivity. Qed.
 
 Fixpoint half_count (x : division) : nat :=
   match x with
