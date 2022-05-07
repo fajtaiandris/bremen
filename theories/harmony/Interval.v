@@ -1,7 +1,6 @@
 Require Import ZArith.
 From Bremen.theories.harmony Require Import Letter PitchClass Pitch.
 
-(*TODO find out the right names*)
 Inductive intervalCategory : Type :=
   | perfect
   | majorminor
@@ -63,8 +62,6 @@ Definition invert (i : intervalName) : intervalName :=
   | iname (iqual majorminor m) n => iname (iqual majorminor (- m - 1)) (9 - n)
   end.
 
-(*TODO what about iname P 2 ? Also P 0*)
-
 Definition size (i : intervalName) : Z :=
   match i with
   | iname q n => 
@@ -122,7 +119,6 @@ Definition between_pitches (x y : pitch) : directionalIntervalName :=
     end
 .
 
-(*Hibás: Eval compute in apply_to_pitch_class (A # 1) (iname (Diminished) 1).*)
 Definition apply_to_pitch_class (p : pitchClass) (i : intervalName) : pitchClass := 
   match p, i with
   | l # m , iname q n =>
@@ -130,7 +126,6 @@ Definition apply_to_pitch_class (p : pitchClass) (i : intervalName) : pitchClass
   (*Modifier*) # m + ((size i) mod 12) - (size (between_pitch_classes p (nextN l (n - 1) # m)))
   end.
 
-(*TODO ez még inkább csak egy dummy*)
 Definition directionally_apply_to_pitch_class 
   (pc : pitchClass) (di : directionalIntervalName) : pitchClass := 
   match di with
@@ -154,7 +149,6 @@ Definition apply_to_pitch (p : pitch) (i : intervalName) : pitch :=
     end
   end.
 
-(*TODO ez még inkább csak egy dummy*)
 Definition directionally_apply_to_pitch (p : pitch) (di : directionalIntervalName) : pitch := 
   match di with
   | upward i => apply_to_pitch p i
@@ -177,27 +171,12 @@ Definition plus (x y : intervalName) : intervalName :=
    end.
 
 
-(* TODO
-
-
-(*some equality axioms*)
-Theorem intervalname1 : forall (x : intervalName), enharmonic_eq x x.
-Theorem intervalname2 : forall (x y : intervalName), enharmonic_eq x y -> enharmonic_eq y x.
-Theorem intervalname3 : forall (x y z : intervalName), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
-
-(*addition axioms*)
-(*commutativity*)
-Theorem intervalname4 : forall (x y : intervalName), enharmonic_eq (plus x y) (plus y x).
-(*associativity*)
-Theorem intervalname5 : forall (x y z : intervalName), enharmonic_eq (plus (plus x y) z) (plus (plus y z) x).
-(*identity*)
-Theorem intervalname6 : forall (x : intervalName), enharmonic_eq x (plus x {Perfect Unison}).
-(*inverse ?*)
-Theorem intervalname7 : forall (x : intervalName), enharmonic_eq (plus x (minus {Perfect Unison} x) {Perfect Unison}).
-(*distribution ?*)
-
-(*some for invert*)
-Theorem intervalname8 : forall (x : intervalName), enharmonic_eq x (invert (invert x)).
-
-
-*)
+(* Hangközök egyenlőségére vonatkozó állítások *)
+Lemma enharmonic_xx : forall (x : intervalName), enharmonic_eq x x. Proof. Admitted.
+Lemma enharmonic_xy_yx : forall (x y : intervalName), enharmonic_eq x y -> enharmonic_eq y x. Proof. Admitted.
+Lemma enharmonic_transitivity : forall (x y z : intervalName), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
+Proof. Admitted.
+(* Hangközök összeadására vonatkozó állítások *)
+Lemma commutativity : forall (x y : intervalName), enharmonic_eq (plus x y) (plus y x). Proof. Admitted.
+Lemma associativity : forall (x y z : intervalName), enharmonic_eq (plus (plus x y) z) (plus (plus y z) x). Proof. Admitted.
+Lemma identity : forall (x : intervalName), enharmonic_eq x (plus x (P1_)). Proof. Admitted.

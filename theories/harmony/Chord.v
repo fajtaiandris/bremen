@@ -13,6 +13,3 @@ Fixpoint base_pitch (c : chord) : pitch :=
   | base x => x
   | following c x => base_pitch c
   end.
-
-Inductive chordName : Type :=
-  | Major.

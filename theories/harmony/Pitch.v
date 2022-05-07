@@ -25,14 +25,15 @@ Definition sharpen (x : pitch) : pitch :=
 Definition flatten (x : pitch) : pitch :=
   flatten (class x) ' (octave x).
 
-(*Does not work for pitches below C0, (Cb0, Cbb0, ..)*)
 Definition distance_C0 (x : pitch) : Z :=
  Z.of_nat(PitchClass.upward_distance (C # 0) (class x)) + (Z.of_nat(octave x) * 12).
+
+Definition distance (x y : pitch) : nat :=
+  N.to_nat(Z.to_N (Zminus (distance_C0 x) (distance_C0 y))).
 
 Definition enharmonic_eq (x y : pitch) : Prop :=
   distance_C0 x = distance_C0 y.
 
-(*TODO átnevezni e=-re*)
 Notation "X ee= Y" := (enharmonic_eq X Y) (at level 90, right associativity).
 
 Definition halfstep_up (x : pitch) : pitch :=
@@ -48,21 +49,15 @@ Definition wholestep_up (x : pitch) : pitch :=
 
 Notation ">> X" := (wholestep_up X) (at level 90, right associativity).
 
+(* pitch-ek távolságára vonatkozó állítások *)
+Lemma distance_enharmonic : forall (x y : pitch), distance x y = 0 -> enharmonic_eq x y. Proof. Admitted.
+Lemma distance_to_from : forall (x y : pitch), distance x y + distance y x = 0. Proof. Admitted.
+Lemma distance_triangle : forall (x y z : pitch), distance x z <= distance x y + distance y z. Proof. Admitted.
 
-
-(* TODO
-
-
-(*similar to distance axioms*)
-Theorem pitch1 : forall (x y : pitch), distance x y = 0 -> enharmonix_eq x y.
-Theorem pitch2 : forall (x y : pitch), distance x y + distance y x = 0.
-Theorem pitch3 : forall (x y z : pitch), distance x z =< distance x y + distance y z.
-
-(*some equality axioms*)
-Theorem pitch4 : forall (x : pitch), enharmonic_eq x x.
-Theorem pitch5 : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq y x.
-Theorem pitch6 : forall (x y z : pitch), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
-Theorem pitch7 : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq (halfstep_up x) (halfstep_up y).
-
-
-*)
+(* pitch-ek enharmóniai összefüggései *)
+Lemma enharmonic_xx : forall (x : pitch), enharmonic_eq x x. Proof. Admitted.
+Lemma enharmonix_xy_yx : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq y x. Proof. Admitted.
+Lemma enharmonic_transitivity : forall (x y z : pitch), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
+Proof. Admitted.
+Lemma enharmonic_halfstep_up : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq (halfstep_up x) (halfstep_up y).
+Proof. Admitted.

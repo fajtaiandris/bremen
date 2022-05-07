@@ -736,32 +736,31 @@ Lemma upward_distance_modifier : forall (l1 l2 : Letter.letter) (m1 m2 : Z),
 Theorem upward_distance_enharmonic : forall (x y z : pitchClass),
   enharmonic_eqb x y = true <-> upward_distance z x = upward_distance z y.
 (* A flatten és a sharpen kapcsolatára vonatkozó állítások *)
-Theorem flatten_sharpen_1 : forall (x : pitchlass), flatten (sharpen x) = x.
-Theorem flatten_sharpen_2 : forall (x y : pitchlass), sharpen x = y -> flatten y = x.
-Theorem upward_distance_sharpen : forall (x y : pitchclass), upward_distance x y + 1 = upward_distance x (sharpen y).
+Lemma flatten_sharpen_1 : forall (x : pitchClass), flatten (sharpen x) = x.
+Lemma flatten_sharpen_2 : forall (x y : pitchClass), sharpen x = y -> flatten y = x.
+Lemma upward_distance_sharpen : forall (x y : pitchClass), upward_distance x y + 1 = upward_distance x (sharpen y).
 
 (* theories.harmony.Pitch.v *)
 (* pitch-ek távolságára vonatkozó állítások *)
-Theorem distance_enharmonic : forall (x y : pitch), distance x y = 0 -> enharmonic_eq x y.
-Theorem distance_to_from : forall (x y : pitch), distance x y + distance y x = 0.
-Theorem distance_triangle : forall (x y z : pitch), distance x z =< distance x y + distance y z.
+Lemma distance_enharmonic : forall (x y : pitch), distance x y = 0 -> enharmonic_eq x y. 
+Lemma distance_to_from : forall (x y : pitch), distance x y + distance y x = 0. 
+Lemma distance_triangle : forall (x y z : pitch), distance x z <= distance x y + distance y z.
 
 (* pitch-ek enharmóniai összefüggései *)
-Theorem enharmonic_xx : forall (x : pitch), enharmonic_eq x x.
-Theorem enharmonix_xy_yx : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq y x.
-Theorem enharmonic_transitivity : forall (x y z : pitch), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
-Theorem enharmonic_halfstep_up : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq (halfstep_up x) (halfstep_up y).
+Lemma enharmonic_xx : forall (x : pitch), enharmonic_eq x x.
+Lemma enharmonix_xy_yx : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq y x.
+Lemma enharmonic_transitivity : forall (x y z : pitch), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
+Lemma enharmonic_halfstep_up : forall (x y : pitch), enharmonic_eq x y -> enharmonic_eq (halfstep_up x) (halfstep_up y).
 
 (* theories.harmony.Interval.v *)
 (* Hangközök egyenlőségére vonatkozó állítások *)
-Theorem enharmonic_xx : forall (x : intervalName), enharmonic_eq x x.
-Theorem enharmonic_xy_yx : forall (x y : intervalName), enharmonic_eq x y -> enharmonic_eq y x.
-Theorem enharmonic_transitivity : forall (x y z : intervalName), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
-
+Lemma enharmonic_xx : forall (x : intervalName), enharmonic_eq x x.
+Lemma enharmonic_xy_yx : forall (x y : intervalName), enharmonic_eq x y -> enharmonic_eq y x.
+Lemma enharmonic_transitivity : forall (x y z : intervalName), (enharmonic_eq x y) /\ (enharmonic_eq y z) -> enharmonic_eq x z.
 (* Hangközök összeadására vonatkozó állítások *)
-Theorem commutativity : forall (x y : intervalName), enharmonic_eq (plus x y) (plus y x).
-Theorem associativity : forall (x y z : intervalName), enharmonic_eq (plus (plus x y) z) (plus (plus y z) x).
-Theorem identity : forall (x : intervalName), enharmonic_eq x (plus x {Perfect Unison}).
+Lemma commutativity : forall (x y : intervalName), enharmonic_eq (plus x y) (plus y x).
+Lemma associativity : forall (x y z : intervalName), enharmonic_eq (plus (plus x y) z) (plus (plus y z) x).
+Lemma identity : forall (x : intervalName), enharmonic_eq x (plus x (P1_)).
 ```
 
 *30. kódrészlet: A modell pár alapvető állítása*

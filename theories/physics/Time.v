@@ -19,7 +19,6 @@ Fixpoint sec_duration (x : duration) (m : meter) (bpm : nat) : Q :=
   | tie a b => (sec_duration a m bpm) + (sec_duration b m bpm)
   end.
 
-(*TODO*)
 Definition song_duration_in_sec (s : song) : N :=
   match s with | song_ bpm s1 ss =>
    match ( sec_duration (duration_of s) (meter_from 4 (Quarter)) bpm) with
@@ -30,5 +29,3 @@ Definition song_duration_in_sec (s : song) : N :=
       end
     end
   end.
-(*
-Eval compute in song_duration_in_sec s1.*)

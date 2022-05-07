@@ -71,10 +71,7 @@ Definition from_frequency_sample (s : frequency_sample) : option harmonic_qualit
 
 Eval compute in from_frequency_sample s1.
 
-(* represents harmonic samples at given frequencies.
-Between the frequency range of two samples, the higher frequency's sample
-will be assumed to represent the instruments harmonic quality. *)
-(*nem jó, mert a legnagyobb fölött nincs definiálva *)
+(* represents harmonic samples at given frequencies.*)
 Inductive complex_harmonic_quality :=
   complex_harmonics : list (Q * harmonic_quality) -> complex_harmonic_quality.
 

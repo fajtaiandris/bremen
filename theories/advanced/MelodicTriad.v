@@ -42,7 +42,7 @@ Definition quadratonicNotes (n : quadratonicName) : abstractChord :=
 Inductive quadratonicProgression : Type :=
   | first : quadratonicName -> duration -> quadratonicProgression
   | next : quadratonicName -> duration -> quadratonicProgression -> quadratonicProgression.
-
+(*
 (*TODO*)
 Fixpoint first_quad_assumption (melody : melodic_part) (qn : quadratonicName)
   : option quadratonicName :=
@@ -72,3 +72,4 @@ Fixpoint quadratonic_progression_of (melody : melodic_part) : quadratonicProgres
   end.
 
 Eval compute in first_quadratonic_of example_melody1.
+*)
